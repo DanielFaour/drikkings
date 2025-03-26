@@ -1,29 +1,28 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css'
+import GamesCards from './components/GamesCards'
+import Game1 from './components/games/Game1';
+import Game2 from './components/games/Game2';
 
 function App() {
-  const [count, setCount] = useState(0)
+
 
   return (
     <>
-     
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          +1
-        </button>
-        <button onClick={() => setCount((count) => count - 1)}>
-          -1
-        </button>
-        <p>
-          count is {count}
-        </p>
-        {count < 0 && <p className="error-text">Error: Count cannot be negative!</p>}
+      <div className="title">
+        <h1>🍻</h1>
+        <h2>drikkings.no</h2>
       </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <div className="container">
+        <h3>Velg et spill:</h3>
+        <Routes>
+          <Route path="/" element={<GamesCards />} />
+          <Route path="/games/game1" element={<Game1 />} />
+          <Route path="/games/game2" element={<Game2 />} />
+        </Routes>
+      </div>
+
     </>
   )
 }
