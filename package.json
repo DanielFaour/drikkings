@@ -3,5 +3,8 @@
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-router-dom": "^7.4.0"
+  },
+  "devDependencies": {
+    "gh-pages": "^6.3.0"
   }
 }
