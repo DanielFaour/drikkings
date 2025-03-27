@@ -1,6 +1,8 @@
 import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css'
+import './components/styles/buttons.css'
+import './components/styles/mainGame.css'
 import ThemeToggle from './components/ThemeToggle';
 import GamesCards from './components/GamesCards'
 import Game1 from './components/games/Game1';

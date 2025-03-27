@@ -32,9 +32,28 @@ body {
   z-index: 1500;
 }
 
+
 .dark #btnTheme {
   background-color: #00000080;
 }
+
+#btnReturn {
+  position:absolute;
+  top: 10px;
+  left: 10px;
+  border: none;
+  background-color: #00000080;
+  border-radius: 10px;
+  font-size: 1.4rem;
+  padding: 2px;
+  cursor: pointer;
+  z-index: 1500;
+}
+
+.dark #btnReturn {
+  background-color: #00000080;
+}
+
 
 /* LOGO */
 .title {
@@ -116,22 +135,3 @@ button:active {
   background-color: #c49600;
   color: #242424;
 } */
-
-
-/* GAME CSS */
-.game {
-  position: absolute; /* This makes the element overlap the entire page */
-  top: 0;   /* Aligns to the top of the screen */
-  left: 0;  /* Aligns to the left of the screen */
-  width: 100vw; /* Full width of the viewport */
-  height: 100vh; /* Full height of the viewport */
-  z-index: 1000; /* Optional: Makes sure it overlaps other elements */
-  display: flex;
-  text-align: center;
-  flex-direction: column;
-  background-color: #ffffff;
-}
-
-.dark .game {
-  background-color: #242424;
-}

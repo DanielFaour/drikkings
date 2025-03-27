@@ -5,8 +5,8 @@ function Game1() {
 
   return (
     <div className="game">
+      <button id="btnReturn" onClick={() => navigate('/')}>↩</button>
       <h2>Welcome to Game 1!</h2>
-      <button onClick={() => navigate('/')}>Return to Home</button>
     </div>
   );
 }
