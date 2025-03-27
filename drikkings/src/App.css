@@ -20,38 +20,45 @@ body {
 
 /* BUTTOM FOR THEME CHANGE */
 #btnTheme {
+  width: max-content;
+  height: max-content;
   position:absolute;
   top: 10px;
   right: 10px;
   border: none;
-  background-color: #00000080;
+  background-color: #0000006e;
   border-radius: 10px;
-  font-size: 1.4rem;
-	padding: 2px;
+  font-size: 1.7rem;
+	padding: 5px;
 	cursor: pointer;
   z-index: 1500;
+  box-shadow: none;
 }
 
 
 .dark #btnTheme {
-  background-color: #00000080;
+  background-color: #0000006e;
 }
 
+/* BUTTOM FOR RETURN FROM GAME */
 #btnReturn {
+  width: max-content;
+  height: max-content;
   position:absolute;
   top: 10px;
   left: 10px;
   border: none;
-  background-color: #00000080;
+  background-color: #0000006e;
   border-radius: 10px;
-  font-size: 1.4rem;
-  padding: 2px;
+  font-size: 1.7rem;
+  padding: 5px;
   cursor: pointer;
   z-index: 1500;
+  box-shadow: none;
 }
 
 .dark #btnReturn {
-  background-color: #00000080;
+  background-color: #0000006e;
 }
 
 
