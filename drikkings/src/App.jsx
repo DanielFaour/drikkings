@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import './App.css'
+import ThemeToggle from './components/ThemeToggle';
 import GamesCards from './components/GamesCards'
 import Game1 from './components/games/Game1';
 import Game2 from './components/games/Game2';
@@ -10,6 +11,7 @@ function App() {
 
   return (
     <>
+      <ThemeToggle />
       <div className="title">
         <h1>🍻</h1>
         <h2>drikkings.no</h2>

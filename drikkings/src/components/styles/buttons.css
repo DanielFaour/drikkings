@@ -1,0 +1,38 @@
+:root {
+    --btn-border: #888888;
+    --btn-bg: #888888;
+    --btn-text: black;
+    /* --btn-hover-bg: #333333; */
+    /* --btn-hover-border: #333333; */
+  }
+  
+  /* Default button styles */
+  .container button {
+    width: 100%;
+    height: 3.5rem;
+    font-size: 1.5em;
+    border: var(--btn-border) solid 3px;
+    background-color: var(--btn-bg);
+    color: var(--btn-text);
+    border-radius: 8px;
+    padding: 0;
+    cursor: pointer;
+    transition: 0.1s;
+    box-shadow: #2424247a 2px 2px 4px;
+  }
+  
+  /* Hover & Active Effects */
+  button:hover,
+  button:active {
+    /* background-color: var(--btn-hover-bg);
+    border-color: var(--btn-hover-border);
+    color: var(--btn-hover-text); */
+    filter:brightness(0.825)
+  }
+
+    /* Dark Mode */
+    .dark .container button {
+        background-color: #242424;
+        color: rgba(255, 255, 255, 0.87);
+    }
+  
