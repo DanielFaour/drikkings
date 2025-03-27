@@ -10,7 +10,7 @@ export default defineConfig({
       targets: [
         {
           src: 'index.html', // Copy index.html from the root
-          dest: 'public/404.html', // Place the copy inside public as 404.html
+          dest: '404.html', // Place the copy inside public as 404.html
         },
       ],
     }),
