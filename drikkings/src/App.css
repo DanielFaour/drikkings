@@ -1,5 +1,5 @@
 body {
-  font-family: 'Roboto', sans-serif;
+  font-family: "Roboto", sans-serif;
   color-scheme: light dark;
   color: black;
   background-color: #ffffff;
@@ -9,13 +9,23 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: 0.05s;
+
+  margin: 0;
+  padding: 0;
 }
 
-
-.dark body { /* Dark Mode */
+/* Dark Mode */
+.dark body {
   background-color: #242424;
   color: rgba(255, 255, 255, 0.9);
-  transition: 0.s;
+  transition: 0s;
+}
+
+.bodyContainer {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  flex-grow: 1;
 }
 
 /* BUTTONS FOR THEME AND RETURN */
@@ -23,15 +33,15 @@ body {
 #btnTheme {
   width: max-content;
   height: max-content;
-  position:absolute;
+  position: absolute;
   top: 12px;
   right: 12px;
   border: none;
   background-color: #00000000;
   border-radius: 10px;
   font-size: 2.5rem;
-	padding: 0px;
-	cursor: pointer;
+  padding: 0px;
+  cursor: pointer;
   z-index: 1500;
   box-shadow: none;
   line-height: 1;
@@ -51,19 +61,25 @@ body {
 /* LOGO */
 .title {
   text-align: center;
-  margin-top: 2rem;
+  padding-top: 2rem;
   margin-bottom: 2rem;
 }
 
 .title h1 {
   margin: 0;
-  font-size: 5rem;
+  font-size: 6rem;
   text-shadow: #2424247a 0px 0px 1.5px;
 }
 
 .title h2 {
   margin: 0;
-  font-size: 2rem;
+  font-size: 2.5rem;
+  font-weight: normal;
+}
+
+.title p {
+  margin: 0;
+  font-size: 0.9rem;
   font-weight: normal;
 }
 
@@ -84,6 +100,49 @@ body {
   font-weight: normal;
   margin: 0;
 }
+
+.footer {
+  margin-top: 1rem;
+  text-align: center;
+  font-size: 1rem;
+  background-color: #242424;
+  color: rgba(255, 255, 255, 0.9);
+  padding-top: 5px;
+  padding-bottom: 5px;
+  border-top: 1px solid rgba(220, 255, 255, 0.2);
+  width: 100%;
+  position: relative; /* Keeps footer in normal document flow */
+  bottom: 0;
+  max-height: 5rem;
+  align-content: center;
+  line-height: 1;
+}
+
+.footer a {
+  color: rgba(234, 128, 154, 1);
+  text-decoration: none;
+  font-weight: bold;
+  transition: 0.1s;
+}
+
+.footer a:hover {
+  color: rgba(234, 128, 154, 0.8);
+  text-decoration: underline;
+}
+
+.emptySpace, .footer {
+  flex-grow: 1; /* Ensure the content takes up space and pushes footer down */
+}
+
+.dark .footer {
+  border-top: #ffffff solid 1px;
+}
+/* 
+@media only screen and (max-width: 600px) {
+  .footer {
+    
+  }
+} */
 
 /* GAME LIST BUTTON STYLES */
 /* .container button {

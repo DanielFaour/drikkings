@@ -14,21 +14,32 @@ function App() {
   return (
     <>
       <ThemeToggle />
-      <div className="title">
-        <h1>🍻</h1>
-        <h2>drikkings.no</h2>
-      </div>
-      <div className="container">
-        <h3>Velg et spill:</h3>
-        <Routes>
-          <Route path="/" element={<GamesCards />} />
-          <Route path="/games/game1" element={<Game1 />} />
-          <Route path="/games/game2" element={<Game2 />} />
-        </Routes>
-      </div>
+      <div className="bodyContainer">
+        <div className="title">
+          <h1>🍻</h1>
+          <h2>drikkings.no</h2>
+          <p>Drikkelekene får små grupper,
+            <br></br>
+            perfekt til vors eller pubben!
+          </p>
+        </div>
+        <div className="container">
+          <h3>Velg et spill:</h3>
+          <Routes>
+            <Route path="/" element={<GamesCards />} />
+            <Route path="/games/game1" element={<Game1 />} />
+            <Route path="/games/game2" element={<Game2 />} />
+          </Routes>
+        </div>
+        <div className='emptySpace'></div>
+        <footer className="footer">
+        <p>Laget av <a href="https://danielfaour.no" target="_blank">Daniel Faour🔗</a></p>
 
+          <p>Sist oppdatert 2025</p>
+        </footer>
+      </div>
     </>
-  )
+  )  
 }
 
 export default App
