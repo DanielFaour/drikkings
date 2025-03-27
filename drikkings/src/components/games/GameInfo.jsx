@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router-dom';
 
-function Info() {
+function GameInfo() {
   const navigate = useNavigate(); // ✅ Make sure this is inside the component
 
   return (
@@ -11,4 +11,4 @@ function Info() {
   );
 }
 
-export default Info;
+export default GameInfo;
