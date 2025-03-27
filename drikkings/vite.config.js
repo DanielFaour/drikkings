@@ -4,12 +4,13 @@ import { viteStaticCopy } from 'vite-plugin-static-copy';
 
 // https://vite.dev/config/
 export default defineConfig({
-  plugins: [react(),
+  plugins: [
+    react(),
     viteStaticCopy({
       targets: [
         {
-          src: 'index.html',
-          dest: '404.html',
+          src: 'index.html', // Copy index.html from the root
+          dest: 'public/404.html', // Place the copy inside public as 404.html
         },
       ],
     }),
