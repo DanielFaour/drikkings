@@ -8,17 +8,18 @@ body {
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  transition: 0.1s;
+  transition: 0.05s;
 }
 
 
 .dark body { /* Dark Mode */
   background-color: #242424;
   color: rgba(255, 255, 255, 0.87);
-  transition: 0.1s;
+  transition: 0.s;
 }
 
-/* BUTTOM FOR THEME CHANGE */
+/* BUTTONS FOR THEME AND RETURN */
+#btnReturn,
 #btnTheme {
   width: max-content;
   height: max-content;
@@ -28,39 +29,25 @@ body {
   border: none;
   background-color: #0000006e;
   border-radius: 10px;
-  font-size: 1.7rem;
-	padding: 5px;
+  font-size: 2.1rem;
+	padding: 0px;
 	cursor: pointer;
   z-index: 1500;
   box-shadow: none;
+  line-height: 1.43;
+  color: white;
 }
 
-
-.dark #btnTheme {
-  background-color: #0000006e;
-}
-
-/* BUTTOM FOR RETURN FROM GAME */
 #btnReturn {
-  width: max-content;
-  height: max-content;
-  position:absolute;
   top: 10px;
   left: 10px;
-  border: none;
-  background-color: #0000006e;
-  border-radius: 10px;
-  font-size: 1.7rem;
-  padding: 5px;
-  cursor: pointer;
-  z-index: 1500;
-  box-shadow: none;
 }
 
+.dark #btnTheme,
 .dark #btnReturn {
   background-color: #0000006e;
+  color: white;
 }
-
 
 /* LOGO */
 .title {
