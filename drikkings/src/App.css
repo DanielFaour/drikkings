@@ -14,7 +14,7 @@ body {
 
 .dark body { /* Dark Mode */
   background-color: #242424;
-  color: rgba(255, 255, 255, 0.87);
+  color: rgba(255, 255, 255, 0.9);
   transition: 0.s;
 }
 
@@ -24,30 +24,29 @@ body {
   width: max-content;
   height: max-content;
   position:absolute;
-  top: 10px;
-  right: 10px;
+  top: 12px;
+  right: 12px;
   border: none;
-  background-color: #0000006e;
+  background-color: #00000000;
   border-radius: 10px;
-  font-size: 2rem;
+  font-size: 2.5rem;
 	padding: 0px;
 	cursor: pointer;
   z-index: 1500;
   box-shadow: none;
   line-height: 1;
-  color: white;
+  color: rgba(255, 255, 255, 1);
 }
 
 #btnReturn {
-  top: 10px;
-  left: 10px;
+  top: 12px;
+  left: 12px;
 }
 
-.dark #btnTheme,
+/* .dark #btnTheme,
 .dark #btnReturn {
-  background-color: #0000006e;
-  color: white;
-}
+  
+} */
 
 /* LOGO */
 .title {
