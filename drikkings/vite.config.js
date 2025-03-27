@@ -9,11 +9,11 @@ export default defineConfig({
     viteStaticCopy({
       targets: [
         {
-          src: 'index.html', // Copy index.html from the root
-          dest: '404.html', // Place the copy inside public as 404.html
+          src: 'public/404.html',  // This is the file you want to copy
+          dest: '',  // Root of the dist folder
         },
       ],
     }),
   ],
-  base: '/',
+  base: '/',  // Use '/' if deploying to the root of the domain
 })
