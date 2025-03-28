@@ -50,7 +50,7 @@ html, body {
   font-size: 2.5rem;
   padding: 0px;
   cursor: pointer;
-  z-index: 1500;
+  z-index: 1200;
   box-shadow: none;
   line-height: 1;
   color: rgba(255, 255, 255, 1);

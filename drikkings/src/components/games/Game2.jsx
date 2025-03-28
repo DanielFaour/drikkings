@@ -7,6 +7,8 @@ function Game2() {
     <div className="game" id="ms_game">
       <button id="btnReturn" onClick={() => navigate('/')}>⬅️</button>
       <h2>Shot Roulette</h2>
+      <p>WIP</p>
+      <p>Jobber med saken!</p>
     </div>
   );
 }
