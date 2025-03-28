@@ -67,6 +67,11 @@ html, body {
   z-index: 500;
 }
 
+.dark #btnInfo,
+.dark #btnReturn {
+  filter: none;
+}
+
 /* .dark #btnTheme,
 .dark #btnReturn {
   

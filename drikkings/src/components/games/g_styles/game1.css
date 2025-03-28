@@ -11,6 +11,12 @@
 
   place-items: center; /* Centers the grid */
   overflow: hidden;
+
+  position: fixed;
+  box-sizing: border-box;
+  padding: 10px;
+  padding-top: 2rem;
+  padding-bottom: 0;
 }
 
 .game1Button {
@@ -36,14 +42,14 @@
 }
 
 .game1End button:hover,
-.game1End button:active, 
+.game1End button:active,
 .game1Button:hover {
   filter: brightness(0.85);
 }
 
-.footer {
+/* .footer {
   display: none;
-}
+} */
 
 .game1End {
   position: fixed;
@@ -95,7 +101,7 @@
 }
 
 @media only screen and (max-width: 600px) {
-  .game1End button:hover, 
+  .game1End button:hover,
   .game1Button:hover,
   .game1Button:active {
     filter: brightness(1);
