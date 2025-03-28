@@ -19,7 +19,7 @@ function App() {
         <div className="title">
           <h1>🍻</h1>
           <h2>drikkings.no</h2>
-          <p>Drikkelekene får små grupper,
+          <p>Drikkelekene for små grupper,
             <br />
             perfekt til vors eller pubben!
           </p>

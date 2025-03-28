@@ -1,4 +1,4 @@
-body {
+html, body {
   font-family: "Roboto", sans-serif;
   color-scheme: light dark;
   color: black;
@@ -9,6 +9,10 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   transition: 0.05s;
+
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
 
   margin: 0;
   padding: 0;
@@ -109,7 +113,7 @@ body {
 }
 
 .footer {
-  margin-top: 1rem;
+  margin-top: 1.5rem;
   text-align: center;
   font-size: 1rem;
   background-color: #242424;

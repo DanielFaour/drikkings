@@ -7,7 +7,7 @@
 }
 
 /* Default button styles */
-.container button {
+.menu_btn {
   width: 100%;
   height: 3.5rem;
   font-size: 1.5em;
@@ -22,24 +22,38 @@
 }
 
 /* Hover & Active Effects */
-button:hover,
-button:active {
+#btnInfo:hover,
+#btnInfo:active,
+#btnTheme:hover,
+#btnTheme:active,
+#btnReturn:hover,
+#btnReturn:active,
+.menu_btn:hover,
+.menu_btn:active {
   filter: brightness(0.85);
 }
 
 /* Dark Mode */
-.dark .container button {
+.dark .menu_btn {
   background-color: #242424;
   color: rgba(255, 255, 255, 0.9);
 }
 
 @media only screen and (max-width: 600px) {
-  button:hover,
-  button:active {
+  #btnInfo:hover,
+  #btnInfo:active,
+  #btnTheme:hover,
+  #btnTheme:active,
+  #btnReturn:hover,
+  #btnReturn:active,
+  .menu_btn:hover,
+  .menu_btn:active {
     filter: brightness(1);
   }
-
-  button:active {
+  #btnInfo:active,
+  #btnTheme:active,
+  #btnReturn:active,
+  .menu_btn:active {
     filter: brightness(0.85);
   }
 }

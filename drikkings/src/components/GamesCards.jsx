@@ -6,7 +6,7 @@ function GamesCards() {
   const navigate = useNavigate();
   const Button = ({ label, border, bg, text, onClick }) => {
     return (
-      <button onClick={onClick} style={{ "--btn-border": border, "--btn-bg": bg, "--btn-text": text }}>
+      <button className='menu_btn' onClick={onClick} style={{ "--btn-border": border, "--btn-bg": bg, "--btn-text": text }}>
         {label}
       </button>
     );
