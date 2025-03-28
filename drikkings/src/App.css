@@ -13,7 +13,9 @@ html, body {
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: transparent; /* Remove tap highlight */
+  outline: none; /* Remove focus outline */
+  box-shadow: none; /* Remove any box-shadow */
 
   margin: 0;
   padding: 0;
