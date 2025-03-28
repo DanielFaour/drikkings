@@ -35,15 +35,17 @@
   background-image: url("../g_assets/b_tapped.png");
 }
 
-.game1Button:hover,
-.game1Button:active {
+.game1Button:hover {
   filter: brightness(0.85);
 }
 
-/* @media (min-width: 500px) { 
-  .game1Button {
-    width: 4rem;
-    height: 4rem;
+.footer {
+    display: none;
+}
+
+@media only screen and (max-width: 600px) {
+    .game1Button:hover,
+    .game1Button:active {
+      filter: brightness(1);
+    }
   }
-    
-} */
