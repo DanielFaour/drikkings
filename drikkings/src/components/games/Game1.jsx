@@ -50,7 +50,7 @@ function Game1() {
                 <button
                   id={"game1Button" + i}
                   className={`game1Button ${isClicked ? 'clicked' : ''}`}
-                  onPointerDown={() => buttonClickState(i)}
+                  onPointerUp={() => buttonClickState(i)}
                 ></button>
               </div>
             ))
