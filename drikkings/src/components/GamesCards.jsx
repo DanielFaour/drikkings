@@ -22,10 +22,6 @@ function GamesCards() {
       <Button label={"test"}></Button>
       <Button label={"test"}></Button>
       <Button label={"test"}></Button>
-      <Button label={"test"}></Button>
-      <Button label={"test"}></Button>
-      <Button label={"test"}></Button>
-      <Button label={"test"}></Button>
     </>
   )
 }
