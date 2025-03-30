@@ -5,11 +5,11 @@ function GameInfo() {
   const navigate = useNavigate(); // ✅ Make sure this is inside the component
 
   return (
-    <div className="game" id="info_game">
+    <div id="info_game">
       <button id="btnReturn" onClick={() => navigate('/')}>⬅️</button>
       <div id="infoContainer">
         <h2>Spillinfo</h2>
-        <h3>💣1/16 Minesweeper💣</h3>
+        <h3>💣 1/16 Minesweeper 💣</h3>
         <p>I dette spillet er det én bombe skjult blant de 16 knappene. Målet er å unngå å trykke på bomben.
           <br></br>
           <br></br>
@@ -26,13 +26,15 @@ function GameInfo() {
           <br></br>
           <br></br>
         </p>
-        <h3>⏱️Flere spill kommer⏱️</h3>
+        <h3>⏱️ Flere spill på vei ⏱️</h3>
       </div>
-      <div id="emptySpace"></div>
-      <div id="spand">
-        <h3>Spander meg en pils 🍻</h3>
-        <p id="vipps">Vipps: 47629779</p>
-      </div>
+      <div className="emptySpace"></div>
+      <div className="emptySpace"></div>
+        
+        <footer className="footer">
+          <p>Laget av <a href="https://danielfaour.no" target="_blank">Daniel Faour🔗</a></p>
+          <p>Spander meg en pils: 47629779</p>
+        </footer>
     </div>
   );
 }

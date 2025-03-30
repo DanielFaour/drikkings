@@ -1,18 +1,27 @@
 #info_game {
+    position: absolute;
     box-sizing: border-box;
+    top: 0;
     padding: 0;
     padding-top: 0;
     padding-bottom: 0;
     min-height: 100vh;
     min-height: 100dvh;
+    width: 100vw;
     display: flex;
     flex-direction: column;
+    text-align: center;
+    background-color: #ffffff;
+    overflow:hidden;
+    z-index: 1000;
   }
   
- #info_game p {
-    text-overflow: clip;
-    text-align: left;
+  
+  .dark #info_game {
+    background-color: #242424;
   }
+  
+
 
   #infoContainer {
     align-self: center;
@@ -20,6 +29,11 @@
     max-width: 50rem;
   }
   
+   #infoContainer p {
+    text-overflow: clip;
+    text-align: left;
+  }
+
   #info_game h3 {
     text-align: center;
     font-size: 1.5rem;
@@ -30,8 +44,9 @@
     text-align: center;
   }
   
-  #emptySpace {
+  .emptySpace {
     flex-grow: 1; /* Allow the space to grow and take available space */
+    min-height: 1.5rem; /* Minimum height to ensure it takes some space */
   }
   
   #spand {
@@ -42,3 +57,41 @@
     text-align: center;
   }
 
+  .footer {
+    font-size: 1rem;
+    background-color: #242424;
+    color: rgba(255, 255, 255, 0.9);
+    padding-top: 5px;
+    padding-bottom: 5px;
+    border-top: 1px solid rgba(220, 255, 255, 0.2);
+    width: 100%;
+    position: relative; /* Keeps footer in normal document flow */
+    bottom: 0;
+    max-height: 5rem;
+    align-content: center;
+    line-height: 1;
+  }
+
+  .footer p {
+    text-align: center;
+  }
+  
+  .footer a {
+    color: rgba(234, 128, 154, 1);
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.1s;
+  }
+  
+  .footer a:hover {
+    color: rgba(234, 128, 154, 0.8);
+    text-decoration: underline;
+  }
+  
+  .emptySpace, .footer {
+    flex-grow: 1; /* Ensure the content takes up space and pushes footer down */
+  }
+  
+  .dark .footer {
+    border-top: #ffffff solid 1px;
+  }

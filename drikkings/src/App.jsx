@@ -34,12 +34,6 @@ function App() {
             <Route path="/games/info" element={<Info />} />
           </Routes>
         </div>
-
-        <div className="emptySpace"></div>
-        <footer className="footer">
-          <p>Laget av <a href="https://danielfaour.no" target="_blank">Daniel Faour🔗</a></p>
-          <p>Sist oppdatert 2025</p>
-        </footer>
       </div>
     </>
   );

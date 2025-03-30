@@ -1,7 +1,9 @@
 #game1 {
+  max-height: 100vh;
+  max-height: 100dvh;
 }
 
-.game1Container {
+#game1Buttons {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(4, 1fr);
@@ -12,11 +14,14 @@
   place-items: center; /* Centers the grid */
   overflow: hidden;
 
-  position: fixed;
+  position: absolute;
   box-sizing: border-box;
   padding: 10px;
   padding-top: 2rem;
   padding-bottom: 0;
+
+  position: absolute;
+  top: 0;
 }
 
 .game1Button {
@@ -27,6 +32,7 @@
 
   width: 5rem;
   height: 5rem;
+  
   min-width: 0;
   min-height: 0;
 
@@ -105,5 +111,19 @@
   .game1Button:hover,
   .game1Button:active {
     filter: brightness(1);
+  }
+}
+
+@media only screen and (max-height: 500px) {
+  .game1Button {
+    width: 4rem;
+    height: 4rem;
+  }
+
+  #game1Buttons {
+    margin-top: 1rem;
+    height: 95dvh;
+    height: 95vh;
+    
   }
 }

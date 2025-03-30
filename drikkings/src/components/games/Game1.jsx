@@ -43,17 +43,19 @@ function Game1() {
       <h2>1/16 Minesweeper</h2>
 
       <div className="game1Container">
-        {
-          buttonStates.map((isClicked, i) => (
-            <div className="button" key={i}>
-              <button
-                id={"game1Button" + i}
-                className={`game1Button ${isClicked ? 'clicked' : ''}`}
-                onPointerDown={() => buttonClickState(i)}
-              ></button>
-            </div>
-          ))
-        }
+        <div id='game1Buttons'>
+          {
+            buttonStates.map((isClicked, i) => (
+              <div className="button" key={i}>
+                <button
+                  id={"game1Button" + i}
+                  className={`game1Button ${isClicked ? 'clicked' : ''}`}
+                  onPointerDown={() => buttonClickState(i)}
+                ></button>
+              </div>
+            ))
+          }
+        </div>
       </div>
 
       {/* Conditionally render the game over message */}
