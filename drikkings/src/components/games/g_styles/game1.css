@@ -1,6 +1,7 @@
 #game1 {
   max-height: 100vh;
   max-height: 100dvh;
+  overflow: hidden;
 }
 
 .game1Container {
