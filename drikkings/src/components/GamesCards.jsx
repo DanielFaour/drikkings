@@ -17,11 +17,7 @@ function GamesCards() {
       <Button onClick={() => navigate('/games/Game2')} label="🥛 Shot Roulette 🥛" border="#FF9A9A" bg="#FF9A9A" text="black" />
       <Button onClick={() => navigate('/')} label="🎨 Color Picker 🔒" border="#FF9AF8" bg="#FF9AF8" text="black" />
       <Button onClick={() => navigate('/')} label="🍾 Shake it 🔒" border="#9AA8FF" bg="#9AA8FF" text="black" />
-      <Button label={"test"}></Button>
-      <Button label={"test"}></Button>
-      <Button label={"test"}></Button>
-      <Button label={"test"}></Button>
-      <Button label={"test"}></Button>
+      <Button label={"Kommer mer!"}></Button>
     </>
   )
 }

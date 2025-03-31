@@ -3,6 +3,11 @@
   max-height: 100dvh;
 }
 
+.game1Container {
+  display: flex;
+  justify-content: center;
+}
+
 #game1Buttons {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
@@ -122,8 +127,32 @@
 
   #game1Buttons {
     margin-top: 1rem;
-    height: 95dvh;
     height: 95vh;
+    height: 95dvh;
     
+  }
+  
+}
+
+@media (min-width: 1000px) {
+ #game1Buttons {
+    width: 70rem;
+  }
+
+  .game1Container {
+    
+  }
+
+  .game1Button {
+    width: 7rem;
+    height: 7rem;
+  }
+  
+}
+
+@media (min-height: 1050px) {
+  .game1Button {
+    width: 7rem;
+    height: 7rem;
   }
 }
