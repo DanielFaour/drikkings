@@ -2,6 +2,7 @@
   max-height: 100vh;
   max-height: 100dvh;
   overflow: hidden;
+  overscroll-behavior: none;
 }
 
 .game1Container {

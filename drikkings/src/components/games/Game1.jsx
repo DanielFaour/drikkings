@@ -4,6 +4,17 @@ import './g_styles/game1.css';
 
 function Game1() {
   const navigate = useNavigate();
+  
+  // Remove the ability to refresh on this specific page
+  useEffect(() => {
+    const preventScroll = (e) => e.preventDefault();
+
+    document.addEventListener("touchmove", preventScroll, { passive: false });
+
+    return () => {
+      document.removeEventListener("touchmove", preventScroll);
+    };
+  }, []);
 
   const [randomNumber, setRandomNumber] = useState(null);
   console.log(randomNumber);
