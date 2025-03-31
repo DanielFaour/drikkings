@@ -12,6 +12,7 @@ function Game1() {
   // Cache images using useRef
   const imageCache = useRef({});
 
+  // check if images loaded
   useEffect(() => {
     const imagePaths = {
       hidden: new URL("./g_assets/b_tapped.png", import.meta.url).href,
@@ -65,6 +66,16 @@ function Game1() {
       return updatedStates;
     });
   };
+
+   // prevent scrolling
+  useEffect(() => {
+    const preventScroll = (e) => e.preventDefault();
+    document.addEventListener("touchmove", preventScroll, { passive: false });
+
+    return () => {
+      document.removeEventListener("touchmove", preventScroll);
+    };
+  }, []);
 
   return (
     <div className="game" id="game1">

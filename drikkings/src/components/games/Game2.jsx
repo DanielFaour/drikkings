@@ -12,6 +12,7 @@ function Game2() {
   // Cache images using useRef
   const imageCache = useRef({});
 
+  // check if images loaded
   useEffect(() => {
     const imagePaths = {
       noBullet: new URL("./g_assets/rev_nobullet.png", import.meta.url).href,
