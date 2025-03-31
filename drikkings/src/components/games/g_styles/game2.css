@@ -1,0 +1,138 @@
+#game2 {
+  max-height: 100vh;
+  max-height: 100dvh;
+  max-width: 100vw;
+  max-width: 100dvw;
+  overflow: hidden;
+  overscroll-behavior: none;
+  background-color: rgb(255, 255, 255);
+}
+
+.dark #game2 {
+  background-color: #242424;
+}
+
+#g2_title {
+  z-index: 1100;
+}
+
+.game2Container {
+  display: flex;
+  justify-content: center;
+}
+
+.game2Start {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+  z-index: 1050;
+  gap: 1rem;
+}
+
+.dark .game2Start {
+  background-color: #242424;
+}
+
+#revCyl {
+  background: url("./g_assets/rev_nobullet.png") no-repeat center center;
+  background-size: contain;
+  background-position: center;
+
+  width: 15rem;
+  height: 15rem;
+}
+
+.dark #revCyl {
+  background: url("./g_assets/rev_nobullet.png") no-repeat center center;
+  background-size: contain;
+  background-position: center;
+  filter: invert(1);
+}
+
+#revCyl.clicked {
+  background: url("../g_assets/rev_bullet.png") no-repeat center center;
+  background-size: contain;
+  background-position: center;
+  animation: spin 1s ease-in-out 0.5s forwards; 
+}
+
+.dark #revCyl.clicked {
+  background: url("../g_assets/rev_bullet.png") no-repeat center center;
+  background-size: contain;
+  background-position: center;
+  filter: invert(1);
+  animation: spin 1s ease-in-out 0.5s forwards;
+}
+
+@keyframes spin {
+    0% {
+      transform: rotate(0deg);
+      opacity: 1;
+    }
+    60% {
+      opacity: 1;
+      transform: rotate(360deg);
+    }
+    100% {
+      opacity: 0;
+      transform: rotate(360deg);
+    }
+  } 
+
+.game2Start h3 {
+  color: black;
+}
+
+.dark .game2Start h3 {
+  color: white;
+}
+
+.game2Start h3.clicked {
+    animation: textOut 1s ease-in-out 0.5s forwards;
+}
+
+.dark .game2Start h3.clicked {
+    animation: textOut 1s ease-in-out 0.5s forwards;
+}
+
+@keyframes textOut {
+    0% {
+      opacity: 1;
+    }
+    60% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
+  } 
+
+/* .game2Start button {
+    width: 20rem;
+    height: 3rem;
+    font-size: 1.5rem;
+    border: white solid 3px;
+    background-color: white;
+    color: black;
+    border-radius: 8px;
+    padding: 0;
+    cursor: pointer;
+    transition: 0.1s;
+  }
+  
+  .dark .game2Start button {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: rgba(255, 255, 255, 0.9);
+  } */
