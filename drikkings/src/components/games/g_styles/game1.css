@@ -1,6 +1,8 @@
 #game1 {
   max-height: 100vh;
   max-height: 100dvh;
+  max-width: 100vw;
+  max-width: 100dvw;
   overflow: hidden;
   overscroll-behavior: none;
 }
