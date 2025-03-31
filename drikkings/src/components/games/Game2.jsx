@@ -42,7 +42,6 @@ function Game2() {
     }
   }, []);
 
-
   // prevent scrolling
   useEffect(() => {
     const preventScroll = (e) => e.preventDefault();
