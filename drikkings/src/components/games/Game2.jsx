@@ -5,8 +5,11 @@ import "./g_styles/game2.css";
 function Game2() {
   const navigate = useNavigate();
   const [gameIntro, setGameIntro] = useState(true);
-  const [isClicked, setIsClicked] = useState(false);
+  const [isIntroClicked, setIsIntroClicked] = useState(false);
+
   const [randomNumber, setRandomNumber] = useState(null);
+  const [shotRounds, setShotRounds] = useState(0);
+
   const [imagesLoaded, setImagesLoaded] = useState(false);
 
   // Cache images using useRef
@@ -53,37 +56,60 @@ function Game2() {
   }, []);
 
   function startGame() {
-    if (!imagesLoaded) return; // Prevent click if images aren't loaded
+    if (!imagesLoaded || isIntroClicked) return; // Prevent click if images aren't loaded
 
-    setRandomNumber(Math.floor(Math.random() * 6));
-    setIsClicked(true);
+    setIsIntroClicked(true);
+    
+    const newRandomNumber = Math.floor(Math.random() * 6);
+    setRandomNumber(newRandomNumber);
+    console.log("Generated randomNumber:", newRandomNumber);
 
     setTimeout(() => {
       setGameIntro(false);
     }, 1500);
   }
 
+  function shotsFired() {
+    const amountRoundsFired = shotRounds+1;
+    setShotRounds(amountRoundsFired);
+    console.log("Shots Fired", amountRoundsFired);
+    console.log("Hot Round", randomNumber+1);
+
+    if (amountRoundsFired == randomNumber+1) {
+      console.log("BANG");
+      setGameIntro(true);
+      setIsIntroClicked(false);
+      setShotRounds(0);
+    } else {
+      console.log("CLICK");
+    }
+ }
+  
+
   return (
     <div className="game" id="game2">
       <button id="btnReturn" onClick={() => navigate("/")}>⬅️</button>
       <h2 id="g2_title">Shot Roulette</h2>
 
-      <div className="game2Container"></div>
+      <div className="game2Container">
+        <div id="revGun" onClick={shotsFired}>
+
+        </div>
+      </div>
 
       {gameIntro && (
-        <div className="game2Start">
+        <div id="game2Start" className={isIntroClicked ? "clicked" : ""}>
           <div
             id="revCyl"
             onClick={startGame}
-            className={isClicked ? "clicked" : ""}
+            className={isIntroClicked ? "clicked" : ""}
             style={{
-              backgroundImage: `url(${
-                imageCache.current[isClicked ? "bullet" : "noBullet"]?.src || ""
-              })`,
+              backgroundImage: `url(${imageCache.current[isIntroClicked ? "bullet" : "noBullet"]?.src || ""
+                })`,
               opacity: imagesLoaded ? 1 : 0.8, // Fades in when ready
             }}
           ></div>
-          <h3 className={isClicked ? "clicked" : ""}>Trykk på sylinderen for å starte!</h3>
+          <h3 className={isIntroClicked ? "clicked" : ""}>Trykk på sylinderen for å starte!</h3>
         </div>
       )}
     </div>

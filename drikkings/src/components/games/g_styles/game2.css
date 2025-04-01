@@ -19,9 +19,25 @@
 .game2Container {
   display: flex;
   justify-content: center;
+  max-height: 100%;
+  flex-grow: 1;
 }
 
-.game2Start {
+/* Main gun game */
+
+#revGun {
+  background: url("../g_assets/revolver.png");
+  background-size: contain;
+  background-position: center;
+  height: 15rem;
+  width: 15rem;
+  justify-self: center;
+  align-self: center;
+  cursor: pointer;
+}
+
+/* Game start menu */
+#game2Start {
   position: fixed;
   top: 0;
   left: 0;
@@ -41,23 +57,24 @@
   gap: 1rem;
 }
 
-.dark .game2Start {
+.dark #game2Start {
   background-color: #242424;
 }
 
+/* Intro revolver cylinder */
 #revCyl {
-  background: url("./g_assets/rev_nobullet.png") no-repeat center center;
+  background: url("../g_assets/rev_nobullet.png") no-repeat center center;
   background-size: contain;
   background-position: center;
 
-  width: 15rem;
-  height: 15rem;
+  width: 18rem;
+  height: 18rem;
 
   cursor: pointer;
 }
 
 .dark #revCyl {
-  background: url("./g_assets/rev_nobullet.png") no-repeat center center;
+  background: url("../g_assets/rev_nobullet.png") no-repeat center center;
   background-size: contain;
   background-position: center;
   filter: invert(1);
@@ -67,7 +84,7 @@
   background: url("../g_assets/rev_bullet.png") no-repeat center center;
   background-size: contain;
   background-position: center;
-  animation: spin 1s ease-in-out 0.5s forwards; 
+  animation: spin 0.8s ease-in-out 0.5s forwards;
 }
 
 .dark #revCyl.clicked {
@@ -75,66 +92,58 @@
   background-size: contain;
   background-position: center;
   filter: invert(1);
-  animation: spin 1s ease-in-out 0.5s forwards;
+  animation: spin 0.8s ease-in-out 0.5s forwards;
 }
 
 @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-      opacity: 1;
-    }
-    60% {
-      opacity: 1;
-      transform: rotate(360deg);
-    }
-    100% {
-      opacity: 0;
-      transform: rotate(360deg);
-    }
-  } 
+  0% {
+    transform: rotate(0deg);
+    opacity: 1;
+  }
+  60% {
+    opacity: 1;
+    transform: rotate(360deg);
+  }
+  100% {
+    opacity: 0;
+    transform: rotate(360deg);
+  }
+}
 
-.game2Start h3 {
+#game2Start h3 {
   color: black;
 }
 
-.dark .game2Start h3 {
+.dark #game2Start h3 {
   color: white;
 }
 
-.game2Start h3.clicked {
-    animation: textOut 1s ease-in-out 0.5s forwards;
+#game2Start h3.clicked {
+  animation: fadeOut 0.8s ease-in-out 0.5s forwards;
 }
 
-.dark .game2Start h3.clicked {
-    animation: textOut 1s ease-in-out 0.5s forwards;
+.dark #game2Start h3.clicked {
+  animation: fadeOut 0.8s ease-in-out 0.5s forwards;
 }
 
-@keyframes textOut {
-    0% {
-      opacity: 1;
-    }
-    60% {
-      opacity: 1;
-    }
-    100% {
-      opacity: 0;
-    }
-  } 
+#game2Start.clicked { 
+    animation: fadeOut 1s ease-in-out 0.5s forwards;
+}
 
-/* .game2Start button {
-    width: 20rem;
-    height: 3rem;
-    font-size: 1.5rem;
-    border: white solid 3px;
-    background-color: white;
-    color: black;
-    border-radius: 8px;
-    padding: 0;
-    cursor: pointer;
-    transition: 0.1s;
+.dark #game2Start.clicked { 
+    animation: fadeOut 1s ease-in-out 0.5s forwards;
+}
+
+
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
   }
-  
-  .dark .game2Start button {
-    background-color: rgba(255, 255, 255, 0.1);
-    color: rgba(255, 255, 255, 0.9);
-  } */
+  60% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
