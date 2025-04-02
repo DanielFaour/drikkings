@@ -29,12 +29,30 @@
   background: url("../g_assets/revolver.png");
   background-size: contain;
   background-position: center;
-  height: 15rem;
-  width: 15rem;
+  height: 20rem;
+  width: 20rem;
   justify-self: center;
   align-self: center;
   cursor: pointer;
+  transition: 1s ease-in-out;
 }
+
+/* Gun spin */
+
+/* @keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(var(--rotation));
+  }
+} */
+
+/* .spinning {
+  animation: spin 2s ease-in-out forwards;
+} */
+
+
 
 /* Game start menu */
 #game2Start {
