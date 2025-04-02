@@ -10,6 +10,7 @@ function Game2() {
 
   const [randomNumber, setRandomNumber] = useState(null);
   const [shotRounds, setShotRounds] = useState(0);
+  const [currentRotation, setCurrentRotation] = useState(0);
 
   const [imagesLoaded, setImagesLoaded] = useState(false);
 
@@ -64,10 +65,10 @@ function Game2() {
     const newRandomNumber = Math.floor(Math.random() * 6);
     setRandomNumber(newRandomNumber);
     // console.log("Generated randomNumber:", newRandomNumber);
-    spinGun()
 
     setTimeout(() => {
       setGameIntro(false);
+      spinGun();
     }, 1500);
   }
 
@@ -84,78 +85,68 @@ function Game2() {
       // setIsIntroClicked(false);
       setGameEnd(true);
       setShotRounds(0);
-      // resetGun()
-      spinGun()
+      setCurrentRotation(0);
+      resetGun()
     } else {
       console.log("CLICK");
+      // spins gun at the beginning of the game
       spinGun()
     }
   }
 
-  // let lastRotation = 0; // Track the last rotation value
-
-  // function spinGun() {
-  //   const gun = document.getElementById("revGun");
-
-  //   gun.style.pointerEvents = "none"; // making the gun unclickable during spins
-  //   gun.style.filter = "blur(2px)";
-
-  //   // Generate a random rotation, ensuring it’s sufficiently different from the last one
-  //   let randomRotation = Math.round(Math.random() * (5 - 1) + 1) * 360 + Math.round(Math.random() * (24 - 1) + 1) * 15;
-
-  //   // Update the last rotation to the current one
-  //   lastRotation += randomRotation;
-
-  //   // Smooth transition with a 0.5-second duration
-  //   gun.style.transition = "transform 0.5s ease-out";
-  //   gun.style.transform = `rotate(${randomRotation}deg)`;
-
-  //   console.log(randomRotation); // Debug log for the generated rotation
-
-  //   // when animation finished -> make gun clickable again
-  //   setTimeout(() => {
-  //     gun.style.pointerEvents = "auto";
-  //     gun.style.filter = "blur(0px)";
-  //   }, 500);
-  // }
-
-
-  // create a random number in range
   function randomRange(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
-  let currentRotation = 0;
-
-  function spinGun() {
+  const spinGun = () => {
     const gun = document.getElementById("revGun");
 
-    gun.style.pointerEvents = "none"; // making the gun unclickable during spins
-    gun.style.filter = "blur(6px)";
+    gun.style.pointerEvents = "none"; // Disable click during spin
+    gun.style.filter = "grayscale(100%)";
 
-    currentRotation = currentRotation + randomRange(2, 5) * 360 + randomRange(1, 12) * 30 + randomRange(1, 24) * 15;
+    // Generate a random rotation increment between 1 and 8 full rotations
+    let rotationIncrement = randomRange(360 * 1, 360 * 6);
+    
+    // Generate random rotationSpeed for more dynamic spins
+    const rotationSpeed = randomRange(1000, 2000);
 
-    gun.style.transform = `rotate(${currentRotation}deg)`;
+    // Add a smooth transition for rotation
+    gun.style.transition = `transform ${rotationSpeed}ms ease-out`; // Adjust time for smoother spin
 
-      // when animation finished -> make gun clickable again
-      setTimeout(() => {
-        gun.style.pointerEvents = "auto";
-        gun.style.filter = "blur(0px)";
-      }, 500);
-  }
+    // Use the previous rotation value to calculate the new one
+    setCurrentRotation((prevRotation) => {
+      const newRotation = prevRotation + rotationIncrement;
 
+      // Apply the new rotation directly
+      gun.style.transform = `rotate(${newRotation}deg)`;
 
+      return newRotation; // Return the updated value to set the state
+    });
 
+    console.log("currentRotation: ", currentRotation);
+
+    // Re-enable the gun after the animation is complete
+    setTimeout(() => {
+      gun.style.pointerEvents = "auto";
+      gun.style.filter = "grayscale(0%)";
+    }, rotationSpeed);
+  };
 
   // Resets the gun to its original position
   function resetGun() {
     const gun = document.getElementById("revGun");
-
+    gun.style.transition = "none";  
+    
     if (!gun) return; // Safety check
 
     gun.style.transform = "rotate(0deg)";
   }
 
+  function restartGame() {
+    setGameIntro(true);
+    setIsIntroClicked(false);
+    setGameEnd(false);
+  }
 
   return (
     <div className="game" id="game2">
@@ -182,6 +173,13 @@ function Game2() {
           ></div>
           <h3 className={isIntroClicked ? "clicked" : ""}>Plasser mobilen midt på bordet, og trykk på sylinderen for å starte spillet!</h3>
           <h3 className={isIntroClicked ? "clicked" : ""}></h3>
+        </div>
+      )}
+      
+      {gameEnd && (
+        <div id="game2End">
+          <h1>PAAANG!</h1>
+          <button onClick={restartGame}>Start på nytt</button>
         </div>
       )}
     </div>
