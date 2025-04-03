@@ -22,6 +22,8 @@ function Game2() {
     const imagePaths = {
       noBullet: new URL("./g_assets/rev_nobullet.png", import.meta.url).href,
       bullet: new URL("./g_assets/rev_bullet.png", import.meta.url).href,
+      revolver: new URL("./g_assets/revolver.png", import.meta.url).href,
+      revolver_dark: new URL("./g_assets/revolver_darkmode2.png", import.meta.url).href,
     };
 
     let loadedCount = 0;
@@ -86,7 +88,6 @@ function Game2() {
       setGameEnd(true);
       setShotRounds(0);
       setCurrentRotation(0);
-      resetGun()
     } else {
       console.log("CLICK");
       // spins gun at the beginning of the game
@@ -146,6 +147,7 @@ function Game2() {
     setGameIntro(true);
     setIsIntroClicked(false);
     setGameEnd(false);
+    resetGun();
   }
 
   return (
@@ -163,7 +165,7 @@ function Game2() {
         <div id="game2Start" className={isIntroClicked ? "clicked" : ""}>
           <div
             id="revCyl"
-            onClick={startGame}
+            onPointerDown={startGame}
             className={isIntroClicked ? "clicked" : ""}
             style={{
               backgroundImage: `url(${imageCache.current[isIntroClicked ? "bullet" : "noBullet"]?.src || ""
@@ -179,7 +181,7 @@ function Game2() {
       {gameEnd && (
         <div id="game2End">
           <h1>PAAANG!</h1>
-          <button onClick={restartGame}>Start på nytt</button>
+          <button onPointerDown={restartGame}>Start på nytt</button>
         </div>
       )}
     </div>

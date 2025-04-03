@@ -97,8 +97,8 @@
   background-size: contain;
   background-position: center;
 
-  width: 18rem;
-  height: 18rem;
+  width: 15rem;
+  height: 15rem;
 
   cursor: pointer;
 }
@@ -142,6 +142,8 @@
 
 #game2Start h3 {
   color: black;
+  width: 85%;
+  max-width: 30rem; 
 }
 
 .dark #game2Start h3 {
