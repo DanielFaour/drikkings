@@ -70,6 +70,7 @@ function Game2() {
 
     setTimeout(() => {
       setGameIntro(false);
+      resetGun();
       spinGun();
     }, 1500);
   }
@@ -87,7 +88,6 @@ function Game2() {
       // setIsIntroClicked(false);
       setGameEnd(true);
       setShotRounds(0);
-      setCurrentRotation(0);
     } else {
       console.log("CLICK");
       // spins gun at the beginning of the game
@@ -141,6 +141,7 @@ function Game2() {
     if (!gun) return; // Safety check
 
     gun.style.transform = "rotate(0deg)";
+    setCurrentRotation(0);
   }
 
   function restartGame() {
@@ -156,7 +157,7 @@ function Game2() {
       <h2 id="g2_title">Shot Roulette</h2>
 
       <div className="game2Container">
-        <div id="revGun" onClick={shotsFired}>
+        <div id="revGun" onPointerDown={shotsFired}>
 
         </div>
       </div>
