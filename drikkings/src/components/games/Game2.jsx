@@ -112,7 +112,7 @@ function Game2() {
     const rotationSpeed = randomRange(1000, 2000);
 
     // Add a smooth transition for rotation
-    gun.style.transition = `transform ${rotationSpeed}ms ease-out`; // Adjust time for smoother spin
+    gun.style.transition = `transform ${rotationSpeed}ms ease-in-out`; // Adjust time for smoother spin
 
     // Use the previous rotation value to calculate the new one
     setCurrentRotation((prevRotation) => {
@@ -174,7 +174,7 @@ function Game2() {
               opacity: imagesLoaded ? 1 : 0.8, // Fades in when ready
             }}
           ></div>
-          <h3 className={isIntroClicked ? "clicked" : ""}>Plasser mobilen midt på bordet, og trykk på sylinderen for å starte spillet!</h3>
+          <h3 className={isIntroClicked ? "clicked" : ""}>Plasser mobilen midt på bordet, og så trykk på sylinderen for å starte!</h3>
           <h3 className={isIntroClicked ? "clicked" : ""}></h3>
         </div>
       )}

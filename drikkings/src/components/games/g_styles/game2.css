@@ -17,6 +17,12 @@
 }
 
 .game2Container {
+  width: 100vw;
+  width: 100dvw;
+  height: 100vh;
+  height: 100dvh;
+  position: absolute;
+  top: 0;
   display: flex;
   justify-content: center;
   max-height: 100%;
@@ -27,7 +33,7 @@
 
 #revGun {
   background: url("../g_assets/revolver.png");
-  background-size: 16rem;
+  background-size: 18rem;
   background-position: center;
   background-repeat: no-repeat;
   height: 15rem;
@@ -36,7 +42,7 @@
   justify-self: center;
   align-self: center;
   cursor: pointer;
-  transition: transform 1s ease-out; /* Transition for smooth rotation */
+  transition: transform 1s ease-in-out; /* Transition for smooth rotation */
   transform-origin: center center; /* Ensure it spins around its center */
 }
 
