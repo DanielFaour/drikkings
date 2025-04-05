@@ -87,6 +87,7 @@ function Game2() {
       // setGameIntro(true);
       // setIsIntroClicked(false);
       setGameEnd(true);
+      resetGun();
       setShotRounds(0);
     } else {
       console.log("CLICK");
@@ -106,10 +107,10 @@ function Game2() {
     gun.style.filter = "grayscale(100%)";
 
     // Generate a random rotation increment between 1 and 8 full rotations
-    let rotationIncrement = randomRange(360 * 1, 360 * 6);
+    let rotationIncrement = randomRange(360 * 1, 360 * 6) + randomRange(0, 360);
     
     // Generate random rotationSpeed for more dynamic spins
-    const rotationSpeed = randomRange(1000, 2000);
+    const rotationSpeed = randomRange(1200, 1800);
 
     // Add a smooth transition for rotation
     gun.style.transition = `transform ${rotationSpeed}ms ease-in-out`; // Adjust time for smoother spin
@@ -145,10 +146,15 @@ function Game2() {
   }
 
   function restartGame() {
-    setGameIntro(true);
-    setIsIntroClicked(false);
+    // setGameIntro(true);
+    // setIsIntroClicked(false);
+
+    const newRandomNumber = Math.floor(Math.random() * 6);
+    setRandomNumber(newRandomNumber);
+
     setGameEnd(false);
     resetGun();
+    spinGun();
   }
 
   return (
