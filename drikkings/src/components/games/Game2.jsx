@@ -107,10 +107,10 @@ function Game2() {
     gun.style.filter = "grayscale(100%)";
 
     // Generate a random rotation increment between 1 and 8 full rotations
-    let rotationIncrement = randomRange(360 * 1, 360 * 6) + randomRange(0, 360);
+    let rotationIncrement = randomRange(1, 4) * 360 + randomRange(0, 360);
     
     // Generate random rotationSpeed for more dynamic spins
-    const rotationSpeed = randomRange(1200, 1800);
+    const rotationSpeed = randomRange(1100, 1700);
 
     // Add a smooth transition for rotation
     gun.style.transition = `transform ${rotationSpeed}ms ease-in-out`; // Adjust time for smoother spin
