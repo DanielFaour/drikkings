@@ -234,31 +234,3 @@
       background-size: 25rem;
   }
 } */
-
-/* Loading screen */
-#game2Load {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  background-color: white;
-  font-size: 2rem;
-  text-align: center;
-  z-index: 1050;
-  gap: 1rem;
-}
-
-.dark #game2Load {
-  background-color: #242424;
-}
-
-#game2Load h1 {
-  margin: 0;
-}

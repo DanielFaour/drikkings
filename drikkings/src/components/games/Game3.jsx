@@ -101,7 +101,7 @@ function Game3() {
                 </div>
             </div>
             {imagesLoaded || (
-                <div id="game3Load">
+                <div id="gameLoad">
                     <h1>Laster inn!</h1>
                 </div>
             )}

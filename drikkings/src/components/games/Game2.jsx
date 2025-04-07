@@ -193,7 +193,7 @@ function Game2() {
         </div>
       )}
       {imagesLoaded || (
-        <div id="game2Load">
+        <div id="gameLoad">
           <h1>Laster inn!</h1>
         </div>
       )}
