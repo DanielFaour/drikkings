@@ -6,8 +6,9 @@ import ThemeToggle from './components/ThemeToggle';
 import Info from './components/games/GameInfo';
 import InfoButton from './components/infoButton';
 import GamesCards from './components/GamesCards';
-import Game1 from './components/games/Game1';
-import Game2 from './components/games/Game2';
+import Game1 from './components/games/game1';
+import Game2 from './components/games/game2';
+import Game3 from './components/games/game3';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
             <Route path="/" element={<GamesCards />} />
             <Route path="/games/game1" element={<Game1 />} />
             <Route path="/games/game2" element={<Game2 />} />
+            <Route path="/games/game3" element={<Game3 />} />
             <Route path="/games/info" element={<Info />} />
           </Routes>
         </div>

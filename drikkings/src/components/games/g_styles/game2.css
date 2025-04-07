@@ -36,9 +36,9 @@
   background-size: 18rem;
   background-position: center;
   background-repeat: no-repeat;
-  height: 15rem;
-  width: 15rem;
-  padding: 5rem;
+  width: 25rem;
+  height: 25rem;
+  padding: 15rem;
   justify-self: center;
   align-self: center;
   cursor: pointer;
@@ -46,14 +46,12 @@
   transform-origin: center center; /* Ensure it spins around its center */
 }
 
-
 .dark #revGun {
   background: url("../g_assets/revolver_darkmode2.png");
-  background-size: 16rem;
+  background-size: 18rem;
   background-position: center;
   background-repeat: no-repeat;
 }
-
 
 /* Gun spin */
 
@@ -69,8 +67,6 @@
 /* .spinning {
   animation: spin 2s ease-in-out forwards;
 } */
-
-
 
 /* Game start menu */
 #game2Start {
@@ -149,7 +145,7 @@
 #game2Start h3 {
   color: black;
   width: 90%;
-  max-width: 30rem; 
+  max-width: 30rem;
 }
 
 .dark #game2Start h3 {
@@ -164,15 +160,13 @@
   animation: fadeOut 0.8s ease-in-out 0.5s forwards;
 }
 
-#game2Start.clicked { 
-    animation: fadeOut 1s ease-in-out 0.5s forwards;
+#game2Start.clicked {
+  animation: fadeOut 1s ease-in-out 0.5s forwards;
 }
 
-.dark #game2Start.clicked { 
-    animation: fadeOut 1s ease-in-out 0.5s forwards;
+.dark #game2Start.clicked {
+  animation: fadeOut 1s ease-in-out 0.5s forwards;
 }
-
-
 
 @keyframes fadeOut {
   0% {
@@ -232,3 +226,11 @@
   background-color: rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.9);
 }
+
+/* @media screen and (min-width: 800px) {
+  #revGun {
+      width: 30rem;
+      height: 30rem;
+      background-size: 25rem;
+  }
+} */

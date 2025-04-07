@@ -72,6 +72,21 @@ html, body {
   filter: none;
 }
 
+#infoBtnText {
+  -webkit-user-select: none; /* Safari */
+  -ms-user-select: none; /* IE 10 and IE 11 */
+  user-select: none; /* Standard syntax */
+  
+  position: absolute;
+  top: 42px;
+  left: 38px;
+  width: 8rem;
+}
+
+.dark #infoBtnText {
+  filter: invert(1);
+}
+
 /* .dark #btnTheme,
 .dark #btnReturn {
   

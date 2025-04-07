@@ -1,0 +1,72 @@
+#game2 {
+    max-height: 100vh;
+    max-height: 100dvh;
+    max-width: 100vw;
+    max-width: 100dvw;
+    overflow: hidden;
+    overscroll-behavior: none;
+    background-color: rgb(255, 255, 255);
+  }
+  
+  .dark #game2 {
+    background-color: #242424;
+  }
+  
+  #g2_title {
+    z-index: 1100;
+  }
+  
+  .game2Container {
+    width: 100vw;
+    width: 100dvw;
+    height: 100vh;
+    height: 100dvh;
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-height: 100%;
+    flex-grow: 1;
+  }
+  
+  /* Gun spin */
+  
+  /* @keyframes spin {
+    from {
+      transform: rotate(0deg);
+    }
+    to {
+      transform: rotate(var(--rotation));
+    }
+  } */
+  
+  /* .spinning {
+    animation: spin 2s ease-in-out forwards;
+  } */
+  
+  /* Intro revolver cylinder */
+  #revBottle {
+    background: url("../g_assets/bottle.png") no-repeat center center;
+    background-size: contain;
+    background-position: center;
+    background-size: 18rem;
+  
+    width: 25rem;
+    height: 25rem;
+    padding: 15rem;
+  
+    cursor: pointer;
+  }
+  
+  .dark #revBottle {
+    filter: invert(1);
+  }
+
+
+  /* @media screen and (min-width: 768px) {
+    #revBottle {
+        width: 30rem;
+        height: 30rem;
+    }
+  } */

@@ -29,6 +29,12 @@ function GameInfo() {
           trakk på den sist ta en slurk, eller shot hvis dere er klin kokkos!
           <br /><br />
         </p>
+        <h3>🍼 Flasketuten peker på 🍼</h3>
+        <p>Nøyaktig hva det høres ut som! En flaske som spinner og peker på deltakeren som må gjøre noe.
+          Trykk på flasken for å få den til å spinne, og dere bestemmer
+          reglene selv. For eksempel kan det være å ta en slurk, eller gjøre noe sprøtt!
+          <br /><br />
+        </p>
         <h3>⏱️ Flere spill på vei ⏱️</h3>
       </div>
       <div className="emptySpace"></div>

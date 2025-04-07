@@ -103,7 +103,7 @@ function Game1() {
       {gameOver && (
         <div className="game1End">
           <h2>KABOOOOOM!</h2>
-          <button id="btnGame1End" onClick={resetGame}>Spill igjen</button>
+          <button id="btnGame1End" onClick={resetGame}>Start på nytt</button>
           <button id="btnGame1Return" onClick={() => navigate("/")}>Tilbake til meny</button>
         </div>
       )}

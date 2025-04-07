@@ -189,6 +189,7 @@ function Game2() {
         <div id="game2End">
           <h1>PAAANG!</h1>
           <button onPointerDown={restartGame}>Start på nytt</button>
+          <button id="btnGame1Return" onClick={() => navigate("/")}>Tilbake til meny</button>
         </div>
       )}
     </div>
