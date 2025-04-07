@@ -67,7 +67,7 @@ function Game1() {
     });
   };
 
-   // prevent scrolling
+  // prevent scrolling
   useEffect(() => {
     const preventScroll = (e) => e.preventDefault();
     document.addEventListener("touchmove", preventScroll, { passive: false });
@@ -105,6 +105,12 @@ function Game1() {
           <h2>KABOOOOOM!</h2>
           <button id="btnGame1End" onClick={resetGame}>Start på nytt</button>
           <button id="btnGame1Return" onClick={() => navigate("/")}>Tilbake til meny</button>
+        </div>
+      )}
+
+      {imagesLoaded || (
+        <div id="game1Load">
+          <h1>Laster inn!</h1>
         </div>
       )}
     </div>

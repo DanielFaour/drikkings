@@ -6,9 +6,9 @@ import ThemeToggle from './components/ThemeToggle';
 import Info from './components/games/GameInfo';
 import InfoButton from './components/infoButton';
 import GamesCards from './components/GamesCards';
-import Game1 from './components/games/game1';
-import Game2 from './components/games/game2';
-import Game3 from './components/games/game3';
+import Game1 from './components/games/Game1';
+import Game2 from './components/games/Game2';
+import Game3 from './components/games/Game3';
 
 function App() {
   return (

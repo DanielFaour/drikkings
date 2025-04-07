@@ -4,7 +4,7 @@ import "./g_styles/game3.css";
 
 function Game3() {
     const navigate = useNavigate();
-    
+
     const imageCache = useRef({});
     const [currentRotation, setCurrentRotation] = useState(0);
     const [imagesLoaded, setImagesLoaded] = useState(false);
@@ -12,7 +12,7 @@ function Game3() {
     // creates a random number between min and max
     function randomRange(min, max) {
         return Math.floor(Math.random() * (max - min + 1)) + min;
-      }
+    }
 
     // check if images loaded
     useEffect(() => {
@@ -61,10 +61,10 @@ function Game3() {
 
         // Generate random rotationSpeed for more dynamic spins
         // const rotationSpeed = randomRange(3000, 6000);
-        const rotationSpeed = 6000;
+        const rotationSpeed = 3000;
 
         // Add a smooth transition for rotation
-        bottle.style.transition = `transform ${rotationSpeed}ms ease-out`; // Adjust time for smoother spin
+        bottle.style.transition = `transform ${rotationSpeed}ms ease-in-out`; // Adjust time for smoother spin
 
         // Use the previous rotation value to calculate the new one
         setCurrentRotation((prevRotation) => {
@@ -91,15 +91,20 @@ function Game3() {
     //   }
 
     return (
-        <div className="game" id="game2">
+        <div className="game" id="game3">
             <button id="btnReturn" onClick={() => navigate("/")}>⬅️</button>
-            <h2 id="g2_title">Flasketuten peker på</h2>
+            <h2 id="g3_title">Flasketuten peker på</h2>
 
-            <div className="game2Container">
+            <div className="game3Container">
                 <div id="revBottle" onPointerDown={spinBottle}>
 
                 </div>
             </div>
+            {imagesLoaded || (
+                <div id="game3Load">
+                    <h1>Laster inn!</h1>
+                </div>
+            )}
         </div>
     );
 }

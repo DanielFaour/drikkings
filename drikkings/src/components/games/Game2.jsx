@@ -108,7 +108,7 @@ function Game2() {
 
     // Generate a random rotation increment between 1 and 8 full rotations
     let rotationIncrement = randomRange(1, 4) * 360 + randomRange(0, 360);
-    
+
     // Generate random rotationSpeed for more dynamic spins
     const rotationSpeed = randomRange(1100, 1700);
 
@@ -137,8 +137,8 @@ function Game2() {
   // Resets the gun to its original position
   function resetGun() {
     const gun = document.getElementById("revGun");
-    gun.style.transition = "none";  
-    
+    gun.style.transition = "none";
+
     if (!gun) return; // Safety check
 
     gun.style.transform = "rotate(0deg)";
@@ -184,12 +184,17 @@ function Game2() {
           <h3 className={isIntroClicked ? "clicked" : ""}></h3>
         </div>
       )}
-      
+
       {gameEnd && (
         <div id="game2End">
           <h1>PAAANG!</h1>
           <button onPointerDown={restartGame}>Start på nytt</button>
           <button id="btnGame1Return" onClick={() => navigate("/")}>Tilbake til meny</button>
+        </div>
+      )}
+      {imagesLoaded || (
+        <div id="game2Load">
+          <h1>Laster inn!</h1>
         </div>
       )}
     </div>

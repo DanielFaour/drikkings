@@ -7,7 +7,8 @@ function InfoButton() {
     return (
         <div>
             <button id="btnInfo" onClick={() => navigate('/games/Info')}>ℹ️</button>
-            <img id="infoBtnText" src={infoText} alt="InfoBtnText" />
+            <img id="infoBtnText" src={infoText} alt="InfoBtnText" draggable="false"/>
+           
         </div>
     );
 }

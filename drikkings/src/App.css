@@ -77,10 +77,11 @@ html, body {
   -ms-user-select: none; /* IE 10 and IE 11 */
   user-select: none; /* Standard syntax */
   
+  
   position: absolute;
   top: 42px;
   left: 38px;
-  width: 8rem;
+  width: 7.5rem;
 }
 
 .dark #infoBtnText {
@@ -95,13 +96,13 @@ html, body {
 /* LOGO */
 .title {
   text-align: center;
-  padding-top: 2rem;
+  padding-top: 3rem;
   margin-bottom: 2rem;
 }
 
 .title h1 {
   margin: 0;
-  font-size: 6rem;
+  font-size: 7rem;
   text-shadow: #2424247a 0px 0px 1.5px;
 }
 

@@ -1,6 +1,7 @@
 {
   "name": "drikkings",
   "private": true,
+  "homepage": "https://danielfaour.github.io/drikkings",
   "version": "0.0.0",
   "type": "module",
   "scripts": {
