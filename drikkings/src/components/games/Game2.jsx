@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import "./g_styles/game2.css";
-import game2Pang2 from './g_assets/game2_pang2.png';
-import game2Pang2_dark from './g_assets/game2_pang2_darkmode.png';
+import game2Pang2 from './g_assets/game2/game2_pang2.png';
+import game2Pang2_dark from './g_assets/game2/game2_pang2_darkmode.png';
 
 function Game2() {
   const navigate = useNavigate();
@@ -23,10 +23,10 @@ function Game2() {
   // check if images loaded
   useEffect(() => {
     const imagePaths = {
-      noBullet: new URL("./g_assets/rev_nobullet.png", import.meta.url).href,
-      bullet: new URL("./g_assets/rev_bullet.png", import.meta.url).href,
-      revolver: new URL("./g_assets/revolver.png", import.meta.url).href,
-      revolver_dark: new URL("./g_assets/revolver_darkmode2.png", import.meta.url).href,
+      noBullet: new URL("./g_assets/game2/rev_nobullet.png", import.meta.url).href,
+      bullet: new URL("./g_assets/game2/rev_bullet.png", import.meta.url).href,
+      revolver: new URL("./g_assets/game2/revolver.png", import.meta.url).href,
+      revolver_dark: new URL("./g_assets/game2/revolver_darkmode2.png", import.meta.url).href,
       game2PangImg2: new URL(game2Pang2, import.meta.url).href,
       game2PangImg2_dark: new URL(game2Pang2_dark, import.meta.url).href,
     };
@@ -177,10 +177,16 @@ function Game2() {
 
       <div id="game2Container" onPointerDown={shotsFired}>
         <div id="revGun" >
-          <img class="rev_light" src={imageCache.current["revolver"]?.src} alt="revolver" />
-          <img class="rev_dark" src={imageCache.current["revolver_dark"]?.src} alt="revolver" />
+          <img className="rev_light" src={imageCache.current["revolver"]?.src} alt="revolver" />
+          <img className="rev_dark" src={imageCache.current["revolver_dark"]?.src} alt="revolver" />
         </div>
         <h3 id="introTextG2" className={firstPress ? "clicked" : ""}>Trykk for å spinne revolveren!</h3>
+        <p id="shotRounds">Antall avtrekninger: {shotRounds} av 6 
+          <br />
+          Sannsynligheten for skudd: {Math.round((1 / (6 - shotRounds)) * 100)}%
+
+        </p>
+  
       </div>
 
       {gameIntro && (
@@ -190,8 +196,8 @@ function Game2() {
             onPointerDown={startGame}
             className={isIntroClicked ? "clicked" : ""}
           >
-            <img class="bullet" src={imageCache.current["bullet"]?.src} alt="revolver cylinder" />
-            <img class="nobullet" src={imageCache.current["noBullet"]?.src} alt="revolver cylinder" />
+            <img className="bullet" src={imageCache.current["bullet"]?.src} alt="revolver cylinder" />
+            <img className="nobullet" src={imageCache.current["noBullet"]?.src} alt="revolver cylinder" />
           </div>
 
           <h3 className={isIntroClicked ? "clicked" : ""}>Plasser mobilen midt på bordet, og så trykk på sylinderen for å starte!</h3>
@@ -205,8 +211,8 @@ function Game2() {
           {/* <h1>PAAANG!</h1> */}
           {/* <img id="game2Pang" src={game2Pang2} alt="pang" /> */}
           <div id="game2Pang">
-            <img class="light-img" src={imageCache.current["game2PangImg2"]?.src} alt="pang" />
-            <img class="dark-img" src={imageCache.current["game2PangImg2_dark"]?.src} alt="pang" />
+            <img className="light-img" src={imageCache.current["game2PangImg2"]?.src} alt="pang" />
+            <img className="dark-img" src={imageCache.current["game2PangImg2_dark"]?.src} alt="pang" />
           </div>
           <div id="spacing"></div>
           <div id="endButtons">
