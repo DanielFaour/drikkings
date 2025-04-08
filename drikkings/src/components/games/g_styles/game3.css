@@ -16,7 +16,7 @@
     z-index: 1100;
   }
   
-  .game3Container {
+  #game3Container {
     width: 100vw;
     width: 100dvw;
     height: 100vh;
@@ -28,6 +28,30 @@
     align-items: center;
     max-height: 100%;
     flex-grow: 1;
+    flex-direction: column;
+  }
+  
+  #introTextG3 {
+    margin: 0;
+    align-items: center;
+    align-self: center;
+    width: 90%;
+  }
+
+ #introTextG3.clicked {
+    animation: fadeOut 1s ease-in-out 1s forwards;
+  }
+
+  @keyframes fadeOut {
+    0% {
+      opacity: 1;
+    }
+    60% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
   }
   
   /* Gun spin */
@@ -52,9 +76,8 @@
     background-position: center;
     background-size: 18rem;
   
-    width: 25rem;
-    height: 25rem;
-    padding: 15rem;
+    width: 22rem;
+    height: 22rem;
   
     cursor: pointer;
   }

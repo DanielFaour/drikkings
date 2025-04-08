@@ -8,6 +8,7 @@ function Game3() {
     const imageCache = useRef({});
     const [currentRotation, setCurrentRotation] = useState(0);
     const [imagesLoaded, setImagesLoaded] = useState(false);
+    const [firstPress, setFirstPress] = useState(false);
 
     // creates a random number between min and max
     function randomRange(min, max) {
@@ -55,16 +56,22 @@ function Game3() {
 
     const spinBottle = () => {
         const bottle = document.getElementById("revBottle");
+        const game3Container = document.getElementById("game3Container");
+
+        // set firstPress to true
+        if (!firstPress) {
+            setFirstPress(true);
+        }
 
         // Generate a random rotation increment between 1 and 8 full rotations
         let rotationIncrement = randomRange(3, 7) * 360 + randomRange(0, 360);
 
         // Generate random rotationSpeed for more dynamic spins
         // const rotationSpeed = randomRange(3000, 6000);
-        const rotationSpeed = 3000;
+        const rotationSpeed = 4000;
 
         // Add a smooth transition for rotation
-        bottle.style.transition = `transform ${rotationSpeed}ms ease-in-out`; // Adjust time for smoother spin
+        bottle.style.transition = `transform ${rotationSpeed}ms ease-out`; // Adjust time for smoother spin
 
         // Use the previous rotation value to calculate the new one
         setCurrentRotation((prevRotation) => {
@@ -95,10 +102,11 @@ function Game3() {
             <button id="btnReturn" onClick={() => navigate("/")}>⬅️</button>
             <h2 id="g3_title">Flasketuten peker på</h2>
 
-            <div className="game3Container">
-                <div id="revBottle" onPointerDown={spinBottle}>
+            <div id="game3Container" onPointerDown={spinBottle}>
+                <div id="revBottle" >
 
                 </div>
+                <h3 id="introTextG3" className={firstPress ? "clicked" : ""}>Plasser mobilen midt på bordet, og så trykk på flasken for å spinne den!</h3>
             </div>
             {imagesLoaded || (
                 <div id="gameLoad">

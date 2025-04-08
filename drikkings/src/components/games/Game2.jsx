@@ -1,12 +1,15 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import "./g_styles/game2.css";
+import game2Pang2 from './g_assets/game2_pang2.png';
+import game2Pang2_dark from './g_assets/game2_pang2_darkmode.png';
 
 function Game2() {
   const navigate = useNavigate();
   const [gameIntro, setGameIntro] = useState(true);
   const [gameEnd, setGameEnd] = useState(false);
   const [isIntroClicked, setIsIntroClicked] = useState(false);
+  const [firstPress, setFirstPress] = useState(false);
 
   const [randomNumber, setRandomNumber] = useState(null);
   const [shotRounds, setShotRounds] = useState(0);
@@ -24,6 +27,8 @@ function Game2() {
       bullet: new URL("./g_assets/rev_bullet.png", import.meta.url).href,
       revolver: new URL("./g_assets/revolver.png", import.meta.url).href,
       revolver_dark: new URL("./g_assets/revolver_darkmode2.png", import.meta.url).href,
+      game2PangImg2: new URL(game2Pang2, import.meta.url).href,
+      game2PangImg2_dark: new URL(game2Pang2_dark, import.meta.url).href,
     };
 
     let loadedCount = 0;
@@ -82,6 +87,11 @@ function Game2() {
     console.log("Shots Fired", amountRoundsFired);
     console.log("Hot Round", randomNumber + 1);
 
+    // set firstPress to true
+    if (!firstPress) {
+      setFirstPress(true);
+    }
+
     if (amountRoundsFired == randomNumber + 1) {
       console.log("BANG");
       // setGameIntro(true);
@@ -102,8 +112,10 @@ function Game2() {
 
   const spinGun = () => {
     const gun = document.getElementById("revGun");
+    const game2Container = document.getElementById("game2Container");
 
     gun.style.pointerEvents = "none"; // Disable click during spin
+    game2Container.style.pointerEvents = "none"; // Disable click during spin
     gun.style.filter = "grayscale(100%)";
 
     // Generate a random rotation increment between 1 and 8 full rotations
@@ -130,6 +142,7 @@ function Game2() {
     // Re-enable the gun after the animation is complete
     setTimeout(() => {
       gun.style.pointerEvents = "auto";
+      game2Container.style.pointerEvents = "auto";
       gun.style.filter = "grayscale(0%)";
     }, rotationSpeed);
   };
@@ -162,10 +175,11 @@ function Game2() {
       <button id="btnReturn" onClick={() => navigate("/")}>⬅️</button>
       <h2 id="g2_title">Shot Roulette</h2>
 
-      <div className="game2Container">
-        <div id="revGun" onPointerDown={shotsFired}>
+      <div id="game2Container" onPointerDown={shotsFired}>
+        <div id="revGun" >
 
         </div>
+        <h3 id="introTextG2" className={firstPress ? "clicked" : ""}>Trykk for å spinne revolveren!</h3>
       </div>
 
       {gameIntro && (
@@ -174,12 +188,7 @@ function Game2() {
             id="revCyl"
             onPointerDown={startGame}
             className={isIntroClicked ? "clicked" : ""}
-            style={{
-              backgroundImage: `url(${imageCache.current[isIntroClicked ? "bullet" : "noBullet"]?.src || ""
-                })`,
-              opacity: imagesLoaded ? 1 : 0.8, // Fades in when ready
-            }}
-          ></div>
+          />
           <h3 className={isIntroClicked ? "clicked" : ""}>Plasser mobilen midt på bordet, og så trykk på sylinderen for å starte!</h3>
           <h3 className={isIntroClicked ? "clicked" : ""}></h3>
         </div>
@@ -187,9 +196,18 @@ function Game2() {
 
       {gameEnd && (
         <div id="game2End">
+          <div id="spacing"></div>
           <h1>PAAANG!</h1>
-          <button onPointerDown={restartGame}>Start på nytt</button>
-          <button id="btnGame1Return" onClick={() => navigate("/")}>Tilbake til meny</button>
+          {/* <img id="game2Pang" src={game2Pang2} alt="pang" /> */}
+          <div id="game2Pang">
+            <img class="light-img" src={imageCache.current["game2PangImg2"]?.src} alt="pang" />
+            <img class="dark-img" src={imageCache.current["game2PangImg2_dark"]?.src} alt="pang" />
+          </div>
+          <div id="spacing"></div>
+          <div id="endButtons">
+            <button id="btnGame2Return" onClick={() => navigate("/")}>⬅️</button>
+            <button onPointerDown={restartGame}>🔃</button>
+          </div>
         </div>
       )}
       {imagesLoaded || (
