@@ -71,14 +71,9 @@
   
   /* Intro revolver cylinder */
   #revBottle {
-    background: url("../g_assets/bottle.png") no-repeat center center;
-    background-size: contain;
-    background-position: center;
-    background-size: 18rem;
-  
-    width: 22rem;
-    height: 22rem;
-  
+    width: 20rem;
+    height: 20rem;
+    padding: 1rem;
     cursor: pointer;
   }
   

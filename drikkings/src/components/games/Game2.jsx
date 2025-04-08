@@ -177,7 +177,8 @@ function Game2() {
 
       <div id="game2Container" onPointerDown={shotsFired}>
         <div id="revGun" >
-
+          <img class="rev_light" src={imageCache.current["revolver"]?.src} alt="revolver" />
+          <img class="rev_dark" src={imageCache.current["revolver_dark"]?.src} alt="revolver" />
         </div>
         <h3 id="introTextG2" className={firstPress ? "clicked" : ""}>Trykk for å spinne revolveren!</h3>
       </div>
@@ -188,7 +189,11 @@ function Game2() {
             id="revCyl"
             onPointerDown={startGame}
             className={isIntroClicked ? "clicked" : ""}
-          />
+          >
+            <img class="bullet" src={imageCache.current["bullet"]?.src} alt="revolver cylinder" />
+            <img class="nobullet" src={imageCache.current["noBullet"]?.src} alt="revolver cylinder" />
+          </div>
+
           <h3 className={isIntroClicked ? "clicked" : ""}>Plasser mobilen midt på bordet, og så trykk på sylinderen for å starte!</h3>
           <h3 className={isIntroClicked ? "clicked" : ""}></h3>
         </div>
