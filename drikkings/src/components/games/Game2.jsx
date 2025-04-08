@@ -197,7 +197,7 @@ function Game2() {
       {gameEnd && (
         <div id="game2End">
           <div id="spacing"></div>
-          <h1>PAAANG!</h1>
+          {/* <h1>PAAANG!</h1> */}
           {/* <img id="game2Pang" src={game2Pang2} alt="pang" /> */}
           <div id="game2Pang">
             <img class="light-img" src={imageCache.current["game2PangImg2"]?.src} alt="pang" />

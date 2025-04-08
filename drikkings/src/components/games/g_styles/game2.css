@@ -231,24 +231,24 @@
 }
 
 #game2Pang .light-img {
-  width: 120vw;
-  width: 270dvw;
+  width: 100vw;
+  width: 100dvw;
   display: block;
 }
 
 #game2Pang .dark-img {
-  width: 120vw;
-  width: 270dvw;
+  width: 100vw;
+  width: 100dvw;
   display: none;
 }
 .dark #game2Pang .light-img {
-  width: 120vw;
-  width: 270dvw;
+  width: 100vw;
+  width: 100dvw;
   display: none;
 }
 .dark #game2Pang .dark-img {
-  width: 120vw;
-  width: 270dvw;
+  width: 100vw;
+  width: 100dvw;
   display: block;
 }
 
@@ -303,10 +303,24 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  gap: 1rem;
-  margin-bottom: 3.2rem;
   width: 100%;
   max-width: 60rem;
+}
+
+#game2End button {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin: 2rem;
+}
+
+#endButtons {
+  margin-bottom: 0;
+}
+
+#btnGame2Return {
+  left: 0;
+  width: max-content;
 }
 
 #spacing {
@@ -372,7 +386,7 @@
     display: block;
   }
 
-  #game2End button {
+  /* #game2End button {
     position: absolute;
     right: 0;
     bottom: 0;
@@ -386,6 +400,6 @@
   #btnGame2Return {
     left: 0;
     width: max-content;
-  }
+  } */
   
 }
