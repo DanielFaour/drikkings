@@ -69,10 +69,10 @@ function Game3() {
         }
     
         // Generate a random rotation increment
-        let rotationIncrement = randomRange(3, 7) * 360 + randomRange(0, 360);
+        let rotationIncrement = (randomRange(2, 5) * 360) + randomRange(0, 360);
     
         // Generate random rotationSpeed for more dynamic spins, for now it's a fixed value
-        const rotationSpeed = randomRange(3000, 5000); // in milliseconds
+        const rotationSpeed = 4000;
     
         // Add a smooth transition for rotation
         bottle.style.transition = `transform ${rotationSpeed}ms ease-out`;
@@ -81,6 +81,7 @@ function Game3() {
         const spin = () => {
             setCurrentRotation((prevRotation) => {
                 const newRotation = prevRotation + rotationIncrement;
+                console.log("New rotation:", newRotation);
     
                 // Apply the new rotation directly
                 bottle.style.transform = `rotate(${newRotation}deg)`;

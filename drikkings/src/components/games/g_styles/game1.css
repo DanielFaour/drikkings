@@ -53,8 +53,9 @@
   animation: fadeOut 1s ease-in-out 1s forwards;
 }
 
-.game1End button:hover,
-.game1End button:active,
+/* .game1End button:hover,
+.game1End button:active, */
+.game1Button:active,
 .game1Button:hover {
   filter: brightness(0.85);
 }
@@ -63,7 +64,7 @@
   display: none;
 } */
 
-.game1End {
+/* .game1End {
   position: fixed;
   top: 0;
   left: 0;
@@ -110,7 +111,7 @@
 .dark .game1End button {
   background-color: rgba(255, 255, 255, 0.1);
   color: rgba(255, 255, 255, 0.9);
-}
+} */
 
 @media only screen and (max-width: 600px) {
   .game1End button:hover,
@@ -303,4 +304,10 @@
 
 #spacing {
   flex-grow: 1;
+}
+
+
+@keyframes comeIn {
+  from { transform: scale(0); }
+  to { transform: scale(1); }
 }

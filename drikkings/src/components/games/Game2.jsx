@@ -170,22 +170,43 @@ function Game2() {
     spinGun();
   }
 
+  // delays the clickability on the gameEnd screen + animation
+  const [canRestart, setCanRestart] = useState(false);
+
+  useEffect(() => {
+    if (gameEnd) {
+      setCanRestart(false);
+      const timeout = setTimeout(() => setCanRestart(true), 500);
+
+      const game2Pang = document.getElementById("game2Pang");
+      game2Pang.style.animation = "comeIn 0.5s forwards";
+
+      return () => clearTimeout(timeout);
+    }
+  }, [gameEnd]);
+
+  const handlePointerUp = () => {
+    if (canRestart) {
+      restartGame();
+    }
+  };
+
   return (
     <div className="game" id="game2">
       <button id="btnReturn" onClick={() => navigate("/")}>⬅️</button>
       <h2 id="g2_title">Shot Roulette</h2>
 
       <div id="game2Container" onPointerUp={shotsFired}>
-        <h3 id="introTextG2" className={firstPress ? "clicked" : ""}>Trykk for å skyte revolveren!</h3>
+        <p id="introTextG2" className={firstPress ? "clicked" : ""}>Trykk for å skyte revolveren!</p>
         <div id="revGun" >
           <img className="rev_light" src={imageCache.current["revolver"]?.src} alt="revolver" />
           <img className="rev_dark" src={imageCache.current["revolver_dark"]?.src} alt="revolver" />
         </div>
         <p id="shotRounds">
           <br />
-          Antall avtrekninger: {shotRounds} av 6 
+          Antall avtrekk: {shotRounds} av 6 
           <br />
-          Sannsynligheten for ladd kammer: {Math.round((1 / (6 - shotRounds)) * 100)}%
+          {Math.round((1 / (6 - shotRounds)) * 100)}% sjanse for å bli skutt!
 
         </p>
   
@@ -208,7 +229,7 @@ function Game2() {
       )}
 
       {gameEnd && (
-        <div id="game2End" onPointerUp={restartGame}>
+        <div id="game2End" onPointerUp={handlePointerUp}>
           <div id="spacing"></div>
           {/* <h1>PAAANG!</h1> */}
           {/* <img id="game2Pang" src={game2Pang2} alt="pang" /> */}

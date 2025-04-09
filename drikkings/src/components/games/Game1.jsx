@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import "./g_styles/game1.css";
-import game2Pang2 from './g_assets/game2/pang_light.jpg';
-import game2Pang2_dark from './g_assets/game2/pang_dark.jpg';
+import kaboom from './g_assets/game1/kabooom.jpg';
+import kaboom_dark from './g_assets/game1/kabooom_dark.jpg';
 
 function Game1() {
   const navigate = useNavigate();
@@ -19,8 +19,8 @@ function Game1() {
     const imagePaths = {
       hidden: new URL("./g_assets/b_tapped.png", import.meta.url).href,
       revealed: new URL("./g_assets/b_untapped.png", import.meta.url).href,
-      game2PangImg2: new URL(game2Pang2, import.meta.url).href,
-      game2PangImg2_dark: new URL(game2Pang2_dark, import.meta.url).href,
+      kaboom: new URL(kaboom, import.meta.url).href,
+      kaboom_dark: new URL(kaboom_dark, import.meta.url).href,
     };
 
     let loadedCount = 0;
@@ -83,6 +83,28 @@ function Game1() {
     };
   }, []);
 
+  // delays the clickability on the gameover screen + animation
+  const [canRestart, setCanRestart] = useState(false);
+
+  useEffect(() => {
+    if (gameOver) {
+      setCanRestart(false);
+      const timeout = setTimeout(() => setCanRestart(true), 500);
+
+      const game2Pang = document.getElementById("game2Pang");
+      game2Pang.style.animation = "comeIn 0.5s forwards";
+
+      return () => clearTimeout(timeout);
+    }
+  }, [gameOver]);
+
+  const handlePointerUp = () => {
+    if (canRestart) {
+      resetGame();
+    }
+  };
+
+
   return (
     <div className="game" id="game1">
       <button id="btnReturn" onClick={() => navigate("/")}>⬅️</button>
@@ -122,17 +144,19 @@ function Game1() {
         </div>
       )} */}
       {gameOver && (
-        <div id="game2End" onPointerUp={resetGame}>
+        <div id="game2End" onPointerUp={handlePointerUp}>
           <div id="spacing"></div>
           <div id="game2Pang">
-            <img className="light-img" src={imageCache.current["game2PangImg2"]?.src} alt="pang" />
-            <img className="dark-img" src={imageCache.current["game2PangImg2_dark"]?.src} alt="pang" />
+            <img className="light-img" src={imageCache.current["kaboom"]?.src} alt="pang" />
+            <img className="dark-img" src={imageCache.current["kaboom_dark"]?.src} alt="pang" />
             <p>Trykk på skjermen for å starte på nytt!</p>
           </div>
           <div id="spacing"></div>
           <div id="spacing"></div>
         </div>
       )}
+
+      {/* loading */}
       {imagesLoaded || (
         <div id="gameLoad">
           <h1>Laster inn!</h1>
