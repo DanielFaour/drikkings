@@ -1,6 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import "./g_styles/game1.css";
+import game2Pang2 from './g_assets/game2/pang_light.jpg';
+import game2Pang2_dark from './g_assets/game2/pang_dark.jpg';
 
 function Game1() {
   const navigate = useNavigate();
@@ -17,9 +19,13 @@ function Game1() {
     const imagePaths = {
       hidden: new URL("./g_assets/b_tapped.png", import.meta.url).href,
       revealed: new URL("./g_assets/b_untapped.png", import.meta.url).href,
+      game2PangImg2: new URL(game2Pang2, import.meta.url).href,
+      game2PangImg2_dark: new URL(game2Pang2_dark, import.meta.url).href,
     };
 
     let loadedCount = 0;
+
+    // Preload images and check if all are loaded
     Object.keys(imagePaths).forEach((key) => {
       if (imageCache.current[key]) {
         // If already cached, just increase the count
@@ -93,6 +99,14 @@ function Game1() {
                 disabled={!imagesLoaded} // Prevent clicks until images are loaded
                 style={{
                   opacity: imagesLoaded ? 1 : 0.8, // Fades in when ready
+                  backgroundImage: imagesLoaded
+                    ? isClicked
+                      ? `url(${imageCache.current.hidden.src})`
+                      : `url(${imageCache.current.revealed.src})`
+                    : "none", // Do not set backgroundImage until images are loaded
+                  backgroundSize: "contain",
+                  backgroundRepeat: "no-repeat",
+                  backgroundPosition: "center",
                 }}
               ></button>
             </div>
@@ -100,14 +114,25 @@ function Game1() {
         </div>
       </div>
 
-      {gameOver && (
+      {/* {gameOver && (
         <div className="game1End">
           <h2>KABOOOOOM!</h2>
           <button id="btnGame1End" onClick={resetGame}>Start på nytt</button>
           <button id="btnGame1Return" onClick={() => navigate("/")}>Tilbake til meny</button>
         </div>
+      )} */}
+      {gameOver && (
+        <div id="game2End" onPointerUp={resetGame}>
+          <div id="spacing"></div>
+          <div id="game2Pang">
+            <img className="light-img" src={imageCache.current["game2PangImg2"]?.src} alt="pang" />
+            <img className="dark-img" src={imageCache.current["game2PangImg2_dark"]?.src} alt="pang" />
+            <p>Trykk på skjermen for å starte på nytt!</p>
+          </div>
+          <div id="spacing"></div>
+          <div id="spacing"></div>
+        </div>
       )}
-
       {imagesLoaded || (
         <div id="gameLoad">
           <h1>Laster inn!</h1>

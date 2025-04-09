@@ -25,9 +25,8 @@
     top: 0;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-content: center;
     max-height: 100%;
-    flex-grow: 1;
     flex-direction: column;
   }
   
@@ -36,6 +35,8 @@
     align-items: center;
     align-self: center;
     width: 90%;
+    line-height: 1; 
+    display: block;
   }
 
  #introTextG3.clicked {
@@ -54,32 +55,32 @@
     }
   }
   
-  /* Gun spin */
-  
-  /* @keyframes spin {
-    from {
-      transform: rotate(0deg);
-    }
-    to {
-      transform: rotate(var(--rotation));
-    }
-  } */
-  
-  /* .spinning {
-    animation: spin 2s ease-in-out forwards;
-  } */
-  
   /* Intro revolver cylinder */
   #revBottle {
-    width: 20rem;
-    height: 20rem;
+    will-change: transform;
+    position:relative;
+    display: block;
+    align-self: center;
+    justify-self: center;
+    width: 19rem;
+    height: 19rem;
     padding: 1rem;
+    margin-top: 2rem;
     cursor: pointer;
   }
   
   .dark #revBottle {
     filter: invert(1);
   }
+
+  #spacingTop,
+  #spacing {
+    flex-grow: 1;
+  }
+  
+  /* #spacingTop {
+    flex-grow: 1;
+  } */
 
 
 

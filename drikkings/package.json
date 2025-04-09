@@ -1,7 +1,7 @@
 {
   "name": "drikkings",
   "private": true,
-  "homepage": "https://danielfaour.github.io/drikkings",
+  "homepage": "drikkings.no",
   "version": "0.0.0",
   "type": "module",
   "scripts": {

@@ -1,8 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import "./g_styles/game2.css";
-import game2Pang2 from './g_assets/game2/game2_pang2.png';
-import game2Pang2_dark from './g_assets/game2/game2_pang2_darkmode.png';
+import game2Pang2 from './g_assets/game2/pang_light.jpg';
+import game2Pang2_dark from './g_assets/game2/pang_dark.jpg';
 
 function Game2() {
   const navigate = useNavigate();
@@ -175,15 +175,17 @@ function Game2() {
       <button id="btnReturn" onClick={() => navigate("/")}>⬅️</button>
       <h2 id="g2_title">Shot Roulette</h2>
 
-      <div id="game2Container" onPointerDown={shotsFired}>
+      <div id="game2Container" onPointerUp={shotsFired}>
+        <h3 id="introTextG2" className={firstPress ? "clicked" : ""}>Trykk for å skyte revolveren!</h3>
         <div id="revGun" >
           <img className="rev_light" src={imageCache.current["revolver"]?.src} alt="revolver" />
           <img className="rev_dark" src={imageCache.current["revolver_dark"]?.src} alt="revolver" />
         </div>
-        <h3 id="introTextG2" className={firstPress ? "clicked" : ""}>Trykk for å spinne revolveren!</h3>
-        <p id="shotRounds">Antall avtrekninger: {shotRounds} av 6 
+        <p id="shotRounds">
           <br />
-          Sannsynligheten for skudd: {Math.round((1 / (6 - shotRounds)) * 100)}%
+          Antall avtrekninger: {shotRounds} av 6 
+          <br />
+          Sannsynligheten for ladd kammer: {Math.round((1 / (6 - shotRounds)) * 100)}%
 
         </p>
   
@@ -206,19 +208,21 @@ function Game2() {
       )}
 
       {gameEnd && (
-        <div id="game2End">
+        <div id="game2End" onPointerUp={restartGame}>
           <div id="spacing"></div>
           {/* <h1>PAAANG!</h1> */}
           {/* <img id="game2Pang" src={game2Pang2} alt="pang" /> */}
           <div id="game2Pang">
             <img className="light-img" src={imageCache.current["game2PangImg2"]?.src} alt="pang" />
             <img className="dark-img" src={imageCache.current["game2PangImg2_dark"]?.src} alt="pang" />
+            <p>Trykk på skjermen for å starte på nytt!</p>
           </div>
           <div id="spacing"></div>
-          <div id="endButtons">
+          <div id="spacing"></div>
+          {/* <div id="endButtons">
             <button id="btnGame2Return" onClick={() => navigate("/")}>⬅️</button>
             <button onPointerDown={restartGame}>🔃</button>
-          </div>
+          </div> */}
         </div>
       )}
       {imagesLoaded || (
