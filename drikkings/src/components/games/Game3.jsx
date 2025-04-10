@@ -117,7 +117,7 @@ function Game3() {
 
             <div id="game3Container" onPointerDown={spinBottle}>
                 <div id="spacingTop"></div>
-                <img oncontextmenu="return false;" ontouchstart="event.preventDefault();" draggable="false" id="revBottle" src={imageCache.current["bottle"]?.src} alt="bottle" />
+                <img oncontextmenu="return false;" draggable="false" id="revBottle" src={imageCache.current["bottle"]?.src} alt="bottle" />
                 <h3 id="introTextG3" className={firstPress ? "clicked" : ""}>Plasser mobilen midt på bordet, og så trykk på flasken for å spinne den!</h3>
                 <div id="spacing"></div>
             </div>

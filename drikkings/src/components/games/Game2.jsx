@@ -199,8 +199,8 @@ function Game2() {
       <div id="game2Container" onPointerUp={shotsFired}>
         <p id="introTextG2" className={firstPress ? "clicked" : ""}>Trykk for å skyte revolveren!</p>
         <div id="revGun" >
-          <img oncontextmenu="return false;" ontouchstart="event.preventDefault();" draggable="false" className="rev_light" src={imageCache.current["revolver"]?.src} alt="revolver" />
-          <img oncontextmenu="return false;" ontouchstart="event.preventDefault();" draggable="false" className="rev_dark" src={imageCache.current["revolver_dark"]?.src} alt="revolver" />
+          <img oncontextmenu="return false;" draggable="false" className="rev_light" src={imageCache.current["revolver"]?.src} alt="revolver" />
+          <img oncontextmenu="return false;" draggable="false" className="rev_dark" src={imageCache.current["revolver_dark"]?.src} alt="revolver" />
         </div>
         <p id="shotRounds">
           <br />
@@ -219,8 +219,8 @@ function Game2() {
             onPointerDown={startGame}
             className={isIntroClicked ? "clicked" : ""}
           >
-            <img oncontextmenu="return false;" ontouchstart="event.preventDefault();" draggable="false" className="bullet" src={imageCache.current["bullet"]?.src} alt="revolver cylinder" />
-            <img oncontextmenu="return false;" ontouchstart="event.preventDefault();" draggable="false" className="nobullet" src={imageCache.current["noBullet"]?.src} alt="revolver cylinder" />
+            <img oncontextmenu="return false;" draggable="false" className="bullet" src={imageCache.current["bullet"]?.src} alt="revolver cylinder" />
+            <img oncontextmenu="return false;" draggable="false" className="nobullet" src={imageCache.current["noBullet"]?.src} alt="revolver cylinder" />
           </div>
 
           <h3 className={isIntroClicked ? "clicked" : ""}>Plasser mobilen midt på bordet, og så trykk på sylinderen for å starte!</h3>
@@ -234,8 +234,8 @@ function Game2() {
           {/* <h1>PAAANG!</h1> */}
           {/* <img id="game2Pang" src={game2Pang2} alt="pang" /> */}
           <div id="game2Pang">
-            <img oncontextmenu="return false;" ontouchstart="event.preventDefault();" draggable="false" className="light-img" src={imageCache.current["game2PangImg2"]?.src} alt="pang" />
-            <img oncontextmenu="return false;" ontouchstart="event.preventDefault();" draggable="false" className="dark-img" src={imageCache.current["game2PangImg2_dark"]?.src} alt="pang" />
+            <img oncontextmenu="return false;" draggable="false" className="light-img" src={imageCache.current["game2PangImg2"]?.src} alt="pang" />
+            <img oncontextmenu="return false;" draggable="false" className="dark-img" src={imageCache.current["game2PangImg2_dark"]?.src} alt="pang" />
             <p>Trykk på skjermen for å starte på nytt!</p>
           </div>
           <div id="spacing"></div>
