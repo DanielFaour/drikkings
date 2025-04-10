@@ -114,7 +114,6 @@ function Game2() {
     const gun = document.getElementById("revGun");
     const game2Container = document.getElementById("game2Container");
 
-    gun.style.pointerEvents = "none"; // Disable click during spin
     game2Container.style.pointerEvents = "none"; // Disable click during spin
     gun.style.filter = "grayscale(100%)";
 
@@ -141,7 +140,6 @@ function Game2() {
 
     // Re-enable the gun after the animation is complete
     setTimeout(() => {
-      gun.style.pointerEvents = "auto";
       game2Container.style.pointerEvents = "auto";
       gun.style.filter = "grayscale(0%)";
     }, rotationSpeed);
