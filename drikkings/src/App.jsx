@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
 import './App.css';
+import { Helmet } from 'react-helmet';
 import './components/styles/buttons.css';
 import './components/styles/mainGame.css';
 import ThemeToggle from './components/ThemeToggle';
@@ -13,6 +14,11 @@ import Game3 from './components/games/Game3';
 function App() {
   return (
     <>
+      {/* Disable zooming */}
+      <Helmet>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
+      </Helmet>
+
       <ThemeToggle />
       <InfoButton />
 
