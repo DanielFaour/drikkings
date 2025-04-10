@@ -16,6 +16,9 @@ html, body {
   -webkit-tap-highlight-color: transparent; /* Remove tap highlight */
   outline: none; /* Remove focus outline */
   box-shadow: none; /* Remove any box-shadow */
+  -webkit-user-drag: none;
+  -webkit-touch-callout: none; /* disables the long-press menu on iOS */
+  user-select: none;
 
   margin: 0;
   padding: 0;
