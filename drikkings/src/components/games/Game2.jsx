@@ -112,9 +112,12 @@ function Game2() {
 
   const spinGun = () => {
     const gun = document.getElementById("revGun");
+    const img = document.getElementsByTagName("img");
     const game2Container = document.getElementById("game2Container");
 
     game2Container.style.pointerEvents = "none"; // Disable click during spin
+    gun.style.pointerEvents = "none"; // Disable click during spin
+    img.pointerEvents = "none"; // Disable click during spin
     gun.style.filter = "grayscale(100%)";
 
     // Generate a random rotation increment between 1 and 8 full rotations
@@ -196,7 +199,7 @@ function Game2() {
 
       <div id="game2Container" onPointerUp={shotsFired}>
         <p id="introTextG2" className={firstPress ? "clicked" : ""}>Trykk for å skyte revolveren!</p>
-        <div id="revGun" >
+        <div id="revGun">
           <img draggable="false" className="rev_light" src={imageCache.current["revolver"]?.src} alt="revolver" />
           <img draggable="false" className="rev_dark" src={imageCache.current["revolver_dark"]?.src} alt="revolver" />
         </div>
