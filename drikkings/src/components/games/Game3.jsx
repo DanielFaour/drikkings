@@ -58,46 +58,46 @@ function Game3() {
 
     const spinBottle = () => {
         if (isSpinning) return; // Prevents multiple spins at the same time
-    
+
         isSpinning = true;
-    
+
         const bottle = document.getElementById("revBottle");
-    
+
         // Set firstPress to true
         if (!firstPress) {
             setFirstPress(true);
         }
-    
+
         // Generate a random rotation increment
         let rotationIncrement = (randomRange(2, 5) * 360) + randomRange(0, 360);
-    
+
         // Generate random rotationSpeed for more dynamic spins, for now it's a fixed value
         const rotationSpeed = 4000;
-    
+
         // Add a smooth transition for rotation
         bottle.style.transition = `transform ${rotationSpeed}ms ease-out`;
-    
+
         // Use requestAnimationFrame for smoother updates
         const spin = () => {
             setCurrentRotation((prevRotation) => {
                 const newRotation = prevRotation + rotationIncrement;
                 console.log("New rotation:", newRotation);
-    
+
                 // Apply the new rotation directly
                 bottle.style.transform = `rotate(${newRotation}deg)`;
-    
+
                 return newRotation; // Return the updated value to set the state
             });
-    
+
             // Wait until the rotation is finished before allowing another spin
             setTimeout(() => {
                 isSpinning = false; // Allow another spin after the transition is complete
             }, rotationSpeed); // Matches the rotation speed (in ms)
         };
-    
+
         requestAnimationFrame(spin); // Call the spin function
     };
-    
+
 
     //   // Resets the gun to its original position
     //   function resetGun() {
@@ -117,7 +117,7 @@ function Game3() {
 
             <div id="game3Container" onPointerDown={spinBottle}>
                 <div id="spacingTop"></div>
-                <img ontouchstart="event.preventDefault();" draggable="false" id="revBottle" src={imageCache.current["bottle"]?.src} alt="bottle" />
+                <img draggable="false" id="revBottle" src={imageCache.current["bottle"]?.src} alt="bottle" />
                 <h3 id="introTextG3" className={firstPress ? "clicked" : ""}>Plasser mobilen midt på bordet, og så trykk på flasken for å spinne den!</h3>
                 <div id="spacing"></div>
             </div>
