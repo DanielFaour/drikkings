@@ -117,7 +117,20 @@ function Game1() {
               <button
                 id={"game1Button" + i}
                 className={`game1Button ${isClicked ? "clicked" : ""}`}
-                onPointerUp={() => buttonClickState(i)}
+                // Change button state and brightness on click
+                onPointerUp={() => {
+                  buttonClickState(i); // Update button state on click
+                  const button = document.getElementById("game1Button" + i);
+                  button.style.filter = "brightness(1)";
+                }}
+                onPointerDown={() => {
+                  const button = document.getElementById("game1Button" + i);
+                  button.style.filter = "brightness(0.8)";
+                }}
+                onPointerLeave={() => {
+                  const button = document.getElementById("game1Button" + i);
+                  button.style.filter = "brightness(1)";
+                }}
                 disabled={!imagesLoaded} // Prevent clicks until images are loaded
                 style={{
                   opacity: imagesLoaded ? 1 : 0.8, // Fades in when ready
@@ -147,8 +160,8 @@ function Game1() {
         <div id="game2End" onPointerUp={handlePointerUp}>
           <div id="spacing"></div>
           <div id="game2Pang">
-            <img className="light-img" src={imageCache.current["kaboom"]?.src} alt="pang" />
-            <img className="dark-img" src={imageCache.current["kaboom_dark"]?.src} alt="pang" />
+            <img draggable="false" className="light-img" src={imageCache.current["kaboom"]?.src} alt="pang" />
+            <img draggable="false" className="dark-img" src={imageCache.current["kaboom_dark"]?.src} alt="pang" />
             <p>Trykk på skjermen for å starte på nytt!</p>
           </div>
           <div id="spacing"></div>
