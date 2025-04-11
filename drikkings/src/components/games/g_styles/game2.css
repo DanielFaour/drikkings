@@ -54,7 +54,6 @@
 #revGun .rev_dark {
   display: none;
   margin: 0;
-
 }
 
 .dark #revGun .rev_light {
@@ -66,6 +65,59 @@
   display: block;
   margin: 0;
 }
+
+#nextText {
+  position: absolute;
+  justify-self: center;
+  align-self: center;
+  opacity: 0;
+  /* transition: opacity 1s ease-out; */
+  z-index: 500;
+}
+
+#nextText h1 {
+  font-size: 5rem;
+  
+  --color: black;
+  --size: 3px;
+  color: white;
+
+  text-shadow:
+    calc(-1 * var(--size)) calc(-1 * var(--size)) 0 var(--color),
+    calc(1 * var(--size)) calc(-1 * var(--size)) 0 var(--color),
+    calc(-1 * var(--size)) calc(1 * var(--size)) 0 var(--color),
+    calc(1 * var(--size)) calc(1 * var(--size)) 0 var(--color);
+
+    will-change: transform, opacity;
+}
+
+.dark #nextText h1 {
+  font-size: 5rem;
+  
+  --color: black;
+  --size: 3px;
+  color: white;
+
+  text-shadow:
+    calc(-1 * var(--size)) calc(-1 * var(--size)) 0 var(--color),
+    calc(1 * var(--size)) calc(-1 * var(--size)) 0 var(--color),
+    calc(-1 * var(--size)) calc(1 * var(--size)) 0 var(--color),
+    calc(1 * var(--size)) calc(1 * var(--size)) 0 var(--color);
+
+    will-change: transform, opacity;
+}
+
+/* @keyframes nextFadeIn {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+} */
 
 #shotRounds,
 #introTextG2 {
@@ -379,7 +431,6 @@
 }
 
 @media screen and (min-width: 600px) and (max-height: 600px) {
-
   #game2End {
     max-height: 100vh;
     max-height: 100dvh;
@@ -410,7 +461,6 @@
     filter: brightness(0.85);
   } */
 
-
   /* #game2End button {
     position: absolute;
     right: 0;
@@ -426,5 +476,4 @@
     left: 0;
     width: max-content;
   } */
-  
 }

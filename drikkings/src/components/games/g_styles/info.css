@@ -37,13 +37,6 @@
   margin: 0;
 }
 
-#vipps {
-  text-align: center;
-  -webkit-user-select:text; /* Safari */
-  -ms-user-select: text; /* IE 10 and IE 11 */
-  user-select:text; /* Standard syntax */
-}
-
 .emptySpace {
   flex-grow: 1; /* Allow the space to grow and take available space */
   min-height: 1.5rem; /* Minimum height to ensure it takes some space */
@@ -79,8 +72,14 @@
 }
 
 #vipps {
+  text-align: center;
+  -webkit-user-select:text; /* Safari */
+  -ms-user-select: text; /* IE 10 and IE 11 */
+  user-select:text; /* Standard syntax */
   font-size: 0.8rem;
   margin: 0;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .footer a {

@@ -121,7 +121,7 @@ function Game2() {
     gun.style.filter = "grayscale(100%)";
 
     // Generate a random rotation increment between 1 and 8 full rotations
-    let rotationIncrement = randomRange(1, 4) * 360 + randomRange(0, 360);
+    let rotationIncrement = randomRange(2, 4) * 360 + randomRange(0, 360);
 
     // Generate random rotationSpeed for more dynamic spins
     const rotationSpeed = randomRange(1100, 1700);
@@ -145,8 +145,25 @@ function Game2() {
     setTimeout(() => {
       game2Container.style.pointerEvents = "auto";
       gun.style.filter = "grayscale(0%)";
+      animateText(); // Animate the text after the spin
     }, rotationSpeed);
   };
+
+  // "Next" text animation when gun is finished spinning
+  
+  function animateText() {
+    const nextText = document.getElementById("nextText");
+    nextText.style.opacity = "1";
+    nextText.style.animation = "comeIn 0.5s forwards";
+    
+    setTimeout(() => { 
+      nextText.style.animation = "none"; // Reset animation
+      nextText.style.transition = "opacity 0.25s ease-in-out"; // Smooth transition for opacity
+      nextText.style.opacity = "0"; // Fade out the text
+
+    }
+    , 1250); // Match the duration of the animation
+  }
 
   // Resets the gun to its original position
   function resetGun() {
@@ -211,6 +228,9 @@ function Game2() {
 
         </p>
 
+        <div id="nextText">
+          <h1>NESTE</h1>
+        </div>
       </div>
 
       {gameIntro && (
