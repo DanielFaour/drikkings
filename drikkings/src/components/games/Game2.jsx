@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import "./g_styles/game2.css";
 import game2Pang2 from './g_assets/game2/pang_light.jpg';
 import game2Pang2_dark from './g_assets/game2/pang_dark.jpg';
+import RoundsLeft from "./g_assets/game2/component/roundsLeft";
 
 function Game2() {
   const navigate = useNavigate();
@@ -239,9 +240,10 @@ function Game2() {
         </p>
 
         <div id="nextText"/>
-        
       </div>
-
+      <div id="shotVisual">
+          <RoundsLeft rounds={shotRounds} />
+      </div>
       {gameIntro && (
         <div id="game2Start" className={isIntroClicked ? "clicked" : ""}>
           <div
