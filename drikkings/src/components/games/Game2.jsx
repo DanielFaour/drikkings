@@ -10,6 +10,7 @@ function Game2() {
   const [gameEnd, setGameEnd] = useState(false);
   const [isIntroClicked, setIsIntroClicked] = useState(false);
   const [firstPress, setFirstPress] = useState(false);
+  const [firstNextText, setFirstNextText] = useState(false);
 
   const [randomNumber, setRandomNumber] = useState(null);
   const [shotRounds, setShotRounds] = useState(0);
@@ -97,6 +98,7 @@ function Game2() {
       // setGameIntro(true);
       // setIsIntroClicked(false);
       setGameEnd(true);
+      setFirstNextText(false);
       resetGun();
       setShotRounds(0);
     } else {
@@ -153,6 +155,14 @@ function Game2() {
   
   function animateText() {
     const nextText = document.getElementById("nextText");
+
+    if (!firstNextText) {
+      nextText.innerHTML = "<h1>START</h1>";
+      setFirstNextText(true);
+    } else {
+      nextText.innerHTML = "<h1>NESTE</h1>";
+    }
+
     nextText.style.opacity = "1";
     nextText.style.animation = "comeIn 0.5s forwards";
     
@@ -228,9 +238,8 @@ function Game2() {
 
         </p>
 
-        <div id="nextText">
-          <h1>NESTE</h1>
-        </div>
+        <div id="nextText"/>
+        
       </div>
 
       {gameIntro && (
