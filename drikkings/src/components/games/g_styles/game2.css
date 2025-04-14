@@ -80,7 +80,7 @@
   
   --color: black;
   --size: 2px;
-  color: rgb(60, 255, 0);
+  color: #10c400;
 
   text-shadow:
     calc(-1 * var(--size)) calc(-1 * var(--size)) 0 var(--color),
@@ -133,16 +133,22 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  color: white;
+  font-size: 1.5rem;
   max-width: 50px;               /* Optional cap */
   background-color: black;
+  border: black solid 2px;
 }
 
 .dark #roundVisual {
   background-color: white;
+  color: black;
+  border: white solid 2px;
 }
 
 .firedRoundVisual {
-  transition: 0.15s ease-in; 
+  transition: 0.15s ease-in;
+  color: #10c400;
 }
 
 
@@ -160,8 +166,12 @@
 
 #shotRounds,
 #introTextG2 {
+  position: absolute;
+  bottom: 0;
   margin: 0;
+  margin-bottom: 4.7rem;
   line-height: 1.2;
+  font-size: 1.1rem;
   align-items: center;
   align-self: center;
   width: 90%;

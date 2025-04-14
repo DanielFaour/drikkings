@@ -127,7 +127,7 @@ function Game2() {
     let rotationIncrement = randomRange(2, 4) * 360 + randomRange(0, 360);
 
     // Generate random rotationSpeed for more dynamic spins
-    const rotationSpeed = randomRange(1100, 1700);
+    const rotationSpeed = randomRange(1200, 1800);
 
     // Add a smooth transition for rotation
     gun.style.transition = `transform ${rotationSpeed}ms ease-in-out`; // Adjust time for smoother spin
@@ -176,6 +176,13 @@ function Game2() {
     , 1250); // Match the duration of the animation
   }
 
+  function resetNextText() {
+    const nextText = document.getElementById("nextText");
+    nextText.style.animation = "none"; // Reset animation
+    nextText.style.opacity = "0"; // Fade out the text
+
+  }
+
   // Resets the gun to its original position
   function resetGun() {
     const gun = document.getElementById("revGun");
@@ -209,6 +216,7 @@ function Game2() {
 
       const game2Pang = document.getElementById("game2Pang");
       game2Pang.style.animation = "comeIn 0.5s forwards";
+      resetNextText();
 
       return () => clearTimeout(timeout);
     }
@@ -226,7 +234,7 @@ function Game2() {
       <h2 id="g2_title">Shot Roulette</h2>
 
       <div id="game2Container" onPointerUp={shotsFired}>
-        <p id="introTextG2" className={firstPress ? "clicked" : ""}>Trykk for å skyte revolveren!</p>
+        {/* <p id="introTextG2" className={firstPress ? "clicked" : ""}>Trykk for å skyte revolveren!</p> */}
         <div id="revGun">
           <img draggable="false" className="rev_light" src={imageCache.current["revolver"]?.src} alt="revolver" />
           <img draggable="false" className="rev_dark" src={imageCache.current["revolver_dark"]?.src} alt="revolver" />
