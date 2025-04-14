@@ -70,6 +70,7 @@ function Game2() {
     if (!imagesLoaded || isIntroClicked) return; // Prevent click if images aren't loaded
 
     setIsIntroClicked(true);
+    resetNextText();
 
     const newRandomNumber = Math.floor(Math.random() * 6);
     setRandomNumber(newRandomNumber);
@@ -77,6 +78,7 @@ function Game2() {
 
     setTimeout(() => {
       setGameIntro(false);
+      resetNextText();
       resetGun();
       spinGun();
     }, 1500);
