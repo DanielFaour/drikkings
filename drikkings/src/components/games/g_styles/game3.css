@@ -37,6 +37,9 @@
     width: 90%;
     line-height: 1; 
     display: block;
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 1.5rem;
   }
 
  #introTextG3.clicked {

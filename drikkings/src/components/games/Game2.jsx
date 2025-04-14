@@ -12,6 +12,7 @@ function Game2() {
   const [isIntroClicked, setIsIntroClicked] = useState(false);
   const [firstPress, setFirstPress] = useState(false);
   const [firstNextText, setFirstNextText] = useState(false);
+  const [clicked, setClicked] = useState(false);
 
   const [randomNumber, setRandomNumber] = useState(null);
   const [shotRounds, setShotRounds] = useState(0);
@@ -19,12 +20,11 @@ function Game2() {
 
   const [imagesLoaded, setImagesLoaded] = useState(false);
 
-  // Cache images using useRef
   const imageCache = useRef({});
+  const clickTextRef = useRef(null);
+  const timeoutRef = useRef(null);
 
-  
-
-  // check if images loaded
+  // image loading before gamestart
   useEffect(() => {
     const imagePaths = {
       noBullet: new URL("./g_assets/game2/rev_nobullet.png", import.meta.url).href,
@@ -43,7 +43,7 @@ function Game2() {
         const img = new Image();
         img.src = imagePaths[key];
         img.onload = () => {
-          imageCache.current[key] = img; // Store in cache
+          imageCache.current[key] = img;
           loadedCount++;
           if (loadedCount === Object.keys(imagePaths).length) {
             setImagesLoaded(true);
@@ -58,7 +58,7 @@ function Game2() {
     }
   }, []);
 
-  // prevent scrolling
+  // prevents scrolling
   useEffect(() => {
     const preventScroll = (e) => e.preventDefault();
     document.addEventListener("touchmove", preventScroll, { passive: false });
@@ -68,17 +68,27 @@ function Game2() {
     };
   }, []);
 
+  // timeout for hintText "trykk for å skyte revolveren"
+  useEffect(() => {
+    return () => {
+      clearTimeout(timeoutRef.current);
+    };
+  }, []);
+
+  // start game function
   function startGame() {
-    if (!imagesLoaded || isIntroClicked) return; // Prevent click if images aren't loaded
+    if (!imagesLoaded || isIntroClicked) return;
+    const nextText = document.getElementById("nextText");
+    nextText.style.display = "none";
 
     setIsIntroClicked(true);
     resetNextText();
 
     const newRandomNumber = Math.floor(Math.random() * 6);
     setRandomNumber(newRandomNumber);
-    // console.log("Generated randomNumber:", newRandomNumber);
 
     setTimeout(() => {
+      nextText.style.display = "inline";
       setGameIntro(false);
       resetNextText();
       resetGun();
@@ -86,83 +96,97 @@ function Game2() {
     }, 1500);
   }
 
-  // When gun is tapped
+  // when activated from gamedivbox, activate shotsFired
   function shotsFired() {
     const amountRoundsFired = shotRounds + 1;
     setShotRounds(amountRoundsFired);
     console.log("Shots Fired", amountRoundsFired);
     console.log("Hot Round", randomNumber + 1);
+    setClicked(true);
 
-    // set firstPress to true
+    if (clickTextRef.current) {
+      clickTextRef.current.style.opacity = "0";
+    }
+
+    // when shooting, clear timeout
+    clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => {
+      if (clickTextRef.current) {
+        clickTextRef.current.style.opacity = "1";
+      }
+    }, 15000);
+
     if (!firstPress) {
       setFirstPress(true);
     }
 
+    // if chamber is live, shoot, if not do otherwise
     if (amountRoundsFired == randomNumber + 1) {
       console.log("BANG");
-      // setGameIntro(true);
-      // setIsIntroClicked(false);
       setGameEnd(true);
       setFirstNextText(false);
       resetGun();
       setShotRounds(0);
     } else {
       console.log("CLICK");
-      // spins gun at the beginning of the game
-      spinGun()
+      spinGun();
     }
   }
 
+  // function for creating random numbers in range
   function randomRange(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
   }
 
+  // spinning animation function for the gun
   const spinGun = () => {
     const gun = document.getElementById("revGun");
     const img = document.getElementsByTagName("img");
     const game2Container = document.getElementById("game2Container");
 
-    game2Container.style.pointerEvents = "none"; // Disable click during spin
-    gun.style.pointerEvents = "none"; // Disable click during spin
-    img.pointerEvents = "none"; // Disable click during spin
+    if (!gun || !img || !game2Container) {
+      console.error(
+        `${!gun ? "gun element is null. " : ""}` +
+        `${!img ? "img element is null. " : ""}` +
+        `${!game2Container ? "game2Container element is null. " : ""}`
+      );
+      return;
+    }
+
+    game2Container.style.pointerEvents = "none";
+    gun.style.pointerEvents = "none";
+    img.pointerEvents = "none";
     gun.style.filter = "grayscale(100%)";
 
-    // Generate a random rotation increment between 1 and 8 full rotations
     let rotationIncrement = randomRange(2, 4) * 360 + randomRange(0, 360);
-
-    // Generate random rotationSpeed for more dynamic spins
     const rotationSpeed = randomRange(1200, 1800);
 
-    // Add a smooth transition for rotation
-    gun.style.transition = `transform ${rotationSpeed}ms ease-in-out`; // Adjust time for smoother spin
+    gun.style.transition = `transform ${rotationSpeed}ms ease-in-out`;
 
-    // Use the previous rotation value to calculate the new one
     setCurrentRotation((prevRotation) => {
       const newRotation = prevRotation + rotationIncrement;
-
-      // Apply the new rotation directly
       gun.style.transform = `rotate(${newRotation}deg)`;
-
-      return newRotation; // Return the updated value to set the state
+      return newRotation;
     });
 
-    // console.log("currentRotation: ", currentRotation);
-
-    // Re-enable the gun after the animation is complete
     setTimeout(() => {
       game2Container.style.pointerEvents = "auto";
       gun.style.filter = "grayscale(0%)";
-      animateText(); // Animate the text after the spin
+      animateText();
+      setClicked(false);
     }, rotationSpeed);
   };
 
-  // "Next" text animation when gun is finished spinning
-  
+  // animating "next" text indicating next players turn
   function animateText() {
     const nextText = document.getElementById("nextText");
+    const gun = document.getElementById("revGun");
 
-    if (nextText == null) {
-      console.error("nextText element not found");
+    if (nextText == null || gun == null) {
+      console.error(
+        `${!gun ? "gun element is null. " : ""}` +
+        `${!nextText ? "img element is null. " : ""}`
+      )
       return;
     }
 
@@ -175,55 +199,52 @@ function Game2() {
 
     nextText.style.opacity = "1";
     nextText.style.animation = "comeIn 0.35s forwards";
-    
-    setTimeout(() => { 
-      nextText.style.animation = "none"; // Reset animation
-      nextText.style.transition = "opacity 0.3s ease-in-out"; // Smooth transition for opacity
-      nextText.style.opacity = "0"; // Fade out the text
 
-    }
-    , 900); // Match the duration of the animation
+    setTimeout(() => {
+      nextText.style.animation = "none";
+      nextText.style.transition = "opacity 0.3s ease-in-out";
+      nextText.style.opacity = "0";
+    }, 900);
   }
 
+  // reset nextText to hinder text showing after game end and start
   function resetNextText() {
     const nextText = document.getElementById("nextText");
     if (nextText == null) {
       console.error("nextText element not found");
       return;
     }
-    
-    nextText.style.animation = "none"; // Reset animation
-    nextText.style.opacity = "0"; // Fade out the text
 
+    nextText.style.animation = "none";
+    nextText.style.opacity = "0";
   }
 
-  // Resets the gun to its original position
+  // reset gun position before/for game start
   function resetGun() {
     const gun = document.getElementById("revGun");
+
+    if (gun == null) {
+      console.error("gun element not found");
+      return;
+    }
+
     gun.style.transition = "none";
-
-    if (!gun) return; // Safety check
-
     gun.style.transform = "rotate(0deg)";
     setCurrentRotation(0);
-
     resetNextText();
   }
 
+  // reset game values
   function restartGame() {
-    // setGameIntro(true);
-    // setIsIntroClicked(false);
-
     const newRandomNumber = Math.floor(Math.random() * 6);
     setRandomNumber(newRandomNumber);
-
     resetNextText();
     setGameEnd(false);
     resetGun();
     spinGun();
   }
 
-  // delays the clickability on the gameEnd screen + animation
+  // delay for how long after gameend screen you can restart game
   const [canRestart, setCanRestart] = useState(false);
 
   useEffect(() => {
@@ -244,14 +265,16 @@ function Game2() {
       restartGame();
     }
   };
-  
+
   return (
     <div className="game" id="game2">
       <button id="btnReturn" onClick={() => { resetNextText(); navigate("/"); }}>⬅️</button>
       <h2 id="g2_title">Shot Roulette</h2>
+      <p id="clickText" ref={clickTextRef} className={firstPress ? "clicked" : ""}>
+        Hint: Trykk for å skyte revolveren!
+      </p>
 
-      <div id="game2Container" onPointerUp={shotsFired}>
-        {/* <p id="introTextG2" className={firstPress ? "clicked" : ""}>Trykk for å skyte revolveren!</p> */}
+      <div id="game2Container" onPointerUp={() => { shotsFired(); }}>
         <div id="revGun">
           <img draggable="false" className="rev_light" src={imageCache.current["revolver"]?.src} alt="revolver" />
           <img draggable="false" className="rev_dark" src={imageCache.current["revolver_dark"]?.src} alt="revolver" />
@@ -261,15 +284,15 @@ function Game2() {
           Antall avtrekk: {shotRounds} av 6
           <br />
           {Math.round((1 / (6 - shotRounds)) * 100)}% sjanse for å bli skutt!
-
         </p>
 
-        <div id="nextText"/>
-        
+        <div id="nextText" />
       </div>
+
       <div id="shotVisual">
-          <RoundsLeft rounds={shotRounds} />
+        <RoundsLeft rounds={shotRounds} />
       </div>
+
       {gameIntro && (
         <div id="game2Start" className={isIntroClicked ? "clicked" : ""}>
           <div
@@ -289,8 +312,6 @@ function Game2() {
       {gameEnd && (
         <div id="game2End" onPointerUp={handlePointerUp}>
           <div id="spacing"></div>
-          {/* <h1>PAAANG!</h1> */}
-          {/* <img id="game2Pang" src={game2Pang2} alt="pang" /> */}
           <div id="game2Pang">
             <img draggable="false" className="light-img" src={imageCache.current["game2PangImg2"]?.src} alt="pang" />
             <img draggable="false" className="dark-img" src={imageCache.current["game2PangImg2_dark"]?.src} alt="pang" />
@@ -298,12 +319,9 @@ function Game2() {
           </div>
           <div id="spacing"></div>
           <div id="spacing"></div>
-          {/* <div id="endButtons">
-            <button id="btnGame2Return" onClick={() => navigate("/")}>⬅️</button>
-            <button onPointerDown={restartGame}>🔃</button>
-          </div> */}
         </div>
       )}
+
       {imagesLoaded || (
         <div id="gameLoad">
           <h1>Laster inn!</h1>

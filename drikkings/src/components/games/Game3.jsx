@@ -98,18 +98,6 @@ function Game3() {
         requestAnimationFrame(spin); // Call the spin function
     };
 
-
-    //   // Resets the gun to its original position
-    //   function resetGun() {
-    //     const gun = document.getElementById("revGun");
-    //     gun.style.transition = "none";  
-
-    //     if (!gun) return; // Safety check
-
-    //     gun.style.transform = "rotate(0deg)";
-    //     setCurrentRotation(0);
-    //   }
-
     return (
         <div className="game" id="game3">
             <button id="btnReturn" onClick={() => navigate("/")}>⬅️</button>
