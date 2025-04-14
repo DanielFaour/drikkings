@@ -3,8 +3,11 @@ import React from 'react';
 
 
 const RoundsLeft = ({ rounds }) => {
+
+    // change text of last chamber
     function lastRound(key) {
-        if (key == 5) {
+        console.log("test", rounds)
+        if (key == 5 && rounds == 5) {
             return true;
         } else {
             return false;

@@ -126,6 +126,7 @@
   box-sizing: border-box;
 }
 
+
 #roundVisual {
   flex: 1 1 0;
   aspect-ratio: 1;               /* Maintain square shape */

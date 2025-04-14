@@ -22,6 +22,8 @@ function Game2() {
   // Cache images using useRef
   const imageCache = useRef({});
 
+  
+
   // check if images loaded
   useEffect(() => {
     const imagePaths = {
@@ -159,6 +161,11 @@ function Game2() {
   function animateText() {
     const nextText = document.getElementById("nextText");
 
+    if (nextText == null) {
+      console.error("nextText element not found");
+      return;
+    }
+
     if (!firstNextText) {
       nextText.innerHTML = "<h1>START</h1>";
       setFirstNextText(true);
@@ -167,19 +174,25 @@ function Game2() {
     }
 
     nextText.style.opacity = "1";
-    nextText.style.animation = "comeIn 0.5s forwards";
+    nextText.style.animation = "comeIn 0.35s forwards";
     
     setTimeout(() => { 
       nextText.style.animation = "none"; // Reset animation
-      nextText.style.transition = "opacity 0.25s ease-in-out"; // Smooth transition for opacity
+      nextText.style.transition = "opacity 0.3s ease-in-out"; // Smooth transition for opacity
       nextText.style.opacity = "0"; // Fade out the text
 
     }
-    , 1250); // Match the duration of the animation
+    , 900); // Match the duration of the animation
   }
 
   function resetNextText() {
     const nextText = document.getElementById("nextText");
+    
+    if (nextText == null) {
+      console.error("nextText element not found");
+      return;
+    }
+
     nextText.style.animation = "none"; // Reset animation
     nextText.style.opacity = "0"; // Fade out the text
 
@@ -194,6 +207,8 @@ function Game2() {
 
     gun.style.transform = "rotate(0deg)";
     setCurrentRotation(0);
+
+    resetNextText();
   }
 
   function restartGame() {
@@ -203,6 +218,7 @@ function Game2() {
     const newRandomNumber = Math.floor(Math.random() * 6);
     setRandomNumber(newRandomNumber);
 
+    resetNextText();
     setGameEnd(false);
     resetGun();
     spinGun();
@@ -229,10 +245,10 @@ function Game2() {
       restartGame();
     }
   };
-
+  
   return (
     <div className="game" id="game2">
-      <button id="btnReturn" onClick={() => navigate("/")}>⬅️</button>
+      <button id="btnReturn" onClick={() => { resetNextText(); navigate("/"); }}>⬅️</button>
       <h2 id="g2_title">Shot Roulette</h2>
 
       <div id="game2Container" onPointerUp={shotsFired}>
@@ -250,6 +266,7 @@ function Game2() {
         </p>
 
         <div id="nextText"/>
+        
       </div>
       <div id="shotVisual">
           <RoundsLeft rounds={shotRounds} />
