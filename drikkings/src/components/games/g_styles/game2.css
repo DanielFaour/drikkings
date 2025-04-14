@@ -80,7 +80,7 @@
   
   --color: black;
   --size: 2px;
-  color: #10c400;
+  color: #34dd00;
 
   text-shadow:
     calc(-1 * var(--size)) calc(-1 * var(--size)) 0 var(--color),
@@ -96,7 +96,7 @@
   
   --color: black;
   --size: 2px;
-  color: rgb(60, 255, 0);
+  color: #34dd00;
 
   text-shadow:
     calc(-1 * var(--size)) calc(-1 * var(--size)) 0 var(--color),
@@ -148,7 +148,7 @@
 
 .firedRoundVisual {
   transition: 0.15s ease-in;
-  color: #10c400;
+  color: #34dd00;
 }
 
 

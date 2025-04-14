@@ -17,7 +17,7 @@ const RoundsLeft = ({ rounds }) => {
                 Array.from({ length: 6 }).map((_, i) => (
                     i < rounds ? (
                         <div id="roundVisual" key={i} className='firedRoundVisual' style={{
-                            backgroundColor: "#10c400"
+                            backgroundColor: "#34dd00"
                         }}></div>
                     ) : (
                         <div id="roundVisual" key={i}>{lastRound(i) ? '☠️' : '?'}</div>
