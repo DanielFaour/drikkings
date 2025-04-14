@@ -146,7 +146,7 @@ function Game2() {
       return newRotation; // Return the updated value to set the state
     });
 
-    console.log("currentRotation: ", currentRotation);
+    // console.log("currentRotation: ", currentRotation);
 
     // Re-enable the gun after the animation is complete
     setTimeout(() => {
@@ -187,12 +187,11 @@ function Game2() {
 
   function resetNextText() {
     const nextText = document.getElementById("nextText");
-    
     if (nextText == null) {
       console.error("nextText element not found");
       return;
     }
-
+    
     nextText.style.animation = "none"; // Reset animation
     nextText.style.opacity = "0"; // Fade out the text
 

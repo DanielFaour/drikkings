@@ -6,7 +6,7 @@ const RoundsLeft = ({ rounds }) => {
 
     // change text of last chamber
     function lastRound(key) {
-        console.log("test", rounds)
+        // console.log("test", rounds)
         if (key == 5 && rounds == 5) {
             return true;
         } else {
