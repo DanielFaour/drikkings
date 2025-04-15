@@ -6,7 +6,11 @@ function Game3() {
     const navigate = useNavigate();
 
     const imageCache = useRef({});
+
     const [currentRotation, setCurrentRotation] = useState(0);
+    const [currentRotationSpeed, setCurrentRotationSpeed] = useState(0);
+
+
     const [imagesLoaded, setImagesLoaded] = useState(false);
     const [firstPress, setFirstPress] = useState(false);
 
@@ -54,49 +58,66 @@ function Game3() {
         };
     }, []);
 
-    let isSpinning = false;
-
     const spinBottle = () => {
-        if (isSpinning) return; // Prevents multiple spins at the same time
-
-        isSpinning = true;
-
         const bottle = document.getElementById("revBottle");
 
-        // Set firstPress to true
         if (!firstPress) {
             setFirstPress(true);
         }
 
-        // Generate a random rotation increment
-        let rotationIncrement = (randomRange(2, 5) * 360) + randomRange(0, 360);
+        // Update and apply rotation speed
+        const baseRotationSpeed = 3000;
+        const newRotationSpeed = currentRotationSpeed + 500;
+        setCurrentRotationSpeed(newRotationSpeed);
 
-        // Generate random rotationSpeed for more dynamic spins, for now it's a fixed value
-        const rotationSpeed = 4000;
+        const totalSpeed = baseRotationSpeed + newRotationSpeed;
+        
+        // Cap speed if it gets too high
+        // if (newRotationSpeed > 12000) {
+        //     setCurrentRotationSpeed(newRotationSpeed / 2);
+        // }
 
-        // Add a smooth transition for rotation
-        bottle.style.transition = `transform ${rotationSpeed}ms ease-out`;
+        // Generate a new random degree and save it for the reset
+        const newRandomDegree = randomRange(0, 360);
+        // Rotation increment for this spin
+        const rotationIncrement = (randomRange(3, 5) * 360)
 
-        // Use requestAnimationFrame for smoother updates
-        const spin = () => {
-            setCurrentRotation((prevRotation) => {
-                const newRotation = prevRotation + rotationIncrement;
-                console.log("New rotation:", newRotation);
+        // // Calculate and apply the new rotation
+        const finalRotation = currentRotation + rotationIncrement;
 
-                // Apply the new rotation directly
-                bottle.style.transform = `rotate(${newRotation}deg)`;
+        if (newRotationSpeed > 10000) { 
+            return;
+        }
 
-                return newRotation; // Return the updated value to set the state
-            });
+        if (finalRotation > 40000) {
+        } else {
+        }
+        setCurrentRotation(finalRotation);
+        bottle.style.transition = `transform ${totalSpeed}ms cubic-bezier(0.25, 0.30, 0.40, 1)`;
+        console.log("r:", finalRotation, "s:", totalSpeed);
+        
+        bottle.style.transform = `rotate(${finalRotation + newRandomDegree}deg)`;
 
-            // Wait until the rotation is finished before allowing another spin
-            setTimeout(() => {
-                isSpinning = false; // Allow another spin after the transition is complete
-            }, rotationSpeed); // Matches the rotation speed (in ms)
+
+        // Handle end of spin
+        const onSpinEnd = () => {
+            console.log("Spin complete!");
+
+            // Reset state and visual position to clean degree
+            setCurrentRotationSpeed(0);
+            setCurrentRotation(0);
+
+            // Remove transition before snapping to new clean angle
+            bottle.style.transition = "none";
+            bottle.style.transform = `rotate(${newRandomDegree}deg)`;
+
+            bottle.removeEventListener("transitionend", onSpinEnd);
         };
 
-        requestAnimationFrame(spin); // Call the spin function
+        bottle.addEventListener("transitionend", onSpinEnd);
     };
+
+
 
     return (
         <div className="game" id="game3">
