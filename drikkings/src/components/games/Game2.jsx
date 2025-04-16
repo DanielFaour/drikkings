@@ -68,7 +68,7 @@ function Game2() {
     };
   }, []);
 
-  // timeout for hintText "trykk for å skyte revolveren"
+  // clear timeout hintText
   useEffect(() => {
     return () => {
       clearTimeout(timeoutRef.current);
@@ -270,7 +270,7 @@ function Game2() {
     <div className="game" id="game2">
       <button id="btnReturn" onClick={() => { resetNextText(); navigate("/"); }}>⬅️</button>
       <h2 id="g2_title">Shot Roulette</h2>
-      <p id="clickText" ref={clickTextRef} className={firstPress ? "clicked" : ""}>
+      <p id="clickTextGame2" ref={clickTextRef} className={firstPress ? "clicked" : ""}>
         Hint: Trykk for å skyte revolveren!
       </p>
 

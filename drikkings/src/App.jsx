@@ -10,6 +10,7 @@ import GamesCards from './components/GamesCards';
 import Game1 from './components/games/Game1';
 import Game2 from './components/games/Game2';
 import Game3 from './components/games/Game3';
+import Game4 from './components/games/Game4';
 
 function App() {
   return (
@@ -39,6 +40,7 @@ function App() {
             <Route path="/games/game1" element={<Game1 />} />
             <Route path="/games/game2" element={<Game2 />} />
             <Route path="/games/game3" element={<Game3 />} />
+            <Route path="/games/game4" element={<Game4 />} />
             <Route path="/games/info" element={<Info />} />
           </Routes>
         </div>

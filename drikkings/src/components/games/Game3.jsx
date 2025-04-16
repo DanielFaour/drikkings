@@ -10,9 +10,10 @@ function Game3() {
     const [currentRotation, setCurrentRotation] = useState(0);
     const [currentRotationSpeed, setCurrentRotationSpeed] = useState(0);
 
-
     const [imagesLoaded, setImagesLoaded] = useState(false);
     const [firstPress, setFirstPress] = useState(false);
+    const clickTextRef = useRef(null);
+    const timeoutRef = useRef(null);
 
     // creates a random number between min and max
     function randomRange(min, max) {
@@ -65,13 +66,30 @@ function Game3() {
             setFirstPress(true);
         }
 
+        // hides hint when bottle is clicked
+        if (clickTextRef.current) {
+            clickTextRef.current.style.opacity = "0";
+          }
+      
+          // when shooting, clear timeout
+          clearTimeout(timeoutRef.current);
+          timeoutRef.current = setTimeout(() => {
+            if (clickTextRef.current) {
+              clickTextRef.current.style.opacity = "1";
+            }
+          }, 15000);
+      
+          if (!firstPress) {
+            setFirstPress(true);
+          }
+
         // Update and apply rotation speed
         const baseRotationSpeed = 3000;
         const newRotationSpeed = currentRotationSpeed + 500;
         setCurrentRotationSpeed(newRotationSpeed);
 
         const totalSpeed = baseRotationSpeed + newRotationSpeed;
-        
+
         // Cap speed if it gets too high
         // if (newRotationSpeed > 12000) {
         //     setCurrentRotationSpeed(newRotationSpeed / 2);
@@ -85,7 +103,7 @@ function Game3() {
         // // Calculate and apply the new rotation
         const finalRotation = currentRotation + rotationIncrement;
 
-        if (newRotationSpeed > 10000) { 
+        if (newRotationSpeed > 10000) {
             return;
         }
 
@@ -95,7 +113,7 @@ function Game3() {
         setCurrentRotation(finalRotation);
         bottle.style.transition = `transform ${totalSpeed}ms cubic-bezier(0.25, 0.30, 0.40, 1)`;
         console.log("r:", finalRotation, "s:", totalSpeed);
-        
+
         bottle.style.transform = `rotate(${finalRotation + newRandomDegree}deg)`;
 
 
@@ -123,6 +141,9 @@ function Game3() {
         <div className="game" id="game3">
             <button id="btnReturn" onClick={() => navigate("/")}>⬅️</button>
             <h2 id="g3_title">Flasketuten peker på</h2>
+            <p id="clickTextGame3" ref={clickTextRef} className={firstPress ? "clicked" : ""}>
+                Hint: Trykk for å spinne flasken!
+            </p>
 
             <div id="game3Container" onPointerDown={spinBottle}>
                 <div id="spacingTop"></div>

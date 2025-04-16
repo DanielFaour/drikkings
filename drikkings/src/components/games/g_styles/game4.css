@@ -1,0 +1,64 @@
+#game4Container {
+    width: 100vw;
+    width: 100dvw;
+    height: 100vh;
+    height: 100dvh;
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    max-height: 100%;
+    flex-direction: column;
+  }
+
+  #nav {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 4.2rem;
+    width: 100vw;
+    background-color: white;
+    z-index: 200;
+  }
+
+  .dark #nav {
+    background-color: #242424;
+  }
+
+  #touchZone {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    touch-action: none;
+    transition: 200ms;
+  }
+
+.touchSpot {
+    position: absolute;
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    /* border: black solid 5px; */
+}
+
+.dark .touchSpot {
+    /* border: white solid 5px; */
+}
+
+  #ruleText {
+    position: absolute;
+    bottom: 0;
+    margin: 0;
+    margin-bottom: 1.5rem;
+    line-height: 1.2;
+    font-size: 1.3rem;
+    align-items: center;
+    align-self: center;
+    width: 90%;
+  }

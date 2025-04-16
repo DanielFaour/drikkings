@@ -8,6 +8,7 @@ function GameInfo() {
 
   return (
     <div id="info_game">
+      <div id="nav"></div>
       <button id="btnReturn" onClick={() => navigate('/')}>⬅️</button>
       <div id="infoContainer">
         <h2>Spillinfo</h2>
@@ -33,6 +34,12 @@ function GameInfo() {
         <p>Nøyaktig hva det høres ut som! En flaske som spinner og peker på deltakeren som må gjøre noe.
           Trykk på flasken for å få den til å spinne, og dere bestemmer
           reglene selv. For eksempel kan det være å ta en slurk, eller gjøre noe sprøtt!
+          <br /><br />
+        </p>
+        <h3>🎨 Color Picker 🎨</h3>
+        <p>I dette spillet kan man maks være 5 spillere. Hver spiller plasserer en finger på skjermen. Hver spiller får sin egen farge,
+          og når tiden går ut vil skjermen endre farge til en av spillernes farge, som betyr at vedkommende må ta en slurk eller shot!
+          Dette spillet er work in progress.
           <br /><br />
         </p>
         <h3>⏱️ Flere spill på vei ⏱️</h3>

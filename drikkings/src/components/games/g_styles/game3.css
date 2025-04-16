@@ -46,6 +46,15 @@
     animation: fadeOut 1s ease-in-out 1s forwards;
   }
 
+  #clickTextGame3 {
+    margin-top: 1rem;
+    align-items: center;
+    align-self: center;
+    transition: 0.1s;
+    line-height: 1.2;
+    font-size: 1.1rem;
+  }
+
   @keyframes fadeOut {
     0% {
       opacity: 1;
