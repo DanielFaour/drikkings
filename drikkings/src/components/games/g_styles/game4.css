@@ -44,11 +44,11 @@
     border-radius: 50%;
     transform: translate(-50%, -50%);
     pointer-events: none;
-    /* border: black solid 5px; */
+    border: white solid 5px;
 }
 
 .dark .touchSpot {
-    /* border: white solid 5px; */
+    border: #242424 solid 5px;
 }
 
   #ruleText {

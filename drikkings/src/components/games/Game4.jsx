@@ -16,6 +16,7 @@ function Game4() {
     const [selectedColors, setSelectedColors] = useState([]);
 
     const clickRef = useRef(null);
+    const [gameActive, setGameActive] = useState(false);
 
     // check if images loaded
     useEffect(() => {
@@ -115,7 +116,7 @@ function Game4() {
             return colors[ranColor];  // Return the color based on the random index
         } else {
             // Prevent too much recursion by limiting the number of attempts
-            if (attempts > 20) {
+            if (attempts > 15) {
                 console.error("Too many recursion attempts, breaking out.");
                 return null;  // Or some default behavior
             }
@@ -125,12 +126,49 @@ function Game4() {
         }
     }
 
+    useEffect(() => {
+        const touchZone = document.getElementById("touchZone");
+        let timeOutRef;
+
+        const color = selectedColors[randomRange(0, Object.keys(activeTouches).length - 1)];
+
+        console.log("active touch:", Object.keys(activeTouches).length);
+        console.log("selected color:", selectedColors[0]);
+
+        if (timeOutRef) {
+            clearTimeout(timeOutRef); // Clear the previous timeout
+        }
+        if (!gameActive) {
+            timeOutRef = setTimeout(() => {
+
+                const activeTouchCount = Object.keys(activeTouches).length;
+                console.log("Active touches count:", activeTouchCount);
+                touchZone.style.backgroundColor = colors[color];
+                setGameActive(true);
+                console.log("activated");
+
+                // Remove the background color after some time
+                setTimeout(() => {
+                    setGameActive(false);
+                    touchZone.style.backgroundColor = "";
+                    console.log("deactivated");
+                }, 3000); // Adjust the time as needed
+            }, 1000);
+
+            return () => {
+                if (timeOutRef) {
+                    clearTimeout(timeOutRef); // Clear timeout on cleanup
+                }
+            };
+        }
+    }, [activeTouches]);
+
     // touch event listener
     useEffect(() => {
         const touchZone = document.getElementById("touchZone");
-
         // handles pointer down
         const handlePointerDown = (event) => {
+
             isDragging.current = true;
             // Get a unique color for this touch
             const color = getColor();
