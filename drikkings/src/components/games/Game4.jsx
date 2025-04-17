@@ -124,7 +124,7 @@ function Game4() {
             default:
                 ruleText.innerHTML = "2-5 spillere";
                 setCurrentTouches(0);
-                setcolorBackgroundActive(false);
+                // setcolorBackgroundActive(false);
         }
     }, [activeTouches]);
 
@@ -144,8 +144,8 @@ function Game4() {
         }
 
         if (gameActive && !colorBackgroundActive) {
-            setcolorBackgroundActive(true);
             timeOutRef = setTimeout(() => {
+                setcolorBackgroundActive(true);
                 touchZone.style.backgroundColor = colors[color];
                 console.log("activated");
                 // // Remove the background color after some time
@@ -153,7 +153,7 @@ function Game4() {
                 //     touchZone.style.backgroundColor = "";
                 //     console.log("deactivated");
                 // }, 2000); // Adjust the time as needed
-            }, 3000);
+            }, 3500);
 
             return () => {
                 if (timeOutRef) {
@@ -163,6 +163,7 @@ function Game4() {
         }
 
         if (!gameActive && activeTouchCount == 0) {
+            setcolorBackgroundActive(false);
             setTimeout(() => {
                 touchZone.style.backgroundColor = "";
                 console.log("deactivated");
