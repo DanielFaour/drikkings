@@ -36,6 +36,10 @@
     touch-action: none;
     transition: 200ms;
   }
+  
+  .dark #touchZone {
+    filter: brightness(0.85);
+  }
 
 .touchSpot {
     position: absolute;
@@ -44,12 +48,15 @@
     border-radius: 50%;
     transform: translate(-50%, -50%);
     pointer-events: none;
-    border: white solid 5px;
+    border: rgb(240, 240, 240) solid 5px;
 }
 
 .dark .touchSpot {
     border: #242424 solid 5px;
+    filter: brightness(0.85);
 }
+
+
 
   #ruleText {
     position: absolute;
