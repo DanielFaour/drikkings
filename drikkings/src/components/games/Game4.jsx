@@ -124,6 +124,7 @@ function Game4() {
             default:
                 ruleText.innerHTML = "2-5 spillere";
                 setCurrentTouches(0);
+                setcolorBackgroundActive(false);
         }
     }, [activeTouches]);
 
@@ -142,7 +143,8 @@ function Game4() {
             clearTimeout(timeOutRef); // Clear the previous timeout
         }
 
-        if (gameActive) {
+        if (gameActive && !colorBackgroundActive) {
+            setcolorBackgroundActive(true);
             timeOutRef = setTimeout(() => {
                 touchZone.style.backgroundColor = colors[color];
                 console.log("activated");
