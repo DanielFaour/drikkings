@@ -15,8 +15,9 @@ function Game4() {
     const colors = ["#FF4C4C", "#4C9AFF", "#4CFF91", "#FFC94C", "#C04CFF"];
     const [selectedColors, setSelectedColors] = useState([]);
 
-    const clickRef = useRef(null);
     const [gameActive, setGameActive] = useState(false);
+    const [currentTouches, setCurrentTouches] = useState(0);
+    const [colorBackgroundActive, setcolorBackgroundActive] = useState(false);
 
     // check if images loaded
     useEffect(() => {
@@ -60,47 +61,6 @@ function Game4() {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    // const handlePointerDown = () => {
-    //     const touchZone = document.getElementById("touchZone");
-    //     let timeOutRef;
-
-    //     if (timeOutRef) {
-    //         clearTimeout(timeOutRef); // Clear the previous timeout
-    //     }
-
-    //     timeOutRef = setTimeout(() => {
-    //         const activeTouchCount = Object.keys(activeTouches).length;
-    //         console.log("Active touches count:", activeTouchCount);
-    //         touchZone.style.backgroundColor = "grey";
-    //         console.log("activated");
-
-    //         // Remove the background color after some time
-    //         setTimeout(() => {
-    //             touchZone.style.backgroundColor = "";
-    //             console.log("deactivated");
-    //         }, 5000); // Adjust the time as needed
-    //     }, 2000);
-
-    //     return () => {
-    //         if (timeOutRef) {
-    //             clearTimeout(timeOutRef); // Clear timeout on cleanup
-    //         }
-    //     };
-    // };
-
-    // // Function to get a unique color
-    // function getColor() {
-    //     // Check how many touches there are
-    //     const activeTouchCount = Object.keys(activeTouches).length;
-
-    //     // If there are fewer than 5 touches, return a new color
-    //     if (activeTouchCount < colors.length) {
-    //         return colors[activeTouchCount];
-    //     }
-    //     return null; // No more colors available if there are already 5 touches
-    // }
-
-
     // Function to get a unique color
     function getColor(attempts = 0) {
         const ranColor = randomRange(0, 4);
@@ -126,34 +86,72 @@ function Game4() {
         }
     }
 
+    // game activation on and off
+    useEffect(() => {
+        const activeTouchCount = Object.keys(activeTouches).length
+        const touchZone = document.getElementById("touchZone");
+        const ruleText = document.getElementById("ruleText");
+
+
+        if (!gameActive && activeTouchCount > 1) {
+            setGameActive(true);
+        } else if (gameActive && activeTouchCount == 0) {
+            setGameActive(false);
+        }
+
+        // user response based on input count
+        switch (activeTouchCount) {
+            case 1:
+                ruleText.innerHTML = "1/5 spillere";
+                setCurrentTouches(1);
+                break;
+            case 2:
+                ruleText.innerHTML = "2/5 spillere";
+                setCurrentTouches(2);
+                break;
+            case 3:
+                ruleText.innerHTML = "3/5 spillere";
+                setCurrentTouches(3);
+                break;
+            case 4:
+                ruleText.innerHTML = "4/5 spillere";
+                setCurrentTouches(4);
+                break;
+            case 5:
+                ruleText.innerHTML = "5/5 spillere";
+                setCurrentTouches(5);
+                break;
+            default:
+                ruleText.innerHTML = "2-5 spillere";
+                setCurrentTouches(0);
+        }
+    }, [activeTouches]);
+
+    // here the magic happens - changes the game based on which rules are reached
     useEffect(() => {
         const touchZone = document.getElementById("touchZone");
+        const activeTouchCount = Object.keys(activeTouches).length;
         let timeOutRef;
 
         const color = selectedColors[randomRange(0, Object.keys(activeTouches).length - 1)];
 
         console.log("active touch:", Object.keys(activeTouches).length);
-        console.log("selected color:", selectedColors[0]);
+        // console.log("selected color:", selectedColors[0]);
 
         if (timeOutRef) {
             clearTimeout(timeOutRef); // Clear the previous timeout
         }
-        if (!gameActive) {
+
+        if (gameActive) {
             timeOutRef = setTimeout(() => {
-
-                const activeTouchCount = Object.keys(activeTouches).length;
-                console.log("Active touches count:", activeTouchCount);
                 touchZone.style.backgroundColor = colors[color];
-                setGameActive(true);
                 console.log("activated");
-
-                // Remove the background color after some time
-                setTimeout(() => {
-                    setGameActive(false);
-                    touchZone.style.backgroundColor = "";
-                    console.log("deactivated");
-                }, 3000); // Adjust the time as needed
-            }, 1000);
+                // // Remove the background color after some time
+                // setTimeout(() => {
+                //     touchZone.style.backgroundColor = "";
+                //     console.log("deactivated");
+                // }, 2000); // Adjust the time as needed
+            }, 3000);
 
             return () => {
                 if (timeOutRef) {
@@ -161,7 +159,16 @@ function Game4() {
                 }
             };
         }
-    }, [activeTouches]);
+
+        if (!gameActive && activeTouchCount == 0) {
+            setTimeout(() => {
+                touchZone.style.backgroundColor = "";
+                console.log("deactivated");
+            }, 500); // Adjust the time as needed
+        }
+        
+        
+    }, [gameActive, currentTouches]);
 
     // touch event listener
     useEffect(() => {

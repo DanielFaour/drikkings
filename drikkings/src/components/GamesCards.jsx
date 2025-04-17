@@ -1,4 +1,5 @@
 
+import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './styles/buttons.css'
 
@@ -11,6 +12,7 @@ function GamesCards() {
       </button>
     );
   };
+
   return (
     <>
       <Button onClick={() => navigate('/games/game1')} label="💣 1/16 Minesweeper 💣" border="#FFCD9A" bg="#FFCD9A" text="black" />

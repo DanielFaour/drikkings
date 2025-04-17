@@ -50,7 +50,7 @@ function GameInfo() {
       <footer className="footer">
         <p>Laget av <a href="https://danielfaour.no" target="_blank">Daniel Faour🔗</a></p>
         <a href="https://www.buymeacoffee.com/danielfaour" target="_blank">
-        <img src={bmcImage} alt="Kjøp meg en øl!" style={{width: "160px" }} />
+          <img src={bmcImage} alt="Kjøp meg en øl!" style={{ width: "160px" }} />
         </a>
         <p id="vipps">eller vipps: 47629779</p>
       </footer>
