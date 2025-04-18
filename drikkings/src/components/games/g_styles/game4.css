@@ -38,7 +38,7 @@
   }
   
   .dark #touchZone {
-    filter: brightness(0.85);
+    filter: brightness(0.8);
   }
 
 .touchSpot {
@@ -53,7 +53,6 @@
 
 .dark .touchSpot {
     border: #242424 solid 5px;
-    filter: brightness(0.85);
 }
 
 

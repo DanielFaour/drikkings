@@ -143,7 +143,7 @@ function Game4() {
             clearTimeout(timeOutRef); // Clear the previous timeout
         }
 
-        if (gameActive && !colorBackgroundActive) {
+        if (gameActive && !colorBackgroundActive && activeTouchCount > 1) {
             timeOutRef = setTimeout(() => {
                 setcolorBackgroundActive(true);
                 touchZone.style.backgroundColor = colors[color];
