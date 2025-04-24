@@ -64,6 +64,7 @@ function Game4() {
     // Function to get a unique color
     function getColor(attempts = 0) {
         const ranColor = randomRange(0, 4);
+        const touchZone = document.getElementById("touchZone");
 
         // Check if the color is already in selectedColors, and ensure fewer than 5 colors are selected
         if (!selectedColors.includes(ranColor)) {
@@ -76,8 +77,9 @@ function Game4() {
             return colors[ranColor];  // Return the color based on the random index
         } else {
             // Prevent too much recursion by limiting the number of attempts
-            if (attempts > 15) {
+            if (attempts > 25) {
                 console.error("Too many recursion attempts, breaking out.");
+                // touchZone.style.backgroundColor = "brown";
                 return null;  // Or some default behavior
             }
 
@@ -121,10 +123,12 @@ function Game4() {
                 ruleText.innerHTML = "5/5 spillere";
                 setCurrentTouches(5);
                 break;
+            case 6:
+                break;
             default:
                 ruleText.innerHTML = "2-5 spillere";
                 setCurrentTouches(0);
-                // setcolorBackgroundActive(false);
+            // setcolorBackgroundActive(false);
         }
     }, [activeTouches]);
 
@@ -169,8 +173,8 @@ function Game4() {
                 console.log("deactivated");
             }, 500); // Adjust the time as needed
         }
-        
-        
+
+
     }, [gameActive, currentTouches]);
 
     // touch event listener

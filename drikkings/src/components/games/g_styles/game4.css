@@ -12,7 +12,7 @@
     flex-direction: column;
   }
 
-  #nav {
+  /* #nav {
     position: absolute;
     top: 0;
     left: 0;
@@ -24,7 +24,7 @@
 
   .dark #nav {
     background-color: #242424;
-  }
+  } */
 
   #touchZone {
     width: 100%;
@@ -43,8 +43,8 @@
 
 .touchSpot {
     position: absolute;
-    width: 110px;
-    height: 110px;
+    width: 125px;
+    height: 125px;
     border-radius: 50%;
     transform: translate(-50%, -50%);
     pointer-events: none;

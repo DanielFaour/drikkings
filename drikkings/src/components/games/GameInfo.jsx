@@ -11,7 +11,12 @@ function GameInfo() {
       <div id="nav"></div>
       <button id="btnReturn" onClick={() => navigate('/')}>⬅️</button>
       <div id="infoContainer">
-        <h2>Spillinfo</h2>
+        <h2>Spillinformasjon</h2>
+        <h3>Introduksjon</h3>
+        <p>
+          Denne nettsiden er laget som et hobbyprosjekt ved siden av jobb og studier. Spillene kan spilles som man vil, men de er designet etter reglende under. Har du noen ønsker, feedback eller funnet feil, gjerne send meg epost <a href='mailto:daniea1602@gmail.com'>her!</a>
+          <br /><br />
+        </p>
         <h3>💣 1/16 Minesweeper 💣</h3>
         <p>I dette spillet er det én bombe skjult blant de 16 knappene. Målet er å unngå å trykke på bomben.
           <br /><br />

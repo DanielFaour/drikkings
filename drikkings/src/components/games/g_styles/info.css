@@ -37,6 +37,10 @@
   margin: 0;
 }
 
+#infoContainer h2 {
+  z-index: 1200;
+}
+
 .emptySpace {
   flex-grow: 1; /* Allow the space to grow and take available space */
   min-height: 1.5rem; /* Minimum height to ensure it takes some space */
