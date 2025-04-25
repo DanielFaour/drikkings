@@ -66,6 +66,7 @@ function Game5() {
                 <ShakePermission/>
                 <img draggable="false" id="bottleShake" src={imageCache.current["bottle"]?.src} alt="bottle" />
             </div>
+            
 
             {!imagesLoaded && (
                 <div id="gameLoad">

@@ -12,6 +12,20 @@
   flex-direction: column;
 }
 
+#permissionContainer {
+    width: 100vw;
+    width: 100dvw;
+    height: 100vh;
+    height: 100dvh;
+    position: absolute;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    max-height: 100%;
+    flex-direction: column;
+}
+
 /* bottle */
 #bottleShake {
   position: absolute;
@@ -31,10 +45,25 @@
 }
 
 #permissionBtn {
-  position: absolute;
-  align-self: center;
-  justify-self: center;
-  margin: auto 0;
-  top: 3.5rem;
-  cursor: pointer;
+    position: absolute;
+    align-self: center;
+    justify-self: center;
+    outline: none;
+    box-shadow: none;
+    appearance: none;
+    top: 8rem;
+    cursor: pointer;
+    height: 3rem;
+    font-size: 1rem;
+    background: none;
+    color: black;
+    border: none;
+    border-radius: 5px;
+    border: 2px black solid;
+    padding: 10px;
+}
+
+.dark #permissionBtn {
+    color: rgba(255, 255, 255, 0.9);
+    border: 2px rgba(255, 255, 255, 0.9) solid;
 }

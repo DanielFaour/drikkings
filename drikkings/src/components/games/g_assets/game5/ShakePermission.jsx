@@ -1,17 +1,20 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function MotionPermissionTest() {
   const [granted, setGranted] = useState(false);
 
   const requestPermission = async () => {
+    const bottle = document.getElementById("permissionBtn");
+    bottle.style.filter = "brightness(1)";
+
     if (typeof DeviceMotionEvent?.requestPermission === 'function') {
       try {
         const result = await DeviceMotionEvent.requestPermission();
         if (result === 'granted') {
           setGranted(true);
-          alert('Permission granted! ✅');
+        //   alert('Permission granted! ✅');
         } else {
-          alert('Permission denied ❌');
+          alert('Tillatelse avslått ❌');
         }
       } catch (e) {
         alert('Error: ' + e.message);
@@ -21,9 +24,34 @@ export default function MotionPermissionTest() {
     }
   };
 
+  useEffect(() => {
+    const checkPermission = async () => {
+      if (typeof DeviceMotionEvent?.requestPermission === 'function') {
+        try {
+          const result = await DeviceMotionEvent.requestPermission();
+          if (result === 'granted') {
+            setGranted(true);
+          }
+        } catch (e) {
+          console.error('Error checking permission:', e.message);
+        }
+      }
+    };
+    checkPermission();
+  }, []);
+
+  function pointerDown () {
+    const bottle = document.getElementById("permissionBtn");
+    bottle.style.filter = "brightness(0.8)";
+  }
+
   return (
-      <button onClick={requestPermission} id='permissionBtn'>
-        {granted ? '✅ Motion Enabled' : 'Enable Motion'}
-      </button>
+    <div id="permissionContainer">
+        {!granted && (
+            <button onPointerUp={requestPermission} onPointerDown={pointerDown} id='permissionBtn'>
+            {granted ? '✅ Motion Enabled' : 'Gi tillatelse til bevegelsessensor'}
+          </button>
+        )}
+    </div>
   );
 }

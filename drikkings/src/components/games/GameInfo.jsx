@@ -14,7 +14,7 @@ function GameInfo() {
         <h2>Spillinformasjon</h2>
         <h3>Introduksjon</h3>
         <p>
-          Denne nettsiden er laget som et hobbyprosjekt ved siden av jobb og studier. Spillene kan spilles som man vil, men de er designet etter reglende under. Har du noen ønsker, feedback eller funnet feil, gjerne send meg epost <a href='mailto:daniea1602@gmail.com'>her!</a>
+          Denne nettsiden er laget som et hobbyprosjekt ved siden av jobb og studier. Spillene kan spilles som man vil, men de er designet etter reglene under. Har du noen ønsker, feedback eller funnet feil, send meg gjerne en epost <a href='mailto:daniea1602@gmail.com'>her!</a>
           <br /><br />
         </p>
         <h3>💣 1/16 Minesweeper 💣</h3>
@@ -45,6 +45,10 @@ function GameInfo() {
         <p>I dette spillet kan man maks være 5 spillere. Hver spiller plasserer en finger på skjermen. Hver spiller får sin egen farge,
           og når tiden går ut vil skjermen endre farge til en av spillernes farge, som betyr at vedkommende må ta en slurk eller shot!
           Dette spillet er work in progress.
+          <br /><br />
+        </p>
+        <h3>🍾 Shake It 🍾</h3>
+        <p>Et enkelt spill hvor man rister en flaske med bobler og gir den videre til nestemann før den popper. Deltakeren som popper flasken må hen ta en chug eller shot!
           <br /><br />
         </p>
         <h3>⏱️ Flere spill på vei ⏱️</h3>
