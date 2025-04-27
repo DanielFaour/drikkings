@@ -123,8 +123,6 @@ function Game4() {
                 ruleText.innerHTML = "5/5 spillere";
                 setCurrentTouches(5);
                 break;
-            case 6:
-                break;
             default:
                 ruleText.innerHTML = "2-5 spillere";
                 setCurrentTouches(0);
@@ -157,7 +155,7 @@ function Game4() {
                 //     touchZone.style.backgroundColor = "";
                 //     console.log("deactivated");
                 // }, 2000); // Adjust the time as needed
-            }, 3500);
+            }, 2000);
 
             return () => {
                 if (timeOutRef) {

@@ -20,9 +20,10 @@ function App() {
       {/* <Helmet>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
       </Helmet> */}
-
-      <ThemeToggle />
-      <InfoButton />
+        <ThemeToggle />
+      <div id="nav">
+        <InfoButton />
+      </div>
 
       <div className="bodyContainer">
         <div className="title">

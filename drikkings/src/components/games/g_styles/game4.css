@@ -12,20 +12,6 @@
     flex-direction: column;
   }
 
-  /* #nav {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 4.2rem;
-    width: 100vw;
-    background-color: white;
-    z-index: 200;
-  }
-
-  .dark #nav {
-    background-color: #242424;
-  } */
-
   #touchZone {
     width: 100%;
     height: 100%;

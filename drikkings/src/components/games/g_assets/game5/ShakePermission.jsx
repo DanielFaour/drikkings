@@ -14,13 +14,14 @@ export default function MotionPermissionTest() {
           setGranted(true);
         //   alert('Permission granted! ✅');
         } else {
-          alert('Tillatelse avslått ❌');
+          alert('Tillatelse avslått ❌ Prøv igjen senere eller slett nettleserdata!');
         }
       } catch (e) {
         alert('Error: ' + e.message);
       }
     } else {
-      alert('No permission API available – likely not iOS or too old.');
+    //   alert('No permission API available – likely not iOS or too old.');
+        setGranted(true);
     }
   };
 

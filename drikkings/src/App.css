@@ -19,6 +19,25 @@ html, body {
 
   margin: 0;
   padding: 0;
+
+  height: 100vh;
+  height: 100dvh;
+
+  overflow: hidden;
+}
+
+#nav {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 4.4rem;
+  width: 100vw;
+  background-color: white;
+  z-index: 200;
+}
+
+.dark #nav {
+  background-color: #242424;
 }
 
 /* disable longpress on images */
@@ -40,8 +59,8 @@ img {
 .bodyContainer {
   display: flex;
   flex-direction: column;
-  min-height: 100vh;
-  min-height: 100dvh;
+  height: 100dvh;
+  overflow-y: auto;
 }
 
 /* BUTTONS FOR THEME AND RETURN */
