@@ -59,14 +59,15 @@ function Game5() {
 
     return (
         <div className="game" id="game5">
-            <div id="nav"></div>
-            <button id="btnReturn" onClick={() => navigate("/")}>⬅️</button>
-            <h2 id="g3_title">Shake it</h2>
+            <div id="nav">
+                <button id="btnReturn" onClick={() => navigate("/")}>⬅️</button>
+                <h2 id="g3_title">Shake it</h2>
+            </div>
             <div id="game5Container">
                 <ShakePermission/>
                 <img draggable="false" id="bottleShake" src={imageCache.current["bottle"]?.src} alt="bottle" />
             </div>
-            
+
 
             {!imagesLoaded && (
                 <div id="gameLoad">
