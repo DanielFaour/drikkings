@@ -1,4 +1,6 @@
 import { Routes, Route } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
+import { useState, useEffect, useRef } from "react";
 import './App.css';
 import { Helmet } from 'react-helmet';
 import './components/styles/buttons.css';
@@ -14,13 +16,39 @@ import Game4 from './components/games/Game4';
 import Game5 from './components/games/Game5';
 
 function App() {
+  const [winRotation, setWinRotation] = useState(false);
+
+  // checks if the phone is in wrong rotation
+  useEffect(() => {
+    const mediaQuery = window.matchMedia("(orientation: portrait)");
+
+    function handleOrientationChange(e) {
+      if (e.matches) {
+        setWinRotation(false);
+      } else {
+        setWinRotation(true);
+      }
+    }
+
+    // Check once on mount
+    handleOrientationChange(mediaQuery);
+
+    // Listen for changes
+    mediaQuery.addEventListener("change", handleOrientationChange);
+
+    // Clean up when component unmounts
+    return () => {
+      mediaQuery.removeEventListener("change", handleOrientationChange);
+    };
+  }, []);
+
   return (
     <>
       {/* Disable zooming */}
       {/* <Helmet>
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" />
       </Helmet> */}
-        <ThemeToggle />
+      <ThemeToggle />
       <div id="nav">
         <InfoButton />
       </div>
@@ -48,6 +76,12 @@ function App() {
           </Routes>
         </div>
       </div>
+
+      {winRotation && (
+          <div id="wrongRotation">
+            <h1>🔄️ Roter mobilen vertikalt 🔄️</h1>
+          </div>
+        )};
     </>
   );
 }

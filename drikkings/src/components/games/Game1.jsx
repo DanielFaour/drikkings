@@ -107,8 +107,10 @@ function Game1() {
 
   return (
     <div className="game" id="game1">
+      <div id="nav">
       <button id="btnReturn" onClick={() => navigate("/")}>⬅️</button>
       <h2>1/16 Minesweeper</h2>
+      </div>
 
       <div className="game1Container">
         <div id="game1Buttons">

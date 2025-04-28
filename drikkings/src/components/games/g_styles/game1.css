@@ -7,6 +7,10 @@
   overscroll-behavior: none;
 }
 
+#nav {
+  z-index: 1000;
+}
+
 .game1Container {
   display: flex;
   justify-content: center;
@@ -26,7 +30,7 @@
   position: absolute;
   box-sizing: border-box;
   padding: 10px;
-  padding-top: 2rem;
+  padding-top: 4rem;
   padding-bottom: 0;
 
   position: absolute;

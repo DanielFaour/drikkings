@@ -268,12 +268,14 @@ function Game2() {
 
   return (
     <div className="game" id="game2">
-      <button id="btnReturn" onClick={() => { resetNextText(); navigate("/"); }}>⬅️</button>
-      <h2 id="g2_title">Shot Roulette</h2>
+      <div id="nav">
+        <button id="btnReturn" onClick={() => { resetNextText(); navigate("/"); }}>⬅️</button>
+        <h2 id="g2_title">Shot Roulette</h2>
+      </div>
+
       <p id="clickTextGame2" ref={clickTextRef} className={firstPress ? "clicked" : ""}>
         Hint: Trykk for å skyte revolveren!
       </p>
-
       <div id="game2Container" onPointerUp={() => { shotsFired(); }}>
         <div id="revGun">
           <img draggable="false" className="rev_light" src={imageCache.current["revolver"]?.src} alt="revolver" />
@@ -287,11 +289,11 @@ function Game2() {
         </p>
 
         <div id="nextText" />
+        <div id="shotVisual">
+          <RoundsLeft rounds={shotRounds} />
+        </div>
       </div>
 
-      <div id="shotVisual">
-        <RoundsLeft rounds={shotRounds} />
-      </div>
 
       {gameIntro && (
         <div id="game2Start" className={isIntroClicked ? "clicked" : ""}>

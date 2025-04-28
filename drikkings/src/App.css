@@ -26,18 +26,33 @@ html, body {
   overflow: hidden;
 }
 
+/* For webkit browsers (Chrome, Edge, Safari) */
+::-webkit-scrollbar {
+  display: none;
+}
+
+/* For Firefox */
+html {
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE 10+ */
+}
+
+
 #nav {
   position: absolute;
   top: 0;
   left: 0;
-  height: 4.4rem;
+  height: 4rem;
   width: 100vw;
   background-color: white;
-  z-index: 200;
+  z-index: 400;
+  border-bottom: 1px solid #242424;
+  line-height: 1;
 }
 
 .dark #nav {
   background-color: #242424;
+  border-bottom: 1px solid white; 
 }
 
 /* disable longpress on images */
@@ -70,7 +85,7 @@ img {
   width: max-content;
   height: max-content;
   position: absolute;
-  top: 12px;
+  top: 10px;
   right: 12px;
   border: none;
   background-color: #00000000;
@@ -85,12 +100,12 @@ img {
 }
 
 #btnReturn {
-  top: 12px;
+  top: 10px;
   left: 12px;
 }
 
 #btnInfo {
-  top: 12px;
+  top: 10px;
   left: 12px;
   z-index: 500;
 }
@@ -107,9 +122,9 @@ img {
   
   
   position: absolute;
-  top: 42px;
-  left: 38px;
-  width: 7.5rem;
+  top: 0.95rem;
+  left: 3.45rem;
+  width: 7.7rem;
 }
 
 .dark #infoBtnText {
@@ -124,7 +139,7 @@ img {
 /* LOGO */
 .title {
   text-align: center;
-  padding-top: 3rem;
+  padding-top: 5rem;
   margin-bottom: 2rem;
 }
 
@@ -187,7 +202,7 @@ img {
   background-color: white;
   font-size: 2rem;
   text-align: center;
-  z-index: 1050;
+  z-index: 900;
   gap: 1rem;
 }
 
@@ -198,4 +213,24 @@ img {
 #gameLoad h1 {
   margin: 0;
   font-size: 2.5rem;
+}
+
+
+#wrongRotation {
+  display: block;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  width: 100dvw;
+  background-color: white;
+  z-index: 5000;
+  text-align: center;
+  align-content: center;
+}
+
+.dark #wrongRotation {
+  background-color: #242424;
 }

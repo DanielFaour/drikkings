@@ -16,16 +16,21 @@
   position: absolute;
   top: 0;
   left: 0;
-  height: 4.4rem;
+  height: 4rem;
   width: 100vw;
-  background-color: white;
-  z-index: 500;
+  background-color: rgb(255, 255, 255);
+  z-index: 1000;
   text-align: center;
   justify-content: center;
+  border-bottom: 1px solid #242424;
+  line-height: 1;
+  /* backdrop-filter: blur(50px);
+  -webkit-backdrop-filter: blur(50px); */
 }
 
 .dark #nav_info {
   background-color: #242424;
+  border-bottom: 1px solid white; 
 }
 
 #info_container {
@@ -39,7 +44,7 @@
   align-self: center;
   margin: 0 auto;
   width: 90%;
-  padding-top: 4.4rem;
+  padding-top: 5.5rem;
   height: max-content;
 }
 

@@ -8,12 +8,16 @@
   background-color: rgb(255, 255, 255);
 }
 
+#nav {
+  z-index: 1000;
+}
+
 .dark #game2 {
   background-color: #242424;
 }
 
 #g2_title {
-  z-index: 1100;
+  z-index: 1000;
 }
 
 #game2Container {
@@ -110,7 +114,7 @@
   justify-self: center;
   align-self: center;
   bottom: 0;
-  z-index: 1000;
+  z-index: 650;
   width: 100vw;
   height: max-content;
   background-color: none;
@@ -179,7 +183,7 @@
 }
 
 #clickTextGame2 {
-  margin-top: 1rem;
+  margin-top: 5.4rem;
   align-items: center;
   align-self: center;
   transition: 0.1s;
@@ -219,7 +223,7 @@
   color: white;
   font-size: 2rem;
   text-align: center;
-  z-index: 1050;
+  z-index: 700;
   gap: 1rem;
 }
 
@@ -336,7 +340,7 @@
   color: white;
   font-size: 2rem;
   text-align: center;
-  z-index: 1000;
+  z-index: 800;
   gap: 1rem;
   cursor: pointer;
 }

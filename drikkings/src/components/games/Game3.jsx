@@ -139,6 +139,7 @@ function Game3() {
 
     return (
         <div className="game" id="game3">
+            <div id="nav"></div>
             <button id="btnReturn" onClick={() => navigate("/")}>⬅️</button>
             <h2 id="g3_title">Flasketuten peker på</h2>
             <p id="clickTextGame3" ref={clickTextRef} className={firstPress ? "clicked" : ""}>
