@@ -75,7 +75,6 @@
   width: 100%;
   position: relative; /* Keeps footer in normal document flow */
   bottom: 0;
-  max-height: 8rem;
   align-content: center;
   line-height: 1.3;
   margin: auto;
