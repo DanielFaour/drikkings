@@ -12,6 +12,20 @@
   flex-direction: column;
 }
 
+#game5bg {
+  width: 100vw;
+  width: 100dvw;
+  height: 100vh;
+  height: 100dvh;
+  position: absolute;
+  top: 0;
+  display: flex;
+  justify-content: center;
+  align-content: center;
+  max-height: 100%;
+  flex-direction: column;
+}
+
 #permissionContainer {
     width: 100vw;
     width: 100dvw;
@@ -66,4 +80,14 @@
 .dark #permissionBtn {
     color: rgba(255, 255, 255, 0.9);
     border: 2px rgba(255, 255, 255, 0.9) solid;
+}
+
+#accData {
+  position: absolute;
+  top: 4.5rem;
+  text-align: center;
+  margin: 0 auto;
+  left: 0;
+  right: 0;
+  justify-self: center;
 }

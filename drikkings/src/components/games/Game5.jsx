@@ -8,6 +8,7 @@ function Game5() {
     const navigate = useNavigate();
     const imageCache = useRef({});
     const [imagesLoaded, setImagesLoaded] = useState(false);
+    const timeoutRef = useRef(null);
 
     // check if images loaded
     useEffect(() => {
@@ -53,9 +54,35 @@ function Game5() {
         return Math.floor(Math.random() * (max - min + 1)) + min;
     }
 
-    async function handleClick () {
-        alert("Hey")
+    useEffect(() => {
+        return () => {
+            clearTimeout(timeoutRef.current);
+        };
+    }, []);
+
+    function handleMotionEvent(event) {
+        const accDataDiv = document.getElementById("accData");
+        const game5bg = document.getElementById("game5bg");
+        game5bg.style.transition = "0.5s";
+
+        const y = event.acceleration.y;
+        // const y = event.accelerationIncludingGravity.y;
+        // const z = event.accelerationIncludingGravity.z;
+        accDataDiv.innerHTML = Math.floor(y);
+
+        if (y > 20) {
+            clearTimeout(timeoutRef.current);
+            game5bg.style.backgroundColor = "red";
+            timeoutRef.current = setTimeout(() => {
+                game5bg.style.backgroundColor = "";
+            }, 1500);
+        }
+        else {
+        }
     }
+
+    window.addEventListener("devicemotion", handleMotionEvent, true);
+
 
     return (
         <div className="game" id="game5">
@@ -64,8 +91,11 @@ function Game5() {
                 <h2 id="g3_title">Shake it</h2>
             </div>
             <div id="game5Container">
-                <ShakePermission/>
-                <img draggable="false" id="bottleShake" src={imageCache.current["bottle"]?.src} alt="bottle" />
+                <div id="game5bg">
+                    <ShakePermission />
+                    <p id="accData"></p>
+                    <img draggable="false" id="bottleShake" src={imageCache.current["bottle"]?.src} alt="bottle" />
+                </div>
             </div>
 
 
