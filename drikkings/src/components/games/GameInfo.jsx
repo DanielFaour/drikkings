@@ -49,19 +49,17 @@ function GameInfo() {
             <h3>🎨 Color Picker 🎨</h3>
             <p>I dette spillet kan man maks være 5 spillere. Hver spiller plasserer en finger på skjermen. Hver spiller får sin egen farge,
               og når tiden går ut vil skjermen endre farge til en av spillernes farge, som betyr at vedkommende må ta en slurk eller shot!
-              Dette spillet er work in progress.
               <br /><br />
             </p>
             <h3>🍾 Shake It 🍾</h3>
-            <p>Et enkelt spill hvor man rister en flaske med bobler og gir den videre til nestemann før den popper. Deltakeren som popper flasken må hen ta en chug eller shot!
+            <p>Et enkelt spill hvor man rister en flaske med bobler og gir den videre til nestemann før den popper. Deltakeren som popper flasken må hen ta en chug eller shot! Dette spillet er work in progress.
               <br /><br />
             </p>
             <h3>⏱️ Flere spill på vei ⏱️</h3>
           </div>
 
         </div>
-        <div className="emptySpace"></div>
-        <div className="emptySpace"></div>
+        <div className="emptySpace"></div><div className="emptySpace"></div>
 
         <footer className="footer">
           <p>Laget av <a href="https://danielfaour.no" target="_blank">Daniel Faour🔗</a></p>

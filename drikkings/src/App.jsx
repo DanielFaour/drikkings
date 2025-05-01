@@ -17,13 +17,20 @@ import Game5 from './components/games/Game5';
 
 function App() {
   const [winRotation, setWinRotation] = useState(false);
-
-  // checks if the phone is in wrong rotation
+  
+  // check if its mobile
+  function isMobile() {
+    return /Android|webOS|iPhone|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) && !/Tablet|iPad/i.test(navigator.userAgent);
+  }
+  
+  // checks if the phone is in wrong rotation, excludes PCs
   useEffect(() => {
     const mediaQuery = window.matchMedia("(orientation: portrait)");
-
+    
     function handleOrientationChange(e) {
-      if (e.matches) {
+      if (e.matches && isMobile()) {
+        setWinRotation(false);
+      } else if (!isMobile()) {
         setWinRotation(false);
       } else {
         setWinRotation(true);
