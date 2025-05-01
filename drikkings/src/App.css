@@ -171,7 +171,6 @@ img {
   max-width: 28rem;
   margin: 0 auto;
   gap: 1rem;
-  padding-bottom: 1.5rem;
 }
 
 .container h3 {
@@ -233,4 +232,10 @@ img {
 
 .dark #wrongRotation {
   background-color: #242424;
+}
+
+
+#copyright {
+  font-size: 0.8rem;
+  text-align: center;
 }

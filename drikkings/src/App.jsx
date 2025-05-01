@@ -81,6 +81,7 @@ function App() {
             <Route path="/games/game5" element={<Game5 />} />
             <Route path="/games/info" element={<Info />} />
           </Routes>
+          <p id="copyright">Copyright © 2025 Daniel Faour</p>
         </div>
       </div>
 
