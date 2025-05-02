@@ -36,6 +36,9 @@ export default function MotionPermissionTest() {
         } catch (e) {
           console.error('Error checking permission:', e.message);
         }
+      } else {
+        // Automatically grant permission for non-iOS devices
+        setGranted(true);
       }
     };
     checkPermission();
