@@ -67,7 +67,6 @@ function Game5() {
 
     function handleMotionEvent(event) {
         const game5bg = document.getElementById("game5bg");
-        const bottle = document.getElementById("bottleShake");
         game5bg.style.transition = "0.2s";
 
         const y = event.acceleration.y;
@@ -75,7 +74,6 @@ function Game5() {
         // register shakes
         if (y > 20) {
             setShake(1);
-            bottle.style.backgroundColor = "red";
             // clearTimeout(timeoutRef.current);
             // game5bg.style.backgroundColor = "red";
             // setShakeCounter((prevCounter) => prevCounter + 1);
@@ -83,9 +81,8 @@ function Game5() {
             //     game5bg.style.backgroundColor = "";
             // }, 1500);
         }
-        else if (y < -20)  {
+        else if (y < -20) {
             setShake(-1);
-            bottle.style.backgroundColor = "blue";
             // clearTimeout(timeoutRef.current);
             // game5bg.style.backgroundColor = "blue";
             // setShakeCounter((prevCounter) => prevCounter + 1);
@@ -103,9 +100,10 @@ function Game5() {
 
     // event listener for motion movement
     window.addEventListener("devicemotion", handleMotionEvent, true);
-    
+
     useEffect(() => {
         const shakeText = document.getElementById("shakeData");
+        const bottle = document.getElementById("bottleShake");
 
         if (gameFinish) {
             shakeText.innerHTML = 0;
@@ -113,7 +111,7 @@ function Game5() {
         }
 
         if (randNum == null) {
-            setRandNum(randomRange(50, 150));
+            setRandNum(randomRange(50, 200));
         }
 
         if (shake == 1) {
@@ -121,10 +119,27 @@ function Game5() {
         } else if (shake == -1) {
             setShakeCounter((prevCounter) => prevCounter + 1);
         }
-        
+
         shakeText.innerHTML = shakeCounter;
 
+        const prosentShake = Math.floor((shakeCounter / randNum) * 100);
+
+        if (bottle) {
+            if (prosentShake >= 90) {
+            bottle.style.animation = "shake 0.1s infinite";
+            } else if (prosentShake >= 70) {
+            bottle.style.animation = "shake 0.3s infinite";
+            } else if (prosentShake >= 50) {
+            bottle.style.animation = "shake 0.5s infinite";
+            } else if (prosentShake >= 30) {
+            bottle.style.animation = "shake 1s infinite";
+            } else if (shakeCounter > 0) {
+            bottle.style.animation = "shake 2s infinite";
+            }
+        }
+
         if (shakeCounter > randNum && !gameFinish) {
+            bottle.style.animation = "none";
             setGameFinish(true);
             setShakeCounter(0);
         }
