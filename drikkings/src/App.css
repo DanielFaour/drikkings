@@ -171,6 +171,7 @@ img {
   max-width: 28rem;
   margin: 0 auto;
   gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 .container h3 {

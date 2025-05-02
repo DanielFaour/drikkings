@@ -9,6 +9,7 @@ function Game5() {
     const imageCache = useRef({});
     const [imagesLoaded, setImagesLoaded] = useState(false);
     const timeoutRef = useRef(null);
+    const [randNum, setRandNum] = useState(null);
 
     // check if images loaded
     useEffect(() => {
@@ -60,29 +61,82 @@ function Game5() {
         };
     }, []);
 
+    const [shakeCounter, setShakeCounter] = useState(0);
+    const [shake, setShake] = useState(0);
+    const [gameFinish, setGameFinish] = useState(false)
+
     function handleMotionEvent(event) {
-        const accDataDiv = document.getElementById("accData");
         const game5bg = document.getElementById("game5bg");
-        game5bg.style.transition = "0.5s";
+        const bottle = document.getElementById("bottleShake");
+        game5bg.style.transition = "0.2s";
 
         const y = event.acceleration.y;
-        // const y = event.accelerationIncludingGravity.y;
-        // const z = event.accelerationIncludingGravity.z;
-        accDataDiv.innerHTML = Math.floor(y);
 
+        // register shakes
         if (y > 20) {
-            clearTimeout(timeoutRef.current);
-            game5bg.style.backgroundColor = "red";
-            timeoutRef.current = setTimeout(() => {
-                game5bg.style.backgroundColor = "";
-            }, 1500);
+            setShake(1);
+            bottle.style.backgroundColor = "red";
+            // clearTimeout(timeoutRef.current);
+            // game5bg.style.backgroundColor = "red";
+            // setShakeCounter((prevCounter) => prevCounter + 1);
+            // timeoutRef.current = setTimeout(() => {
+            //     game5bg.style.backgroundColor = "";
+            // }, 1500);
         }
-        else {
+        else if (y < -20)  {
+            setShake(-1);
+            bottle.style.backgroundColor = "blue";
+            // clearTimeout(timeoutRef.current);
+            // game5bg.style.backgroundColor = "blue";
+            // setShakeCounter((prevCounter) => prevCounter + 1);
+            // timeoutRef.current = setTimeout(() => {
+            //     game5bg.style.backgroundColor = "";
+            // }, 1500);
+        } else {
+            setShake(0);
         }
+
+        // if (shakeCounter > randomRange(200, 500) && !gameFinish) {
+        //     setGameFinish(true);
+        // }
     }
 
+    // event listener for motion movement
     window.addEventListener("devicemotion", handleMotionEvent, true);
+    
+    useEffect(() => {
+        const shakeText = document.getElementById("shakeData");
 
+        if (gameFinish) {
+            shakeText.innerHTML = 0;
+            return;
+        }
+
+        if (randNum == null) {
+            setRandNum(randomRange(50, 150));
+        }
+
+        if (shake == 1) {
+            setShakeCounter((prevCounter) => prevCounter + 1);
+        } else if (shake == -1) {
+            setShakeCounter((prevCounter) => prevCounter + 1);
+        }
+        
+        shakeText.innerHTML = shakeCounter;
+
+        if (shakeCounter > randNum && !gameFinish) {
+            setGameFinish(true);
+            setShakeCounter(0);
+        }
+    }, [shake]);
+
+    function resetGame() {
+        const shakeText = document.getElementById("shakeData");
+        shakeText.innerHTML = 0;
+        setRandNum(randomRange(50, 200));
+        setShakeCounter(0);
+        setGameFinish(false);
+    }
 
     return (
         <div className="game" id="game5">
@@ -93,7 +147,7 @@ function Game5() {
             <div id="game5Container">
                 <div id="game5bg">
                     <ShakePermission />
-                    <p id="accData"></p>
+                    <p id="shakeData">0</p>
                     <img draggable="false" id="bottleShake" src={imageCache.current["bottle"]?.src} alt="bottle" />
                 </div>
             </div>
@@ -102,6 +156,13 @@ function Game5() {
             {!imagesLoaded && (
                 <div id="gameLoad">
                     <h1>Laster inn!</h1>
+                </div>
+            )}
+
+            {gameFinish && (
+                <div id="gameLoad">
+                    <h1>HAHA DU TAPTE!</h1>
+                    <button onClick={resetGame}>Start på nytt</button>
                 </div>
             )}
         </div>

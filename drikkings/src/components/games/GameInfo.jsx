@@ -67,7 +67,7 @@ function GameInfo() {
             <img src={bmcImage} alt="Kjøp meg en øl!" style={{ width: "160px" }} />
           </a>
           <p id="vipps">eller vipps: 47629779</p>
-          <p id="copyright">Copyright © 2025 Daniel Faour</p>
+          <p id="copyright">Copyright © 2025</p>
         </footer>
       </div >
     </>
