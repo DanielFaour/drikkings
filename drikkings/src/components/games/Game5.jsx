@@ -111,7 +111,7 @@ function Game5() {
         }
 
         if (randNum == null) {
-            setRandNum(randomRange(50, 200));
+            setRandNum(randomRange(50, 250));
         }
 
         if (shake == 1) {
@@ -126,12 +126,14 @@ function Game5() {
 
         if (bottle) {
             if (prosentShake >= 90) {
+                bottle.style.animation = "shake 0.05s infinite";
+            } else if (prosentShake >= 80) {
             bottle.style.animation = "shake 0.1s infinite";
-            } else if (prosentShake >= 70) {
+            } else if (prosentShake >= 60) {
             bottle.style.animation = "shake 0.3s infinite";
-            } else if (prosentShake >= 50) {
+            } else if (prosentShake >= 40) {
             bottle.style.animation = "shake 0.5s infinite";
-            } else if (prosentShake >= 30) {
+            } else if (prosentShake >= 20) {
             bottle.style.animation = "shake 1s infinite";
             } else if (shakeCounter > 0) {
             bottle.style.animation = "shake 2s infinite";
@@ -148,7 +150,7 @@ function Game5() {
     function resetGame() {
         const shakeText = document.getElementById("shakeData");
         shakeText.innerHTML = 0;
-        setRandNum(randomRange(50, 200));
+        setRandNum(randomRange(50, 250));
         setShakeCounter(0);
         setGameFinish(false);
     }
