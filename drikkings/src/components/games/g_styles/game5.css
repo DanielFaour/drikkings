@@ -49,8 +49,7 @@
   width: 40rem;
   height: 40rem;
   padding: 1rem;
-  top: 40vh;
-  top: 40dvh;
+  bottom: -8rem;
   cursor: pointer;
 }
 

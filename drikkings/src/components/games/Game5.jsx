@@ -14,7 +14,7 @@ function Game5() {
     // check if images loaded
     useEffect(() => {
         const imagePaths = {
-            bottle: new URL("./g_assets/bottle.png", import.meta.url).href,
+            bottle: new URL("./g_assets/game5/bottle.svg", import.meta.url).href,
         };
 
         let loadedCount = 0;
