@@ -51,6 +51,7 @@
   padding: 1rem;
   bottom: -8rem;
   cursor: pointer;
+  transition: transform 0.2s ease-in-out;
 }
 
 .dark #bottleShake {
@@ -105,4 +106,48 @@
   100% {
     transform: rotate(-3deg);
   }
+}
+
+@keyframes shakeSlowDown {
+  10% {
+    transform: rotate(-3deg);
+  }
+  20% {
+    transform: rotate(3deg);
+  }
+  30% {
+    transform: rotate(-3deg);
+  }
+  40% {
+    transform: rotate(2deg);
+  }
+  50% {
+    transform: rotate(-2deg);
+  }
+  60% {
+    transform: rotate(2deg);
+  }
+  70% {
+    transform: rotate(-1deg);
+  }
+  80% {
+    transform: rotate(1deg);
+  }
+  90% {
+    transform: rotate(-1deg);
+  }
+  100% {
+    transform: rotate(0deg);
+  }
+}
+
+#clickTextGame5 {
+  position: absolute;
+  top: 0;
+  margin-top: 5.4rem;
+  align-items: center;
+  align-self: center;
+  transition: 0.1s;
+  line-height: 1.2;
+  font-size: 1.1rem;
 }

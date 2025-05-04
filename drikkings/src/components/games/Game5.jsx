@@ -9,7 +9,16 @@ function Game5() {
     const imageCache = useRef({});
     const [imagesLoaded, setImagesLoaded] = useState(false);
     const timeoutRef = useRef(null);
+    const clickTextRef = useRef(null);
+
     const [randNum, setRandNum] = useState(null);
+    const [randLoss, setRandLoss] = useState(null);
+
+
+    const [shakeCounter, setShakeCounter] = useState(0);
+    const [shake, setShake] = useState(0);
+    const [gameFinish, setGameFinish] = useState(false)
+    const [randomShakeOffset, setRandomShakeOffset] = useState(0);
 
     // check if images loaded
     useEffect(() => {
@@ -61,10 +70,6 @@ function Game5() {
         };
     }, []);
 
-    const [shakeCounter, setShakeCounter] = useState(0);
-    const [shake, setShake] = useState(0);
-    const [gameFinish, setGameFinish] = useState(false)
-
     function handleMotionEvent(event) {
         const game5bg = document.getElementById("game5bg");
         game5bg.style.transition = "0.2s";
@@ -74,28 +79,12 @@ function Game5() {
         // register shakes
         if (y > 20) {
             setShake(1);
-            // clearTimeout(timeoutRef.current);
-            // game5bg.style.backgroundColor = "red";
-            // setShakeCounter((prevCounter) => prevCounter + 1);
-            // timeoutRef.current = setTimeout(() => {
-            //     game5bg.style.backgroundColor = "";
-            // }, 1500);
         }
         else if (y < -20) {
             setShake(-1);
-            // clearTimeout(timeoutRef.current);
-            // game5bg.style.backgroundColor = "blue";
-            // setShakeCounter((prevCounter) => prevCounter + 1);
-            // timeoutRef.current = setTimeout(() => {
-            //     game5bg.style.backgroundColor = "";
-            // }, 1500);
         } else {
             setShake(0);
         }
-
-        // if (shakeCounter > randomRange(200, 500) && !gameFinish) {
-        //     setGameFinish(true);
-        // }
     }
 
     // event listener for motion movement
@@ -106,12 +95,14 @@ function Game5() {
         const bottle = document.getElementById("bottleShake");
 
         if (gameFinish) {
-            shakeText.innerHTML = 0;
+            // shakeText.innerHTML = 0;
             return;
         }
 
         if (randNum == null) {
-            setRandNum(randomRange(50, 250));
+            setRandNum(randomRange(50, 300));
+            setRandLoss(randomRange(50, 600));
+            setRandomShakeOffset(randomRange(-25, 25));
         }
 
         if (shake == 1) {
@@ -120,40 +111,71 @@ function Game5() {
             setShakeCounter((prevCounter) => prevCounter + 1);
         }
 
-        shakeText.innerHTML = shakeCounter;
+        // shakeText.innerHTML = randLoss;
 
         const prosentShake = Math.floor((shakeCounter / randNum) * 100);
 
         if (bottle) {
-            if (prosentShake >= 90) {
-                bottle.style.animation = "shake 0.05s infinite";
-            } else if (prosentShake >= 80) {
-            bottle.style.animation = "shake 0.1s infinite";
-            } else if (prosentShake >= 60) {
-            bottle.style.animation = "shake 0.3s infinite";
-            } else if (prosentShake >= 40) {
-            bottle.style.animation = "shake 0.5s infinite";
-            } else if (prosentShake >= 20) {
-            bottle.style.animation = "shake 1s infinite";
-            } else if (shakeCounter > 0) {
-            bottle.style.animation = "shake 2s infinite";
+            if (prosentShake >= 85 + randomShakeOffset) {
+                setBottleShake(0.1)
+            } else if (prosentShake >= 60 + randomShakeOffset) {
+                setBottleShake(0.3)
+            } else if (prosentShake >= 40 + randomShakeOffset) {
+                setBottleShake(0.5)
+            } else if (prosentShake >= 20 + randomShakeOffset) {
+                setBottleShake(1)
+            } else if (shake > 0) {
+                setBottleShake(2)
             }
         }
 
-        if (shakeCounter > randNum && !gameFinish) {
+        if (shakeCounter > randLoss && !gameFinish || shakeCounter > randNum && !gameFinish) {
             bottle.style.animation = "none";
             setGameFinish(true);
             setShakeCounter(0);
         }
+
+        clickTextRef.current.style.opacity = "0";
     }, [shake]);
+
+    // function for shaking the bottle
+    function setBottleShake(x) {
+        const bottle = document.getElementById("bottleShake");
+        bottle.style.animation = `shake ${x}s infinite`;
+
+        // clearTimeout(bottle.shakeTimeout);
+        // bottle.shakeTimeout = setTimeout(() => {
+        //     clearInterval(bottle.shakeInterval);
+        //     bottle.style.animation = `shake ${1}s infinite`
+        // }, 3000);
+    }
+
 
     function resetGame() {
         const shakeText = document.getElementById("shakeData");
-        shakeText.innerHTML = 0;
-        setRandNum(randomRange(50, 250));
+        // shakeText.innerHTML = 0;
+        setRandNum(randomRange(50, 300));
+        setRandLoss(randomRange(50, 600));
+        setRandomShakeOffset(randomRange(-15, 15));
         setShakeCounter(0);
         setGameFinish(false);
+        clickTextRef.current.style.opacity = "1";
     }
+
+    // clear timeout hintText
+    useEffect(() => {
+        clickTextRef.current.style.opacity = "1";
+        return () => {
+            clearTimeout(timeoutRef.current);
+        };
+    }, []);
+
+    clearTimeout(timeoutRef.current);
+    timeoutRef.current = setTimeout(() => {
+        if (clickTextRef.current) {
+            clickTextRef.current.style.opacity = "1";
+        }
+    }, 14000);
 
     return (
         <div className="game" id="game5">
@@ -162,9 +184,12 @@ function Game5() {
                 <h2 id="g3_title">Shake it</h2>
             </div>
             <div id="game5Container">
+                <p id="clickTextGame5" ref={clickTextRef}>
+                    Hint: Rist mobilen for å riste flasken!
+                </p>
                 <div id="game5bg">
                     <ShakePermission />
-                    <p id="shakeData">0</p>
+                    <p id="shakeData"></p>
                     <img draggable="false" id="bottleShake" src={imageCache.current["bottle"]?.src} alt="bottle" />
                 </div>
             </div>
