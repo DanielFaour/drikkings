@@ -24,6 +24,8 @@ function Game5() {
     useEffect(() => {
         const imagePaths = {
             bottle: new URL("./g_assets/game5/bottle.svg", import.meta.url).href,
+            popLight: new URL("./g_assets/game5/pop_lightv2.jpg", import.meta.url).href,
+            popDark: new URL("./g_assets/game5/pop_darkv2.jpg", import.meta.url).href,
         };
 
         let loadedCount = 0;
@@ -100,8 +102,8 @@ function Game5() {
         }
 
         if (randNum == null) {
-            setRandNum(randomRange(50, 300));
-            setRandLoss(randomRange(50, 600));
+            setRandNum(randomRange(25, 300));
+            setRandLoss(randomRange(25, 400));
             setRandomShakeOffset(randomRange(-25, 25));
         }
 
@@ -154,8 +156,8 @@ function Game5() {
     function resetGame() {
         const shakeText = document.getElementById("shakeData");
         // shakeText.innerHTML = 0;
-        setRandNum(randomRange(50, 300));
-        setRandLoss(randomRange(50, 600));
+        setRandNum(randomRange(25, 300));
+        setRandLoss(randomRange(25, 400));
         setRandomShakeOffset(randomRange(-15, 15));
         setShakeCounter(0);
         setGameFinish(false);
@@ -177,6 +179,28 @@ function Game5() {
         }
     }, 14000);
 
+
+    // delay for how long after gameend screen you can restart game
+    const [canRestart, setCanRestart] = useState(false);
+
+    useEffect(() => {
+        if (gameFinish) {
+            setCanRestart(false);
+            const timeout = setTimeout(() => setCanRestart(true), 500);
+
+            const game5Pop = document.getElementById("game5Pop");
+            game5Pop.style.animation = "comeIn 0.5s forwards";
+
+            return () => clearTimeout(timeout);
+        }
+    }, [gameFinish]);
+
+    const handlePointerUp = () => {
+        if (canRestart) {
+            resetGame();
+        }
+    };
+
     return (
         <div className="game" id="game5">
             <div id="nav">
@@ -190,7 +214,7 @@ function Game5() {
                 <div id="game5bg">
                     <ShakePermission />
                     <p id="shakeData"></p>
-                    <img draggable="false" id="bottleShake" src={imageCache.current["bottle"]?.src} alt="bottle" />
+                    <img  draggable="false" id="bottleShake" src={imageCache.current["bottle"]?.src} alt="bottle" />
                 </div>
             </div>
 
@@ -202,9 +226,15 @@ function Game5() {
             )}
 
             {gameFinish && (
-                <div id="gameLoad">
-                    <h1>HAHA DU TAPTE!</h1>
-                    <button onClick={resetGame}>Start på nytt</button>
+                <div id="game5End" onPointerUp={handlePointerUp}>
+                    <div id="spacing"></div>
+                    <div id="game5Pop">
+                        <img draggable="false" className="light-img" src={imageCache.current["popLight"]?.src} alt="pang" />
+                        <img draggable="false" className="dark-img" src={imageCache.current["popDark"]?.src} alt="pang" />
+                        <p>Trykk på skjermen for å starte på nytt!</p>
+                    </div>
+                    <div id="spacing"></div>
+                    <div id="spacing"></div>
                 </div>
             )}
         </div>

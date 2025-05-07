@@ -151,3 +151,71 @@
   line-height: 1.2;
   font-size: 1.1rem;
 }
+
+/* Game end */
+
+/* Game end menu */
+#game5End {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  color: white;
+  font-size: 2rem;
+  text-align: center;
+  z-index: 800;
+  gap: 1rem;
+  background-color: white;
+  cursor: pointer;
+}
+
+.dark #game5End {
+  background-color: black;
+}
+
+
+#game5End p {
+  font-size: 1rem;
+  color: black;
+}
+
+.dark #game5End p {
+  color: white;
+}
+
+#game5Pop {
+  padding-top: 1rem;
+  position: absolute;
+  /* max-width: 35rem; */
+  z-index: 500;
+}
+
+#game5Pop img {
+  width: 100vw;
+  width: 100dvw;
+}
+
+#game5Pop .light-img {
+  display: block;
+}
+
+#game5Pop .dark-img {
+  display: none;
+}
+.dark #game5Pop .light-img {
+  display: none;
+}
+.dark #game5Pop .dark-img {
+  display: block;
+}
+
+#spacing {
+  flex-grow: 1;
+}
