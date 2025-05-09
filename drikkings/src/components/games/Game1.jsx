@@ -12,22 +12,44 @@ function Game1() {
   const navigate = useNavigate();
   const [buttonStates, setButtonStates] = useState(new Array(16).fill(false));
   const [gameOver, setGameOver] = useState(false);
+  const [allowClick, setAllowClick] = useState(true);
   const [randomNumber, setRandomNumber] = useState(null);
   const [imagesLoaded, setImagesLoaded] = useState(false);
+  
 
   // Cache images using useRef
   const imageCache = useRef({});
 
+  // if audio is suspended, resume
+  useEffect(() => {
+    const resumeAudio = () => {
+      if (Howler.ctx && Howler.state === 'suspended') {
+        Howler.ctx.resume().then(() => {
+        });
+      }
+    };
+  
+    document.addEventListener('pointerdown', resumeAudio);
+  
+    return () => {
+      document.removeEventListener('pointerdown', resumeAudio);
+    };
+  }, []);
+  
+
   // play sound on button click
   const clickDownSoundRef = useRef(null);
+  if (!clickDownSoundRef.current) {
+    clickDownSoundRef.current = new Howl({
+      src: [clickDownSound],
+      rate: 1,
+      volume: 0.15,
+      html5: false, 
+      preload: true,
+    });
+  }
+
   function playClickDownSound() {
-    if (!clickDownSoundRef.current) {
-      clickDownSoundRef.current = new Howl({
-        src: [clickDownSound],
-        rate: 1,
-        volume: 0.15,
-      });
-    }
 
     const sound = clickDownSoundRef.current;
     if (sound && typeof sound.play === 'function') {
@@ -36,15 +58,17 @@ function Game1() {
   }
 
   const clickUpSoundRef = useRef(null);
-  function playClickUpSound() {
-    if (!clickUpSoundRef.current) {
-      clickUpSoundRef.current = new Howl({
-        src: [clickUpSound],
-        rate: 1,
-        volume: 0.15,
-      });
-    }
+  if (!clickUpSoundRef.current) {
+    clickUpSoundRef.current = new Howl({
+      src: [clickUpSound],
+      rate: 1,
+      volume: 0.15,
+      html5: false, 
+      preload: true,
+    });
+  }
 
+  function playClickUpSound() {
     const sound = clickUpSoundRef.current;
     if (sound && typeof sound.play === 'function') {
       setTimeout(() => {
@@ -53,16 +77,18 @@ function Game1() {
     }
   }
 
-  // play sound when explosion
+  // play sound when explosion on gae end
   const explotionSoundRef = useRef(null);
+  if (!explotionSoundRef.current) {
+    explotionSoundRef.current = new Howl({
+      src: [explosionSound],
+      volume: 0.15,
+      rate: 1,
+      html5: false, 
+      preload: true,
+    });
+  }
   useEffect(() => {
-    if (!explotionSoundRef.current) {
-      explotionSoundRef.current = new Howl({
-        src: [explosionSound],
-        volume: 0.15,
-        rate: 1,
-      });
-    }
 
     if (gameOver) {
       const sound = explotionSoundRef.current;
@@ -154,6 +180,7 @@ function Game1() {
     if (gameOver) {
       setCanRestart(false);
       const timeout = setTimeout(() => setCanRestart(true), 500);
+      setAllowClick(false);
 
       const game2Pang = document.getElementById("game2Pang");
       game2Pang.style.animation = "comeIn 0.5s forwards";
@@ -165,6 +192,9 @@ function Game1() {
   const handlePointerUp = () => {
     if (canRestart) {
       resetGame();
+      setTimeout(() => {
+        setAllowClick(true);
+      }, 150);
     }
   };
 
@@ -185,15 +215,15 @@ function Game1() {
                 className={`game1Button ${isClicked ? "clicked" : ""}`}
                 // Change button state and brightness on click
                 onPointerUp={() => {
-                  buttonClickState(i); // Update button state on click
+                  if (allowClick) {buttonClickState(i)}; // Update button state on click
                   const button = document.getElementById("game1Button" + i);
                   button.style.filter = "brightness(1)";
-                  if (!isClicked) { playClickUpSound(); }
+                  if (!isClicked && allowClick) { playClickUpSound(); }
                 }}
                 onPointerDown={() => {
                   const button = document.getElementById("game1Button" + i);
                   button.style.filter = "brightness(0.8)";
-                  if (!isClicked) { playClickDownSound(); }
+                  if (!isClicked && allowClick) { playClickDownSound(); }
                 }}
                 onPointerLeave={() => {
                   const button = document.getElementById("game1Button" + i);

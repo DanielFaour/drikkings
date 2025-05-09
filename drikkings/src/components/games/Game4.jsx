@@ -28,6 +28,14 @@ function Game4() {
 const bubbleSoundRef = useRef(null);
 
 useEffect(() => {
+    bubbleSoundRef.current = new Howl({
+      src: [bubbleSound],
+      volume: 0.1,
+      preload: true,
+    });
+  }, []);
+
+useEffect(() => {
     const touchZone = document.getElementById("touchZone");
 
     const handlePointerDown = () => {
@@ -56,8 +64,6 @@ useEffect(() => {
         }
     };
 }, [activeTouches]);
-
-
 
         // play sound on user pointer down 
         const bellSoundRef = useRef(null);
