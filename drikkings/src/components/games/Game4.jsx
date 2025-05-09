@@ -22,40 +22,41 @@ function Game4() {
     const [gameActive, setGameActive] = useState(false);
     const [currentTouches, setCurrentTouches] = useState(0);
     const [colorBackgroundActive, setcolorBackgroundActive] = useState(false);
-
+    
     
     // play sound on user pointer down 
-    const bubbleSoundRef = useRef(null);
-    useEffect(() => {
-        const touchZone = document.getElementById("touchZone");
+const bubbleSoundRef = useRef(null);
 
+useEffect(() => {
+    const touchZone = document.getElementById("touchZone");
+
+    const handlePointerDown = () => {
+        // Initialize Howl on first user interaction if needed
         if (!bubbleSoundRef.current) {
             bubbleSoundRef.current = new Howl({
                 src: [bubbleSound],
-                volume: 0.2,
-                rate: 1,
-                
+                volume: 0.15,
             });
         }
 
-        const handlePointerDown = (event) => {
-            const sound = bubbleSoundRef.current;
-            if (sound && typeof sound.play === 'function') {
-                sound.rate(Object.keys(activeTouches).length+0.5) // rate based on how many activetouches -> for better responsiveness
-                sound.play();
-            }
+        const sound = bubbleSoundRef.current;
+        if (sound && typeof sound.play === 'function') {
+            sound.rate(Object.keys(activeTouches).length + 0.5);
+            sound.play();
         }
+    };
 
+    if (touchZone) {
+        touchZone.addEventListener("pointerdown", handlePointerDown);
+    }
+
+    return () => {
         if (touchZone) {
-            touchZone.addEventListener("pointerdown", handlePointerDown);
+            touchZone.removeEventListener("pointerdown", handlePointerDown);
         }
+    };
+}, [activeTouches]);
 
-        return () => {
-            if (touchZone) {
-                touchZone.removeEventListener("pointerdown", handlePointerDown);
-            }
-        }
-    }, [activeTouches]);
 
 
         // play sound on user pointer down 
@@ -64,7 +65,7 @@ function Game4() {
             if (!bellSoundRef.current) {
                 bellSoundRef.current = new Howl({
                     src: [bellSound],
-                    volume: 0.3,
+                    volume: 0.15,
                     rate: 1,
                 });
             }
@@ -207,13 +208,15 @@ function Game4() {
                 setcolorBackgroundActive(true);
                 touchZone.style.backgroundColor = colors[color];
                 console.log("activated");
+
                 // // Remove the background color after some time
                 // setTimeout(() => {
                 //     touchZone.style.backgroundColor = "";
                 //     console.log("deactivated");
                 // }, 2000); // Adjust the time as needed
-            }, 2000);
 
+            }, 2000);
+            
             return () => {
                 if (timeOutRef) {
                     clearTimeout(timeOutRef); // Clear timeout on cleanup
@@ -310,6 +313,16 @@ function Game4() {
         };
     }, [activeTouches]);
 
+    // remove borders once game end
+    // useEffect(() => {
+    //     const allSpots = document.querySelectorAll('#touchSpot');
+
+    //     allSpots.forEach((el) => {
+    //         el.style.border = colorBackgroundActive ? 'none' : 'none';
+    //     });
+    
+    //   }, [colorBackgroundActive]);
+
     return (
         <div className="game" id="game4">
             <div id="nav">
@@ -323,7 +336,7 @@ function Game4() {
                     {Object.values(activeTouches).map((touch) => (
                         <div
                             key={touch.id}
-                            className="touchSpot"
+                            id="touchSpot"
                             style={{
                                 left: `${touch.x}px`,
                                 top: `${touch.y}px`,

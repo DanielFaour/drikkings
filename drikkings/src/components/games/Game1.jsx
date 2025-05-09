@@ -1,8 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import { Howl } from 'howler';
 import "./g_styles/game1.css";
 import kaboom from './g_assets/game1/kabooom.jpg';
 import kaboom_dark from './g_assets/game1/kabooom_dark.jpg';
+import clickDownSound from "./g_assets/sounds/game1/clickdown.mp3";
+import clickUpSound from "./g_assets/sounds/game1/clickup.mp3";
+import explosionSound from "./g_assets/sounds/game1/explosion.mp3";
 
 function Game1() {
   const navigate = useNavigate();
@@ -13,6 +17,66 @@ function Game1() {
 
   // Cache images using useRef
   const imageCache = useRef({});
+
+  // play sound on button click
+  const clickDownSoundRef = useRef(null);
+  function playClickDownSound() {
+    if (!clickDownSoundRef.current) {
+      clickDownSoundRef.current = new Howl({
+        src: [clickDownSound],
+        rate: 1,
+        volume: 0.15,
+      });
+    }
+
+    const sound = clickDownSoundRef.current;
+    if (sound && typeof sound.play === 'function') {
+      sound.play();
+    }
+  }
+
+  const clickUpSoundRef = useRef(null);
+  function playClickUpSound() {
+    if (!clickUpSoundRef.current) {
+      clickUpSoundRef.current = new Howl({
+        src: [clickUpSound],
+        rate: 1,
+        volume: 0.15,
+      });
+    }
+
+    const sound = clickUpSoundRef.current;
+    if (sound && typeof sound.play === 'function') {
+      setTimeout(() => {
+        sound.play();
+      }, 100);
+    }
+  }
+
+  // play sound when explosion
+  const explotionSoundRef = useRef(null);
+  useEffect(() => {
+    if (!explotionSoundRef.current) {
+      explotionSoundRef.current = new Howl({
+        src: [explosionSound],
+        volume: 0.15,
+        rate: 1,
+      });
+    }
+
+    if (gameOver) {
+      const sound = explotionSoundRef.current;
+      if (sound && typeof sound.play === 'function') {
+        sound.play();
+      }
+    }
+
+  }, [gameOver]);
+
+  // creates a random number between min and max
+  function randomRange(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
 
   // check if images loaded
   useEffect(() => {
@@ -108,8 +172,8 @@ function Game1() {
   return (
     <div className="game" id="game1">
       <div id="nav">
-      <button id="btnReturn" onClick={() => navigate("/")}>⬅️</button>
-      <h2>1/16 Minesweeper</h2>
+        <button id="btnReturn" onClick={() => navigate("/")}>⬅️</button>
+        <h2>1/16 Minesweeper</h2>
       </div>
 
       <div className="game1Container">
@@ -124,10 +188,12 @@ function Game1() {
                   buttonClickState(i); // Update button state on click
                   const button = document.getElementById("game1Button" + i);
                   button.style.filter = "brightness(1)";
+                  if (!isClicked) { playClickUpSound(); }
                 }}
                 onPointerDown={() => {
                   const button = document.getElementById("game1Button" + i);
                   button.style.filter = "brightness(0.8)";
+                  if (!isClicked) { playClickDownSound(); }
                 }}
                 onPointerLeave={() => {
                   const button = document.getElementById("game1Button" + i);

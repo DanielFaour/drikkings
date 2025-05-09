@@ -27,7 +27,7 @@
     filter: brightness(0.8);
   }
 
-.touchSpot {
+#touchSpot {
     position: absolute;
     width: 125px;
     height: 125px;
@@ -37,10 +37,13 @@
     border: rgb(240, 240, 240) solid 5px;
 }
 
-.dark .touchSpot {
+.dark #touchSpot {
     border: #242424 solid 5px;
 }
 
+#touchSpot .active {
+  width: 200px;
+}
 
 
   #ruleText {
