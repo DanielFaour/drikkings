@@ -184,6 +184,7 @@
 #game5End p {
   font-size: 1rem;
   color: black;
+  display: none;
 }
 
 .dark #game5End p {
@@ -198,8 +199,9 @@
 }
 
 #game5Pop img {
-  width: 100vw;
-  width: 100dvw;
+  width: 95vw;
+  width: 95dvw;
+  display: none;
 }
 
 #game5Pop .light-img {

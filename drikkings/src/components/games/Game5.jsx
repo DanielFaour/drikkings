@@ -3,6 +3,10 @@ import { useState, useEffect, useRef } from "react";
 import "./g_styles/game5.css";
 import { v4 as uuidv4 } from 'uuid';
 import ShakePermission from "./g_assets/game5/ShakePermission";
+import popSound from "./g_assets/sounds/bottle_pop.mp3";
+import shakeSound from "./g_assets/sounds/shake.mp3";
+import shakeSound2 from "./g_assets/sounds/shake.mp3";
+import { useMemo } from "react";
 
 function Game5() {
     const navigate = useNavigate();
@@ -17,8 +21,114 @@ function Game5() {
 
     const [shakeCounter, setShakeCounter] = useState(0);
     const [shake, setShake] = useState(0);
-    const [gameFinish, setGameFinish] = useState(false)
+    const [gameFinish, setGameFinish] = useState(false);
+    const [gameStart, setGameStart] = useState(false);
     const [randomShakeOffset, setRandomShakeOffset] = useState(0);
+
+    const [popSoundPlayed, setPopSoundPlayed] = useState(false);
+    const [shakeSoundPlayed, setShakeSoundPlayed] = useState(false);
+
+    const popSFX = useMemo(() => new Audio(popSound), [popSound]);
+    const shakeSFX = useMemo(() => new Audio(shakeSound), [shakeSound]);
+    const shakeSFX2 = useMemo(() => new Audio(shakeSound2), [shakeSound2]);
+    const shakeTimeoutRef = useRef(null);
+    const shake2TimeoutRef = useRef(null);
+
+    function playPopSound() {
+        if (!popSoundPlayed) {
+            popSFX.currentTime = 0;
+            popSFX.loop = true;
+            popSFX.muted = true;
+            popSFX.play();
+        } else {
+            popSFX.currentTime = 0;
+            popSFX.loop = false;
+            popSFX.muted = false;
+            popSFX.play();
+        }
+    }
+
+    // function playShakeSound() {
+    //     if (!shakeSFX.current) {
+    //         shakeSFX.current = new Audio(shakeSound);
+    //         shakeSFX.current.loop = true;
+    //         shakeSFX.current.currentTime = 0.2;
+    //     }
+
+    //     clearTimeout(shakeTimeoutRef.current);
+
+    //     shakeSFX.currentTime = 0.2;
+
+    //     if (!shakeSoundPlayed) {
+    //         shakeSFX.muted = false;
+
+    //         shakeSFX.play().catch((err) => {
+    //             console.error("Audio playback failed:", err);
+    //         });
+
+    //         shakeTimeoutRef.current = setTimeout(() => {
+    //             shakeSFX.muted = true;
+    //         }, 1000);
+    //     } else {
+    //         // Ensure it's playing and unmuted
+    //         shakeSFX.muted = false;
+
+    //         // Avoid multiple .play() calls if it's already playing
+    //         if (shakeSFX.paused) {
+    //             shakeSFX.play().catch((err) => {
+    //                 console.error("Audio playback failed:", err);
+    //             });
+    //         }
+    //     }
+    // }
+
+    const [firstShake, setFirstShake] = useState(false);
+    const [shakeDirection, setShakeDirection] = useState(0);
+
+    function playShakeSound() {
+
+        if (!shakeSoundPlayed && !firstShake) {
+            shakeSFX.currentTime = randomRange(0, 6);
+            shakeSFX.muted = true;
+            shakeSFX.loop = true;
+            shakeSFX.play();
+            shakeSFX2.currentTime = randomRange(0, 6);
+            shakeSFX2.muted = true;
+            shakeSFX2.loop = true;
+            shakeSFX2.play();
+            setFirstShake(true);
+        }
+        
+        if (shakeSoundPlayed && !gameFinish && shakeDirection == 1) {
+            shakeSFX.muted = false;
+
+            clearTimeout(shakeTimeoutRef.current);
+            shakeTimeoutRef.current = setTimeout(() => {
+                shakeSFX.currentTime = randomRange(0, 6);
+                shakeSFX.muted = true;
+            }, 550);
+        }
+        if (shakeSoundPlayed && !gameFinish && shakeDirection == -1) {
+            shakeSFX2.muted = false;
+
+            clearTimeout(shake2TimeoutRef.current);
+            shake2TimeoutRef.current = setTimeout(() => {
+                shakeSFX2.currentTime = randomRange(0, 6);
+                shakeSFX2.muted = true;
+            }, 550);
+        }
+
+        if (gameFinish) {
+            shakeSFX.muted = true;
+            shakeSFX2.muted = true;
+        }
+
+    }
+
+    useEffect(() => {
+        playShakeSound();
+    }, [shakeSoundPlayed]);
+
 
     // check if images loaded
     useEffect(() => {
@@ -79,13 +189,19 @@ function Game5() {
         const y = event.acceleration.y;
 
         // register shakes
-        if (y > 20) {
+        if (y > 15) {
             setShake(1);
+            setShakeSoundPlayed(true);
+            setShakeDirection(1);
         }
-        else if (y < -20) {
+        else if (y < -15) {
             setShake(-1);
+            setShakeSoundPlayed(true);
+            setShakeDirection(-1);
         } else {
             setShake(0);
+            setShakeSoundPlayed(false);
+            setShakeDirection(0);
         }
     }
 
@@ -102,15 +218,17 @@ function Game5() {
         }
 
         if (randNum == null) {
-            setRandNum(randomRange(25, 300));
-            setRandLoss(randomRange(25, 400));
+            setRandNum(randomRange(25, 250));
+            setRandLoss(randomRange(25, 350));
             setRandomShakeOffset(randomRange(-25, 25));
         }
 
         if (shake == 1) {
             setShakeCounter((prevCounter) => prevCounter + 1);
+
         } else if (shake == -1) {
             setShakeCounter((prevCounter) => prevCounter + 1);
+
         }
 
         // shakeText.innerHTML = randLoss;
@@ -138,6 +256,7 @@ function Game5() {
         }
 
         clickTextRef.current.style.opacity = "0";
+
     }, [shake]);
 
     // function for shaking the bottle
@@ -155,13 +274,26 @@ function Game5() {
 
     function resetGame() {
         const shakeText = document.getElementById("shakeData");
+        const bottle = document.getElementById("bottleShake");
+        bottle.style.animation = "0";
         // shakeText.innerHTML = 0;
-        setRandNum(randomRange(25, 300));
-        setRandLoss(randomRange(25, 400));
+        setRandNum(randomRange(25, 250));
+        setRandLoss(randomRange(25, 350));
         setRandomShakeOffset(randomRange(-15, 15));
         setShakeCounter(0);
         setGameFinish(false);
         clickTextRef.current.style.opacity = "1";
+
+        playPopSound();
+        setPopSoundPlayed(true);
+
+        const game5Pop = document.getElementById("game5Pop");
+        game5Pop.style.display = "none";
+        const endText = document.getElementById("endText");
+        endText.style.display = "none";
+
+        setShakeSoundPlayed(false);
+        setFirstShake(false);
     }
 
     // clear timeout hintText
@@ -185,11 +317,19 @@ function Game5() {
 
     useEffect(() => {
         if (gameFinish) {
-            setCanRestart(false);
-            const timeout = setTimeout(() => setCanRestart(true), 500);
-
             const game5Pop = document.getElementById("game5Pop");
-            game5Pop.style.animation = "comeIn 0.5s forwards";
+            const endText = document.getElementById("endText");
+            endText.style.display = "block";
+            game5Pop.style.display = "block";
+            game5Pop.style.animation = "comeIn 0.7s forwards";
+
+            setPopSoundPlayed(false);
+            playPopSound();
+
+            setCanRestart(false);
+            const timeout = setTimeout(() => setCanRestart(true), 700);
+
+
 
             return () => clearTimeout(timeout);
         }
@@ -200,6 +340,18 @@ function Game5() {
             resetGame();
         }
     };
+
+    function clickEnd() {
+        setGameFinish(true);
+    }
+
+    function startGame() {
+        setGameStart(true);
+        playPopSound();
+        setPopSoundPlayed(true);
+        setShakeSoundPlayed(false);
+        setFirstShake(false);
+    }
 
     return (
         <div className="game" id="game5">
@@ -214,7 +366,7 @@ function Game5() {
                 <div id="game5bg">
                     <ShakePermission />
                     <p id="shakeData"></p>
-                    <img  draggable="false" id="bottleShake" src={imageCache.current["bottle"]?.src} alt="bottle" />
+                    <img draggable="false" id="bottleShake" src={imageCache.current["bottle"]?.src} alt="bottle" />
                 </div>
             </div>
 
@@ -225,13 +377,19 @@ function Game5() {
                 </div>
             )}
 
+            {!gameStart && (
+                <div id="gameLoad" onPointerUp={() => { startGame(); }}>
+                    <h1>Trykk for å starte</h1>
+                </div>
+            )}
+
             {gameFinish && (
                 <div id="game5End" onPointerUp={handlePointerUp}>
                     <div id="spacing"></div>
                     <div id="game5Pop">
                         <img draggable="false" className="light-img" src={imageCache.current["popLight"]?.src} alt="pang" />
                         <img draggable="false" className="dark-img" src={imageCache.current["popDark"]?.src} alt="pang" />
-                        <p>Trykk på skjermen for å starte på nytt!</p>
+                        <p id="endText">Trykk på skjermen for å starte på nytt!</p>
                     </div>
                     <div id="spacing"></div>
                     <div id="spacing"></div>
