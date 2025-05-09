@@ -47,10 +47,14 @@
     position: absolute;
     bottom: 0;
     margin: 0;
-    margin-bottom: 1.5rem;
+    margin-bottom: 1rem;
     line-height: 1.2;
     font-size: 1.3rem;
     align-items: center;
     align-self: center;
-    width: 90%;
+    width: max-content;
+    padding: 0.5rem;
+    padding-top: 0.5rem;
+    padding-bottom: 0.5rem;
+    border-radius: 5px;
   }

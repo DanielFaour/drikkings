@@ -2,6 +2,10 @@ import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
 import "./g_styles/game4.css";
 import { v4 as uuidv4 } from 'uuid';
+import { Howl } from 'howler';
+import bubbleSound from "./g_assets/sounds/game4/bubble.mp3";
+import bellSound from "./g_assets/sounds/game4/bell.mp3";
+
 
 function Game4() {
     const navigate = useNavigate();
@@ -18,6 +22,62 @@ function Game4() {
     const [gameActive, setGameActive] = useState(false);
     const [currentTouches, setCurrentTouches] = useState(0);
     const [colorBackgroundActive, setcolorBackgroundActive] = useState(false);
+
+    
+    // play sound on user pointer down 
+    const bubbleSoundRef = useRef(null);
+    useEffect(() => {
+        const touchZone = document.getElementById("touchZone");
+
+        if (!bubbleSoundRef.current) {
+            bubbleSoundRef.current = new Howl({
+                src: [bubbleSound],
+                volume: 0.2,
+                rate: 1,
+                
+            });
+        }
+
+        const handlePointerDown = (event) => {
+            const sound = bubbleSoundRef.current;
+            if (sound && typeof sound.play === 'function') {
+                sound.rate(Object.keys(activeTouches).length+0.5) // rate based on how many activetouches -> for better responsiveness
+                sound.play();
+            }
+        }
+
+        if (touchZone) {
+            touchZone.addEventListener("pointerdown", handlePointerDown);
+        }
+
+        return () => {
+            if (touchZone) {
+                touchZone.removeEventListener("pointerdown", handlePointerDown);
+            }
+        }
+    }, [activeTouches]);
+
+
+        // play sound on user pointer down 
+        const bellSoundRef = useRef(null);
+        useEffect(() => {
+            if (!bellSoundRef.current) {
+                bellSoundRef.current = new Howl({
+                    src: [bellSound],
+                    volume: 0.3,
+                    rate: 1,
+                });
+            }
+
+            if(colorBackgroundActive) {
+                const sound = bellSoundRef.current;
+                if (sound && typeof sound.play === 'function') {
+                    sound.play();
+                }
+            }
+            
+        }, [colorBackgroundActive]);
+
 
     // check if images loaded
     useEffect(() => {
@@ -62,31 +122,23 @@ function Game4() {
     }
 
     // Function to get a unique color
-    function getColor(attempts = 0) {
-        const ranColor = randomRange(0, 4);
-        const touchZone = document.getElementById("touchZone");
+    function getColor() {
+        const availableIndices = colors
+            .map((_, index) => index)
+            .filter(index => !selectedColors.includes(index));
 
-        // Check if the color is already in selectedColors, and ensure fewer than 5 colors are selected
-        if (!selectedColors.includes(ranColor)) {
-            // Use callback to access the most recent state and add the color
-            setSelectedColors((prev) => {
-                const updatedColors = [...prev, ranColor];
-                return updatedColors;  // Return the new state
-            });
-
-            return colors[ranColor];  // Return the color based on the random index
-        } else {
-            // Prevent too much recursion by limiting the number of attempts
-            if (attempts > 25) {
-                console.error("Too many recursion attempts, breaking out.");
-                // touchZone.style.backgroundColor = "brown";
-                return null;  // Or some default behavior
-            }
-
-            // Recursively try again with an incremented attempts count
-            return getColor(attempts + 1);
+        if (availableIndices.length === 0) {
+            console.warn("No more unique colors available.");
+            return null;
         }
+
+        const ranIndex = availableIndices[Math.floor(Math.random() * availableIndices.length)];
+
+        setSelectedColors(prev => [...prev, ranIndex]);
+
+        return colors[ranIndex];
     }
+
 
     // game activation on and off
     useEffect(() => {
@@ -105,10 +157,13 @@ function Game4() {
         switch (activeTouchCount) {
             case 1:
                 ruleText.innerHTML = "1/5 spillere";
+                ruleText.style.backgroundColor = "red";
+                ruleText.style.color = "white";
                 setCurrentTouches(1);
                 break;
             case 2:
                 ruleText.innerHTML = "2/5 spillere";
+                ruleText.style.backgroundColor = "green";
                 setCurrentTouches(2);
                 break;
             case 3:
@@ -125,6 +180,8 @@ function Game4() {
                 break;
             default:
                 ruleText.innerHTML = "2-5 spillere";
+                ruleText.style.backgroundColor = "";
+                ruleText.style.color = "";
                 setCurrentTouches(0);
             // setcolorBackgroundActive(false);
         }

@@ -46,10 +46,9 @@
   display: block;
   align-self: center;
   justify-self: center;
-  width: 40rem;
-  height: 40rem;
+  height: 90dvh;
   padding: 1rem;
-  bottom: -8rem;
+  bottom: -10rem;
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
 }
@@ -90,10 +89,6 @@
   left: 0;
   right: 0;
   justify-self: center;
-}
-
-.shaking {
-  
 }
 
 @keyframes shake {

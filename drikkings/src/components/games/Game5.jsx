@@ -3,9 +3,9 @@ import { useState, useEffect, useRef } from "react";
 import "./g_styles/game5.css";
 import { v4 as uuidv4 } from 'uuid';
 import ShakePermission from "./g_assets/game5/ShakePermission";
-import popSound from "./g_assets/sounds/bottle_pop.mp3";
-import shakeSound from "./g_assets/sounds/shake.mp3";
-import shakeSound2 from "./g_assets/sounds/shake.mp3";
+import popSound from "./g_assets/sounds/game5/bottle_pop.mp3";
+import shakeSound from "./g_assets/sounds/game5/shake.mp3";
+import shakeSound2 from "./g_assets/sounds/game5/shake.mp3";
 import { useMemo } from "react";
 
 function Game5() {
@@ -24,7 +24,7 @@ function Game5() {
     const [gameFinish, setGameFinish] = useState(false);
     const [gameStart, setGameStart] = useState(false);
     const [randomShakeOffset, setRandomShakeOffset] = useState(0);
-
+    
     const [popSoundPlayed, setPopSoundPlayed] = useState(false);
     const [shakeSoundPlayed, setShakeSoundPlayed] = useState(false);
 
@@ -98,7 +98,7 @@ function Game5() {
             shakeSFX2.play();
             setFirstShake(true);
         }
-        
+
         if (shakeSoundPlayed && !gameFinish && shakeDirection == 1) {
             shakeSFX.muted = false;
 
