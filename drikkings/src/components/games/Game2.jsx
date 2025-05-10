@@ -1,9 +1,13 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import { Howler } from "howler";
 import "./g_styles/game2.css";
 import game2Pang2 from './g_assets/game2/pang_light.jpg';
 import game2Pang2_dark from './g_assets/game2/pang_dark.jpg';
 import RoundsLeft from "./g_assets/game2/component/roundsLeft";
+import clackSound from "./g_assets/sounds/game2/clack.mp3";
+import pangSound from "./g_assets/sounds/game2/pang.mp3";
+import spinSound from "./g_assets/sounds/game2/spin.mp3";
 
 function Game2() {
   const navigate = useNavigate();
@@ -23,6 +27,79 @@ function Game2() {
   const imageCache = useRef({});
   const clickTextRef = useRef(null);
   const timeoutRef = useRef(null);
+
+  const clickSFXRef = useRef();
+  const pangSFXRef = useRef();
+  const spinSFXRef = useRef();
+
+  // if sound doesnt work try this, but this doesnt actually work most of the time, 
+  // i have a component in app.jsx that fixes that if thats the case
+  useEffect(() => {
+    const resumeAudio = () => {
+      if (Howler.ctx && Howler.state === 'suspended') {
+        Howler.ctx.resume();
+      }
+    };
+
+    const onVisibilityChange = () => {
+      if (document.visibilityState === 'visible') resumeAudio();
+    };
+
+    window.addEventListener('click', resumeAudio);
+    window.addEventListener('touchstart', resumeAudio);
+    document.addEventListener('visibilitychange', onVisibilityChange);
+
+    return () => {
+      window.removeEventListener('click', resumeAudio);
+      window.removeEventListener('touchstart', resumeAudio);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+    };
+  }, []);
+
+  // load sound
+  useEffect(() => {
+    clickSFXRef.current = new Howl({
+      src: [clackSound],
+      rate: 1,
+      volume: 0.5,
+      html5: false,
+      preload: true
+    });
+    pangSFXRef.current = new Howl({
+      src: [pangSound],
+      rate: 1,
+      volume: 0.5,
+      html5: false,
+      preload: true
+    });
+    spinSFXRef.current = new Howl({
+      src: [spinSound],
+      rate: 1,
+      volume: 0.5,
+      html5: false,
+      preload: true
+    });
+  }, []);
+
+  // play intro sound
+  useEffect(() => {
+    if(isIntroClicked) {
+      spinSFXRef.current?.play?.();
+    }
+  }, [isIntroClicked])
+  
+ // play end sound
+ useEffect(() => {
+  if(gameEnd) {
+    pangSFXRef.current?.play?.();
+  }
+}, [gameEnd])
+
+  function playClack() {
+    clickSFXRef.current?.play?.();
+  }
+
+
 
   // image loading before gamestart
   useEffect(() => {
@@ -98,6 +175,7 @@ function Game2() {
 
   // when activated from gamedivbox, activate shotsFired
   function shotsFired() {
+    playClack();
     const amountRoundsFired = shotRounds + 1;
     setShotRounds(amountRoundsFired);
     console.log("Shots Fired", amountRoundsFired);

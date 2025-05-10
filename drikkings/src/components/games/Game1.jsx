@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import { Howl } from 'howler';
+import { Howl, Howler } from 'howler';
 import "./g_styles/game1.css";
 import kaboom from './g_assets/game1/kabooom.jpg';
 import kaboom_dark from './g_assets/game1/kabooom_dark.jpg';
@@ -15,96 +15,73 @@ function Game1() {
   const [allowClick, setAllowClick] = useState(true);
   const [randomNumber, setRandomNumber] = useState(null);
   const [imagesLoaded, setImagesLoaded] = useState(false);
-  
+  const [canRestart, setCanRestart] = useState(false);
 
-  // Cache images using useRef
   const imageCache = useRef({});
+  const clickDownSoundRef = useRef();
+  const clickUpSoundRef = useRef();
+  const explosionSoundRef = useRef();
 
-  // if audio is suspended, resume
+  // load sound
+  useEffect(() => {
+    clickDownSoundRef.current = new Howl({
+      src: [clickDownSound], 
+      rate: 1, 
+      volume: 0.5, 
+      html5: false, 
+      preload: true });
+    clickUpSoundRef.current = new Howl({
+      src: [clickUpSound], 
+      rate: 1, 
+      volume: 0.5, 
+      html5: false, 
+      preload: true });
+    explosionSoundRef.current = new Howl({
+      src: [explosionSound], 
+      rate: 1, 
+      volume: 0.5, 
+      html5: false, 
+      preload: true });
+  }, []);
+
+  // if sound doesnt work try this, but this doesnt actually work most of the time, 
+  // i have a component in app.jsx that fixes that if thats the case
   useEffect(() => {
     const resumeAudio = () => {
       if (Howler.ctx && Howler.state === 'suspended') {
-        Howler.ctx.resume().then(() => {
-        });
+        Howler.ctx.resume();
       }
     };
-  
-    document.addEventListener('pointerdown', resumeAudio);
-  
+
+    const onVisibilityChange = () => {
+      if (document.visibilityState === 'visible') resumeAudio();
+    };
+
+    window.addEventListener('click', resumeAudio);
+    window.addEventListener('touchstart', resumeAudio);
+    document.addEventListener('visibilitychange', onVisibilityChange);
+
     return () => {
-      document.removeEventListener('pointerdown', resumeAudio);
+      window.removeEventListener('click', resumeAudio);
+      window.removeEventListener('touchstart', resumeAudio);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
     };
   }, []);
-  
 
-  // play sound on button click
-  const clickDownSoundRef = useRef(null);
-  if (!clickDownSoundRef.current) {
-    clickDownSoundRef.current = new Howl({
-      src: [clickDownSound],
-      rate: 1,
-      volume: 0.15,
-      html5: false, 
-      preload: true,
-    });
-  }
-
-  function playClickDownSound() {
-
-    const sound = clickDownSoundRef.current;
-    if (sound && typeof sound.play === 'function') {
-      sound.play();
-    }
-  }
-
-  const clickUpSoundRef = useRef(null);
-  if (!clickUpSoundRef.current) {
-    clickUpSoundRef.current = new Howl({
-      src: [clickUpSound],
-      rate: 1,
-      volume: 0.15,
-      html5: false, 
-      preload: true,
-    });
-  }
-
-  function playClickUpSound() {
-    const sound = clickUpSoundRef.current;
-    if (sound && typeof sound.play === 'function') {
-      setTimeout(() => {
-        sound.play();
-      }, 100);
-    }
-  }
-
-  // play sound when explosion on gae end
-  const explotionSoundRef = useRef(null);
-  if (!explotionSoundRef.current) {
-    explotionSoundRef.current = new Howl({
-      src: [explosionSound],
-      volume: 0.15,
-      rate: 1,
-      html5: false, 
-      preload: true,
-    });
-  }
   useEffect(() => {
-
     if (gameOver) {
-      const sound = explotionSoundRef.current;
-      if (sound && typeof sound.play === 'function') {
-        sound.play();
-      }
+      explosionSoundRef.current?.play?.();
     }
-
   }, [gameOver]);
 
-  // creates a random number between min and max
-  function randomRange(min, max) {
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  }
+  const playClickDownSound = () => {
+    clickDownSoundRef.current?.play?.();
+  };
 
-  // check if images loaded
+  const playClickUpSound = () => {
+    setTimeout(() => clickUpSoundRef.current?.play?.(), 50);
+  };
+
   useEffect(() => {
     const imagePaths = {
       hidden: new URL("./g_assets/b_tapped.png", import.meta.url).href,
@@ -113,77 +90,58 @@ function Game1() {
       kaboom_dark: new URL(kaboom_dark, import.meta.url).href,
     };
 
-    let loadedCount = 0;
+    let loaded = 0;
+    const total = Object.keys(imagePaths).length;
 
-    // Preload images and check if all are loaded
-    Object.keys(imagePaths).forEach((key) => {
+    Object.entries(imagePaths).forEach(([key, src]) => {
       if (imageCache.current[key]) {
-        // If already cached, just increase the count
-        loadedCount++;
+        loaded++;
+        if (loaded === total) setImagesLoaded(true);
       } else {
         const img = new Image();
-        img.src = imagePaths[key];
         img.onload = () => {
-          imageCache.current[key] = img; // Store in cache
-          loadedCount++;
-          if (loadedCount === Object.keys(imagePaths).length) {
-            setImagesLoaded(true);
-          }
+          imageCache.current[key] = img;
+          loaded++;
+          if (loaded === total) setImagesLoaded(true);
         };
-        img.onerror = () => console.error(`Failed to load: ${img.src}`);
+        img.onerror = () => console.error(`Failed to load: ${src}`);
+        img.src = src;
       }
     });
-
-    if (loadedCount === Object.keys(imagePaths).length) {
-      setImagesLoaded(true);
-    }
   }, []);
 
   useEffect(() => {
     setRandomNumber(Math.floor(Math.random() * 16));
   }, []);
 
-  function resetGame() {
+  const resetGame = () => {
     setButtonStates(new Array(16).fill(false));
     setGameOver(false);
     setRandomNumber(Math.floor(Math.random() * 16));
-  }
+  };
 
   const buttonClickState = (i) => {
-    setButtonStates((prevStates) => {
-      const updatedStates = prevStates.map((state, index) =>
-        index === i && !state ? true : state
-      );
-
-      if (i === randomNumber) {
-        setGameOver(true);
-      }
-
-      return updatedStates;
+    setButtonStates((prev) => {
+      const updated = prev.map((val, idx) => (idx === i && !val ? true : val));
+      if (i === randomNumber) setGameOver(true);
+      return updated;
     });
   };
 
-  // prevent scrolling
   useEffect(() => {
     const preventScroll = (e) => e.preventDefault();
     document.addEventListener("touchmove", preventScroll, { passive: false });
-
-    return () => {
-      document.removeEventListener("touchmove", preventScroll);
-    };
+    return () => document.removeEventListener("touchmove", preventScroll);
   }, []);
-
-  // delays the clickability on the gameover screen + animation
-  const [canRestart, setCanRestart] = useState(false);
 
   useEffect(() => {
     if (gameOver) {
       setCanRestart(false);
-      const timeout = setTimeout(() => setCanRestart(true), 500);
+      const timeout = setTimeout(() => setCanRestart(true), 250);
       setAllowClick(false);
 
       const game2Pang = document.getElementById("game2Pang");
-      game2Pang.style.animation = "comeIn 0.5s forwards";
+      if (game2Pang) game2Pang.style.animation = "comeIn 0.5s forwards";
 
       return () => clearTimeout(timeout);
     }
@@ -192,12 +150,9 @@ function Game1() {
   const handlePointerUp = () => {
     if (canRestart) {
       resetGame();
-      setTimeout(() => {
-        setAllowClick(true);
-      }, 150);
+      setTimeout(() => setAllowClick(true), 150);
     }
   };
-
 
   return (
     <div className="game" id="game1">
@@ -211,32 +166,31 @@ function Game1() {
           {buttonStates.map((isClicked, i) => (
             <div className="button" key={i}>
               <button
-                id={"game1Button" + i}
+                id={`game1Button${i}`}
                 className={`game1Button ${isClicked ? "clicked" : ""}`}
-                // Change button state and brightness on click
                 onPointerUp={() => {
-                  if (allowClick) {buttonClickState(i)}; // Update button state on click
-                  const button = document.getElementById("game1Button" + i);
-                  button.style.filter = "brightness(1)";
-                  if (!isClicked && allowClick) { playClickUpSound(); }
+                  if (allowClick) buttonClickState(i);
+                  const btn = document.getElementById(`game1Button${i}`);
+                  if (btn) btn.style.filter = "brightness(1)";
+                  if (!isClicked && allowClick) playClickUpSound();
                 }}
                 onPointerDown={() => {
-                  const button = document.getElementById("game1Button" + i);
-                  button.style.filter = "brightness(0.8)";
-                  if (!isClicked && allowClick) { playClickDownSound(); }
+                  const btn = document.getElementById(`game1Button${i}`);
+                  if (btn) btn.style.filter = "brightness(0.8)";
+                  if (!isClicked && allowClick) playClickDownSound();
                 }}
                 onPointerLeave={() => {
-                  const button = document.getElementById("game1Button" + i);
-                  button.style.filter = "brightness(1)";
+                  const btn = document.getElementById(`game1Button${i}`);
+                  if (btn) btn.style.filter = "brightness(1)";
                 }}
-                disabled={!imagesLoaded} // Prevent clicks until images are loaded
+                disabled={!imagesLoaded}
                 style={{
-                  opacity: imagesLoaded ? 1 : 0.8, // Fades in when ready
+                  opacity: imagesLoaded ? 1 : 0.8,
                   backgroundImage: imagesLoaded
                     ? isClicked
-                      ? `url(${imageCache.current.hidden.src})`
-                      : `url(${imageCache.current.revealed.src})`
-                    : "none", // Do not set backgroundImage until images are loaded
+                      ? `url(${imageCache.current.hidden?.src})`
+                      : `url(${imageCache.current.revealed?.src})`
+                    : "none",
                   backgroundSize: "contain",
                   backgroundRepeat: "no-repeat",
                   backgroundPosition: "center",
@@ -247,19 +201,12 @@ function Game1() {
         </div>
       </div>
 
-      {/* {gameOver && (
-        <div className="game1End">
-          <h2>KABOOOOOM!</h2>
-          <button id="btnGame1End" onClick={resetGame}>Start på nytt</button>
-          <button id="btnGame1Return" onClick={() => navigate("/")}>Tilbake til meny</button>
-        </div>
-      )} */}
       {gameOver && (
         <div id="game2End" onPointerUp={handlePointerUp}>
           <div id="spacing"></div>
           <div id="game2Pang">
-            <img draggable="false" className="light-img" src={imageCache.current["kaboom"]?.src} alt="pang" />
-            <img draggable="false" className="dark-img" src={imageCache.current["kaboom_dark"]?.src} alt="pang" />
+            <img draggable="false" className="light-img" src={imageCache.current.kaboom?.src} alt="pang" />
+            <img draggable="false" className="dark-img" src={imageCache.current.kaboom_dark?.src} alt="pang" />
             <p>Trykk på skjermen for å starte på nytt!</p>
           </div>
           <div id="spacing"></div>
@@ -267,8 +214,7 @@ function Game1() {
         </div>
       )}
 
-      {/* loading */}
-      {imagesLoaded || (
+      {!imagesLoaded && (
         <div id="gameLoad">
           <h1>Laster inn!</h1>
         </div>

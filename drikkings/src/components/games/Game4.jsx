@@ -22,68 +22,94 @@ function Game4() {
     const [gameActive, setGameActive] = useState(false);
     const [currentTouches, setCurrentTouches] = useState(0);
     const [colorBackgroundActive, setcolorBackgroundActive] = useState(false);
-    
-    
+
+    const bubbleSoundRef = useRef(null);
+
+
+    // if sound doesnt work try this, but this doesnt actually work most of the time, 
+    // i have a component in app.jsx that fixes that if thats the case
+    useEffect(() => {
+        const resumeAudio = () => {
+            if (Howler.ctx && Howler.state === 'suspended') {
+                Howler.ctx.resume();
+            }
+        };
+
+        const onVisibilityChange = () => {
+            if (document.visibilityState === 'visible') resumeAudio();
+        };
+
+        window.addEventListener('click', resumeAudio);
+        window.addEventListener('touchstart', resumeAudio);
+        document.addEventListener('visibilitychange', onVisibilityChange);
+
+        return () => {
+            window.removeEventListener('click', resumeAudio);
+            window.removeEventListener('touchstart', resumeAudio);
+            document.removeEventListener('visibilitychange', onVisibilityChange);
+        };
+    }, []);
+
+
     // play sound on user pointer down 
-const bubbleSoundRef = useRef(null);
 
-useEffect(() => {
-    bubbleSoundRef.current = new Howl({
-      src: [bubbleSound],
-      volume: 0.1,
-      preload: true,
-    });
-  }, []);
+    useEffect(() => {
+        bubbleSoundRef.current = new Howl({
+            src: [bubbleSound],
+            volume: 0.1,
+            preload: true,
+        });
+    }, []);
 
-useEffect(() => {
-    const touchZone = document.getElementById("touchZone");
+    useEffect(() => {
+        const touchZone = document.getElementById("touchZone");
 
-    const handlePointerDown = () => {
-        // Initialize Howl on first user interaction if needed
-        if (!bubbleSoundRef.current) {
-            bubbleSoundRef.current = new Howl({
-                src: [bubbleSound],
-                volume: 0.15,
-            });
-        }
-
-        const sound = bubbleSoundRef.current;
-        if (sound && typeof sound.play === 'function') {
-            sound.rate(Object.keys(activeTouches).length + 0.5);
-            sound.play();
-        }
-    };
-
-    if (touchZone) {
-        touchZone.addEventListener("pointerdown", handlePointerDown);
-    }
-
-    return () => {
-        if (touchZone) {
-            touchZone.removeEventListener("pointerdown", handlePointerDown);
-        }
-    };
-}, [activeTouches]);
-
-        // play sound on user pointer down 
-        const bellSoundRef = useRef(null);
-        useEffect(() => {
-            if (!bellSoundRef.current) {
-                bellSoundRef.current = new Howl({
-                    src: [bellSound],
-                    volume: 0.15,
-                    rate: 1,
+        const handlePointerDown = () => {
+            // Initialize Howl on first user interaction if needed
+            if (!bubbleSoundRef.current) {
+                bubbleSoundRef.current = new Howl({
+                    src: [bubbleSound],
+                    volume: 0.5,
                 });
             }
 
-            if(colorBackgroundActive) {
-                const sound = bellSoundRef.current;
-                if (sound && typeof sound.play === 'function') {
-                    sound.play();
-                }
+            const sound = bubbleSoundRef.current;
+            if (sound && typeof sound.play === 'function') {
+                sound.rate(Object.keys(activeTouches).length + 0.5);
+                sound.play();
             }
-            
-        }, [colorBackgroundActive]);
+        };
+
+        if (touchZone) {
+            touchZone.addEventListener("pointerdown", handlePointerDown);
+        }
+
+        return () => {
+            if (touchZone) {
+                touchZone.removeEventListener("pointerdown", handlePointerDown);
+            }
+        };
+    }, [activeTouches]);
+
+    // play sound on user pointer down 
+    const bellSoundRef = useRef(null);
+    useEffect(() => {
+        if (!bellSoundRef.current) {
+            bellSoundRef.current = new Howl({
+                src: [bellSound],
+                volume: 0.5,
+                rate: 1,
+            });
+        }
+
+        if (colorBackgroundActive) {
+            const sound = bellSoundRef.current;
+            if (sound && typeof sound.play === 'function') {
+                sound.play();
+            }
+        }
+
+    }, [colorBackgroundActive]);
 
 
     // check if images loaded
@@ -222,7 +248,7 @@ useEffect(() => {
                 // }, 2000); // Adjust the time as needed
 
             }, 2000);
-            
+
             return () => {
                 if (timeOutRef) {
                     clearTimeout(timeOutRef); // Clear timeout on cleanup
@@ -326,7 +352,7 @@ useEffect(() => {
     //     allSpots.forEach((el) => {
     //         el.style.border = colorBackgroundActive ? 'none' : 'none';
     //     });
-    
+
     //   }, [colorBackgroundActive]);
 
     return (

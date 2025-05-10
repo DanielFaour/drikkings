@@ -2,7 +2,8 @@
   "dependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router-dom": "^7.4.0"
+    "react-router-dom": "^7.4.0",
+    "use-sound": "^5.0.0"
   },
   "devDependencies": {
     "@vitejs/plugin-basic-ssl": "^2.0.0",
