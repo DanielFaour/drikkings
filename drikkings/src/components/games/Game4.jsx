@@ -25,6 +25,8 @@ function Game4() {
 
     const bubbleSoundRef = useRef(null);
 
+    const maxTouches = 5;
+
 
     // if sound doesnt work try this, but this doesnt actually work most of the time, 
     // i have a component in app.jsx that fixes that if thats the case
@@ -62,6 +64,7 @@ function Game4() {
     }, []);
 
     useEffect(() => {
+
         const touchZone = document.getElementById("touchZone");
 
         const handlePointerDown = () => {
@@ -75,8 +78,10 @@ function Game4() {
 
             const sound = bubbleSoundRef.current;
             if (sound && typeof sound.play === 'function') {
-                sound.rate(Object.keys(activeTouches).length + 0.5);
-                sound.play();
+                if (currentTouches < maxTouches) {
+                    sound.rate(Object.keys(activeTouches).length + 0.5);
+                    sound.play();
+                }
             }
         };
 
@@ -89,7 +94,7 @@ function Game4() {
                 touchZone.removeEventListener("pointerdown", handlePointerDown);
             }
         };
-    }, [activeTouches]);
+    }, [currentTouches]);
 
     // play sound on user pointer down 
     const bellSoundRef = useRef(null);
@@ -272,8 +277,7 @@ function Game4() {
         const touchZone = document.getElementById("touchZone");
         // handles pointer down
         const handlePointerDown = (event) => {
-            if (Object.keys(activeTouches).length >= 5) return; // Limit to 5 touches
-
+            if (Object.keys(activeTouches).length >= maxTouches) return; // Ignore if current touches exceed maxTouches
             isDragging.current = true;
             // Get a unique color for this touch
             const color = getColor();
@@ -290,9 +294,8 @@ function Game4() {
 
         // handles pointer drag/move
         const handlePointerMove = (event) => {
-            if (Object.keys(activeTouches).length >= 5) return; // Limit to 5 touches
             setActiveTouches((prev) => {
-                if (!prev[event.pointerId] && !isDragging.current) return prev;
+                if (!prev[event.pointerId] || Object.keys(prev).length > maxTouches) return prev; // Ignore if touch is not active or exceeds maxTouches
                 return {
                     ...prev,
                     [event.pointerId]: {
