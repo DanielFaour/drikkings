@@ -15,8 +15,8 @@ function Game4() {
     const [activeTouches, setActiveTouches] = useState({});
     const isDragging = useRef(false);
 
-    // red, blue, green, yellow, purple
-    const colors = ["#FF4C4C", "#4C9AFF", "#4CFF91", "#FFC94C", "#C04CFF"];
+    // red, blue, green, yellow, purple, bonus pink
+    const colors = ["#FF4C4C", "#4C9AFF", "#4CFF91", "#FFC94C", "#9A4CFF", "#FF4CDB"];
     const [selectedColors, setSelectedColors] = useState([]);
 
     const [gameActive, setGameActive] = useState(false);
@@ -272,11 +272,11 @@ function Game4() {
         const touchZone = document.getElementById("touchZone");
         // handles pointer down
         const handlePointerDown = (event) => {
+            if (Object.keys(activeTouches).length >= 5) return; // Limit to 5 touches
 
             isDragging.current = true;
             // Get a unique color for this touch
             const color = getColor();
-
             setActiveTouches((prev) => ({
                 ...prev,
                 [event.pointerId]: {
@@ -309,17 +309,15 @@ function Game4() {
 
             setActiveTouches((prev) => {
                 const newState = { ...prev };
-                const removedTouch = newState[event.pointerId]; // Get the removed touch data
+                const removedTouch = prev[event.pointerId]; // Get the removed touch data
                 delete newState[event.pointerId]; // Remove the touch from activeTouches
 
                 // Remove the color associated with the touch from selectedColors
                 if (removedTouch) {
-                    const colorIndex = selectedColors.indexOf(colors.indexOf(removedTouch.color));
+                    const colorIndex = colors.indexOf(removedTouch.color); // Find the correct color index
                     if (colorIndex !== -1) {
                         setSelectedColors((prevSelectedColors) => {
-                            const newColors = [...prevSelectedColors];
-                            newColors.splice(colorIndex, 1); // Remove color from selected colors
-                            return newColors;
+                            return prevSelectedColors.filter((index) => index !== colorIndex); // Remove color index
                         });
                     }
                 }

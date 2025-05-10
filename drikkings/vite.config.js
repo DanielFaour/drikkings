@@ -1,9 +1,8 @@
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
-import { viteStaticCopy } from 'vite-plugin-static-copy';
+import { viteStaticCopy } from 'vite-plugin-static-copy'
 import basicSsl from '@vitejs/plugin-basic-ssl'
 
-// https://vite.dev/config/
 export default defineConfig({
   plugins: [
     react(),
@@ -11,11 +10,11 @@ export default defineConfig({
     viteStaticCopy({
       targets: [
         {
-          src: 'public/404.html',  // This is the file you want to copy
-          dest: '',  // Root of the dist folder
+          src: 'public/404.html',
+          dest: '',
         },
       ],
     }),
   ],
-  base: '/',  // Use '/' if deploying to the root of the domain
+  base: '/', // if deploying to root domain
 })

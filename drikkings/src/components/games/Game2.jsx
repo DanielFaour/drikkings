@@ -173,8 +173,16 @@ function Game2() {
     }, 1500);
   }
 
+  // safeguard for hindering multiple presses
+  const [shotFiring, setShotFiring] = useState(false);
+
   // when activated from gamedivbox, activate shotsFired
   function shotsFired() {
+    if (shotFiring) {
+      return;
+    }
+    setShotFiring(true);
+    
     playClack();
     const amountRoundsFired = shotRounds + 1;
     setShotRounds(amountRoundsFired);
@@ -199,7 +207,7 @@ function Game2() {
     }
 
     // if chamber is live, shoot, if not do otherwise
-    if (amountRoundsFired == randomNumber + 1) {
+    if (amountRoundsFired === randomNumber + 1) {
       console.log("BANG");
       setGameEnd(true);
       setFirstNextText(false);
@@ -209,6 +217,11 @@ function Game2() {
       console.log("CLICK");
       spinGun();
     }
+
+    // Unlock clicks after a short delay
+    setTimeout(() => {
+      setShotFiring(false);
+    }, 500); // Adjust delay as needed
   }
 
   // function for creating random numbers in range
