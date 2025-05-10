@@ -5,54 +5,42 @@ function VisibilityHandler() {
   useEffect(() => {
     let resumeTimeout;
 
-    const resumeAudioContext = async () => {
-      try {
-        const ctx = Howler.ctx;
-        if (ctx && ctx.state === "suspended") {
-          await ctx.resume();
-        }
-
-        // Preload any non-playing sounds
-        Howler._howls.forEach((sound) => {
-          if (!sound.playing()) {
-            sound.load();
-          }
-        });
-      } catch (error) {
-        console.error("Audio resume error:", error);
-        window.location.href = "/";
-      }
-    };
-
-    const handleVisibilityChange = () => {
+    const handleVisibilityChange = async () => {
       if (document.visibilityState === "visible") {
-        resumeAudioContext();
+        try {
+          const ctx = Howler.ctx;
 
-        resumeTimeout = setTimeout(() => {
-          if (Howler.ctx.state !== "running") {
-            window.location.href = "/";
+          // Immediately attempt to resume AudioContext if suspended
+          if (ctx && ctx.state === "suspended") {
+            await ctx.resume();
           }
-        }, 200);
+
+          // Restore all Howl instances as soon as the context is resumed
+          resumeTimeout = setTimeout(() => {
+            Howler._howls.forEach((sound) => {
+              // If sound is not playing, load it immediately
+              if (!sound.playing()) {
+                sound.load();
+              }
+            });
+          }, 50); // Reduced delay
+
+          // Quick fallback: reload if AudioContext still isn't working
+          setTimeout(() => {
+            if (ctx.state !== "running") {
+              window.location.href = "/";
+            }
+          }, 200); // Reduced fallback time
+        } catch (error) {
+          console.error("Audio resume error:", error);
+          window.location.href = "/";
+        }
       }
     };
 
-    const handleUserInteraction = () => {
-      resumeAudioContext();
-      document.removeEventListener("click", handleUserInteraction);
-      document.removeEventListener("touchstart", handleUserInteraction);
-    };
-
-    // On load, try to resume after user interaction
-    document.addEventListener("click", handleUserInteraction, { once: true });
-    document.addEventListener("touchstart", handleUserInteraction, { once: true });
-
-    // Also listen for tab visibility changes
     document.addEventListener("visibilitychange", handleVisibilityChange);
-
     return () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
-      document.removeEventListener("click", handleUserInteraction);
-      document.removeEventListener("touchstart", handleUserInteraction);
       clearTimeout(resumeTimeout);
     };
   }, []);
