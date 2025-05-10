@@ -290,6 +290,7 @@ function Game4() {
 
         // handles pointer drag/move
         const handlePointerMove = (event) => {
+            if (Object.keys(activeTouches).length >= 5) return; // Limit to 5 touches
             setActiveTouches((prev) => {
                 if (!prev[event.pointerId] && !isDragging.current) return prev;
                 return {
