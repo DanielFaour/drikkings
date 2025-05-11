@@ -137,7 +137,7 @@ function Game1() {
   useEffect(() => {
     if (gameOver) {
       setCanRestart(false);
-      const timeout = setTimeout(() => setCanRestart(true), 250);
+      const timeout = setTimeout(() => setCanRestart(true), 500);
       setAllowClick(false);
 
       const game2Pang = document.getElementById("game2Pang");
@@ -150,7 +150,7 @@ function Game1() {
   const handlePointerUp = () => {
     if (canRestart) {
       resetGame();
-      setTimeout(() => setAllowClick(true), 150);
+      setTimeout(() => setAllowClick(true), 200);
     }
   };
 
@@ -185,7 +185,7 @@ function Game1() {
                 }}
                 disabled={!imagesLoaded}
                 style={{
-                  opacity: imagesLoaded ? 1 : 0.8,
+                  opacity: allowClick ? 1 : 0.5,
                   backgroundImage: imagesLoaded
                     ? isClicked
                       ? `url(${imageCache.current.hidden?.src})`

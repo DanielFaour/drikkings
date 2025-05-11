@@ -4,15 +4,19 @@ import { Howler } from "howler";
 import "./g_styles/game2.css";
 import game2Pang2 from './g_assets/game2/pang_light.jpg';
 import game2Pang2_dark from './g_assets/game2/pang_dark.jpg';
+import luckyLight from './g_assets/game2/lucky_lightv2.jpg';
+import luckyDark from './g_assets/game2/lucky_darkv2.jpg';
 import RoundsLeft from "./g_assets/game2/component/roundsLeft";
 import clackSound from "./g_assets/sounds/game2/clack.mp3";
 import pangSound from "./g_assets/sounds/game2/pang.mp3";
 import spinSound from "./g_assets/sounds/game2/spin.mp3";
+import luckySound from "./g_assets/sounds/game2/lucky.mp3";
 
 function Game2() {
   const navigate = useNavigate();
   const [gameIntro, setGameIntro] = useState(true);
   const [gameEnd, setGameEnd] = useState(false);
+  const [luckyEnd, setLuckyEnd] = useState(false);
   const [isIntroClicked, setIsIntroClicked] = useState(false);
   const [firstPress, setFirstPress] = useState(false);
   const [firstNextText, setFirstNextText] = useState(false);
@@ -31,6 +35,7 @@ function Game2() {
   const clickSFXRef = useRef();
   const pangSFXRef = useRef();
   const spinSFXRef = useRef();
+  const luckySFXRef = useRef();
 
   // if sound doesnt work try this, but this doesnt actually work most of the time, 
   // i have a component in app.jsx that fixes that if thats the case
@@ -79,21 +84,30 @@ function Game2() {
       html5: false,
       preload: true
     });
+    luckySFXRef.current = new Howl({
+      src: [luckySound],
+      rate: 1,
+      volume: 0.5,
+      html5: false,
+      preload: true
+    });
   }, []);
 
   // play intro sound
   useEffect(() => {
-    if(isIntroClicked) {
+    if (isIntroClicked) {
       spinSFXRef.current?.play?.();
     }
   }, [isIntroClicked])
-  
- // play end sound
- useEffect(() => {
-  if(gameEnd) {
-    pangSFXRef.current?.play?.();
-  }
-}, [gameEnd])
+
+  // play end sound
+  useEffect(() => {
+    if (gameEnd && !luckyEnd) {
+      pangSFXRef.current?.play?.();
+    } else if (gameEnd && luckyEnd) {
+      luckySFXRef.current?.play?.();
+    }
+  }, [gameEnd])
 
   function playClack() {
     clickSFXRef.current?.play?.();
@@ -108,6 +122,8 @@ function Game2() {
       bullet: new URL("./g_assets/game2/rev_bullet.png", import.meta.url).href,
       revolver: new URL("./g_assets/game2/revolver.png", import.meta.url).href,
       revolver_dark: new URL("./g_assets/game2/revolver_darkmode2.png", import.meta.url).href,
+      lucky: new URL(luckyLight, import.meta.url).href,
+      lucky_dark: new URL(luckyDark, import.meta.url).href,
       game2PangImg2: new URL(game2Pang2, import.meta.url).href,
       game2PangImg2_dark: new URL(game2Pang2_dark, import.meta.url).href,
     };
@@ -182,7 +198,7 @@ function Game2() {
       return;
     }
     setShotFiring(true);
-    
+
     playClack();
     const amountRoundsFired = shotRounds + 1;
     setShotRounds(amountRoundsFired);
@@ -209,6 +225,7 @@ function Game2() {
     // if chamber is live, shoot, if not do otherwise
     if (amountRoundsFired === randomNumber + 1) {
       console.log("BANG");
+      lucky();
       setGameEnd(true);
       setFirstNextText(false);
       resetGun();
@@ -250,7 +267,7 @@ function Game2() {
     gun.style.filter = "grayscale(100%)";
 
     let rotationIncrement = randomRange(2, 4) * 360 + randomRange(0, 360);
-    const rotationSpeed = randomRange(1200, 1800);
+    const rotationSpeed = randomRange(1200, 2200);
 
     gun.style.transition = `transform ${rotationSpeed}ms ease-in-out`;
 
@@ -331,6 +348,7 @@ function Game2() {
     setRandomNumber(newRandomNumber);
     resetNextText();
     setGameEnd(false);
+    setLuckyEnd(false);
     resetGun();
     spinGun();
   }
@@ -344,7 +362,12 @@ function Game2() {
       const timeout = setTimeout(() => setCanRestart(true), 500);
 
       const game2Pang = document.getElementById("game2Pang");
-      game2Pang.style.animation = "comeIn 0.5s forwards";
+
+      if (luckyEnd) {
+        game2Pang.style.animation = "slideInFromLeft 0.5s forwards";
+      } else {
+        game2Pang.style.animation = "comeIn 0.5s forwards";
+      }
       resetNextText();
 
       return () => clearTimeout(timeout);
@@ -356,6 +379,16 @@ function Game2() {
       restartGame();
     }
   };
+
+  // function for lucky round
+
+  function lucky() {
+    const rnd = randomRange(0, 15-shotRounds);
+
+    if (rnd == 7 || rnd == 4) {
+      setLuckyEnd(true);
+    }
+  }
 
   return (
     <div className="game" id="game2">
@@ -406,9 +439,22 @@ function Game2() {
         <div id="game2End" onPointerUp={handlePointerUp}>
           <div id="spacing"></div>
           <div id="game2Pang">
-            <img draggable="false" className="light-img" src={imageCache.current["game2PangImg2"]?.src} alt="pang" />
-            <img draggable="false" className="dark-img" src={imageCache.current["game2PangImg2_dark"]?.src} alt="pang" />
-            <p>Trykk på skjermen for å starte på nytt!</p>
+            {
+              luckyEnd ? (
+                <>
+                  <img draggable="false" className="light-img" src={imageCache.current["lucky"]?.src} alt="pang" />
+                  <img draggable="false" className="dark-img" src={imageCache.current["lucky_dark"]?.src} alt="pang" />
+                  <p>Trykk på skjermen for å starte på nytt!</p>
+                </>
+              ) :
+                (
+                  <>
+                    <img draggable="false" className="light-img" src={imageCache.current["game2PangImg2"]?.src} alt="pang" />
+                    <img draggable="false" className="dark-img" src={imageCache.current["game2PangImg2_dark"]?.src} alt="pang" />
+                    <p>Trykk på skjermen for å starte på nytt!</p>
+                  </>
+                )
+            }
           </div>
           <div id="spacing"></div>
           <div id="spacing"></div>
