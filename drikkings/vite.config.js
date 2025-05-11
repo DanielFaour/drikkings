@@ -18,4 +18,7 @@ export default defineConfig({
     }),
   ],
   base: '/',  // Use '/' if deploying to the root of the domain
+  server: {
+    historyApiFallback: true, // Ensures SPA routing works on refresh
+  },
 })
