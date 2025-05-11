@@ -273,7 +273,9 @@ function Game2() {
 
     setCurrentRotation((prevRotation) => {
       const newRotation = prevRotation + rotationIncrement;
-      gun.style.transform = `rotate(${newRotation}deg)`;
+      setTimeout(() => {
+        gun.style.transform = `rotate(${newRotation}deg)`;
+      }, 500);
       return newRotation;
     });
 
@@ -282,7 +284,7 @@ function Game2() {
       gun.style.filter = "grayscale(0%)";
       animateText();
       setClicked(false);
-    }, rotationSpeed);
+    }, rotationSpeed+500);
   };
 
   // animating "next" text indicating next players turn
@@ -358,6 +360,7 @@ function Game2() {
 
   useEffect(() => {
     if (gameEnd) {
+      const restartText = document.getElementById("restartText");
       setCanRestart(false);
       const timeout = setTimeout(() => setCanRestart(true), 500);
 
@@ -368,7 +371,12 @@ function Game2() {
       } else {
         game2Pang.style.animation = "comeIn 0.5s forwards";
       }
+
       resetNextText();
+
+      setTimeout(() => {
+        restartText.style.opacity = "1";
+      }, 500);
 
       return () => clearTimeout(timeout);
     }
@@ -393,7 +401,7 @@ function Game2() {
   return (
     <div className="game" id="game2">
       <div id="nav">
-        <button id="btnReturn" onClick={() => { resetNextText(); navigate("/"); }}>⬅️</button>
+        <button id="btnReturn" onPointerUp={() => { resetNextText(); navigate("/"); }}>⬅️</button>
         <h2 id="g2_title">Shot Roulette</h2>
       </div>
 
@@ -444,14 +452,14 @@ function Game2() {
                 <>
                   <img draggable="false" className="light-img" src={imageCache.current["lucky"]?.src} alt="pang" />
                   <img draggable="false" className="dark-img" src={imageCache.current["lucky_dark"]?.src} alt="pang" />
-                  <p>Trykk på skjermen for å starte på nytt!</p>
+                  <p id="restartText">Trykk på skjermen for å starte på nytt!</p>
                 </>
               ) :
                 (
                   <>
                     <img draggable="false" className="light-img" src={imageCache.current["game2PangImg2"]?.src} alt="pang" />
                     <img draggable="false" className="dark-img" src={imageCache.current["game2PangImg2_dark"]?.src} alt="pang" />
-                    <p>Trykk på skjermen for å starte på nytt!</p>
+                    <p id="restartText">Trykk på skjermen for å starte på nytt!</p>
                   </>
                 )
             }

@@ -541,12 +541,23 @@
 }
 
 @keyframes slideInFromLeft {
-  from {
-    transform: translateX(-100%);
+  0% {
+    transform: translateX(-100%) scaleY(0);
+    transform-origin: top;
     opacity: 0;
   }
-  to {
-    transform: translateX(0);
+  30% {
+    transform: translateX(0) scaleY(0.1);
+    transform-origin: top;
     opacity: 1;
   }
+  100% {
+    transform: translateX(0) scaleY(1);
+    transform-origin: top;
+  }
+}
+
+#restartText {
+  opacity: 0;
+  transition: 0.5s;
 }

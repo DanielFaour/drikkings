@@ -28,7 +28,7 @@ function VisibilityHandler() {
           // Quick fallback: reload if AudioContext still isn't working
           setTimeout(() => {
             if (ctx.state !== "running") {
-              window.location.href = "/";
+              window.location.reload();
             }
           }, 200); // Reduced fallback time
         } catch (error) {

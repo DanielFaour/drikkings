@@ -39,7 +39,7 @@ function Game1() {
     explosionSoundRef.current = new Howl({
       src: [explosionSound], 
       rate: 1, 
-      volume: 0.5, 
+      volume: 1, 
       html5: false, 
       preload: true });
   }, []);
@@ -157,7 +157,7 @@ function Game1() {
   return (
     <div className="game" id="game1">
       <div id="nav">
-        <button id="btnReturn" onClick={() => navigate("/")}>⬅️</button>
+        <button id="btnReturn" onPointerUp={() => navigate("/")}>⬅️</button>
         <h2>1/16 Minesweeper</h2>
       </div>
 

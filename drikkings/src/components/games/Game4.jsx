@@ -360,7 +360,7 @@ function Game4() {
     return (
         <div className="game" id="game4">
             <div id="nav">
-                <button id="btnReturn" onClick={() => navigate("/")}>⬅️</button>
+                <button id="btnReturn" onPointerUp={() => navigate("/")}>⬅️</button>
                 <h2 id="g3_title">Color Picker</h2>
             </div>
             <p id="ruleText">Maks 5 spillere</p>

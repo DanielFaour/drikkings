@@ -10,7 +10,7 @@ function GameInfo() {
   return (
     <>
       <div id="nav_info">
-        <button id="btnReturn" onClick={() => navigate('/')}>⬅️</button>
+        <button id="btnReturn" onPointerUp={() => navigate('/')}>⬅️</button>
         <h2>Spillinformasjon</h2>
       </div>
       <div id="info_game">
@@ -19,7 +19,7 @@ function GameInfo() {
 
             <h3>Introduksjon</h3>
             <p>
-              Denne nettsiden er laget som et hobbyprosjekt ved siden av jobb og studier. Spillene kan spilles som man vil, men de er designet etter reglene under. 
+              Denne nettsiden er laget som et hobbyprosjekt ved siden av jobb og studier. Spillene kan spilles som man vil, men de er designet etter reglene under.
               <br /><br />
               Har du noen ønsker, feedback eller funnet feil, send meg gjerne en epost <a href='mailto:daniea1602@gmail.com'>her!</a>
               <br /><br />
@@ -45,6 +45,8 @@ function GameInfo() {
               <br /><br />
             </p>
             <h3>🍼 Flasketuten peker på 🍼</h3>
+            <br />
+            <center>Work in progress! ⚠️</center>
             <p>Nøyaktig hva det høres ut som! En flaske som spinner og peker på deltakeren som må gjøre noe.
               Trykk på flasken for å få den til å spinne, og dere bestemmer
               reglene selv. For eksempel kan det være å ta en slurk, eller gjøre noe sprøtt!
@@ -56,7 +58,9 @@ function GameInfo() {
               <br /><br />
             </p>
             <h3>🍾 Shake It 🍾</h3>
-            <p>Et enkelt spill hvor man rister en flaske med bobler og gir den videre til nestemann før den popper. Deltakeren som popper flasken må hen ta en chug eller shot! Dette spillet er work in progress.
+            <br />
+            <center>Work in progress! ⚠️</center>
+            <p>Et enkelt spill hvor man rister en flaske med bobler og gir den videre til nestemann før den popper. Deltakeren som popper flasken må hen ta en chug eller shot!
               <br /><br />
             </p>
             <h3>⏱️ Flere spill på vei ⏱️</h3>
