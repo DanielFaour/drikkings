@@ -185,7 +185,7 @@ function Game1() {
                 }}
                 disabled={!imagesLoaded}
                 style={{
-                  opacity: allowClick ? 1 : 0.5,
+                  opacity: allowClick ? 1 : 0.8,
                   backgroundImage: imagesLoaded
                     ? isClicked
                       ? `url(${imageCache.current.hidden?.src})`

@@ -28,19 +28,34 @@ function VisibilityHandler() {
           // Quick fallback: reload if AudioContext still isn't working
           setTimeout(() => {
             if (ctx.state !== "running") {
-              window.location.href = "/";
+              window.location.reload(); // Reload the current page
             }
           }, 200); // Reduced fallback time
         } catch (error) {
           console.error("Audio resume error:", error);
-          window.location.href = "/";
+          window.location.reload(); // Reload the current page
         }
       }
     };
 
+    const handleFocus = () => {
+      console.log("Tab is focused");
+      handleVisibilityChange();
+    };
+
+    const handleBlur = () => {
+      console.log("Tab is blurred");
+      handleVisibilityChange();
+    };
+
     document.addEventListener("visibilitychange", handleVisibilityChange);
+    window.addEventListener("focus", handleFocus);
+    window.addEventListener("blur", handleBlur);
+
     return () => {
       document.removeEventListener("visibilitychange", handleVisibilityChange);
+      window.removeEventListener("focus", handleFocus);
+      window.removeEventListener("blur", handleBlur);
       clearTimeout(resumeTimeout);
     };
   }, []);

@@ -19,7 +19,9 @@ function GameInfo() {
 
             <h3>Introduksjon</h3>
             <p>
-              Denne nettsiden er laget som et hobbyprosjekt ved siden av jobb og studier. Spillene kan spilles som man vil, men de er designet etter reglene under. Har du noen ønsker, feedback eller funnet feil, send meg gjerne en epost <a href='mailto:daniea1602@gmail.com'>her!</a>
+              Denne nettsiden er laget som et hobbyprosjekt ved siden av jobb og studier. Spillene kan spilles som man vil, men de er designet etter reglene under. 
+              <br /><br />
+              Har du noen ønsker, feedback eller funnet feil, send meg gjerne en epost <a href='mailto:daniea1602@gmail.com'>her!</a>
               <br /><br />
             </p>
             <h3>💣 1/16 Minesweeper 💣</h3>
@@ -29,15 +31,17 @@ function GameInfo() {
               <br /><br />
               2. <b>Antall trykk:</b> Etter man har trykket på én eller flere knapper, sender man turen videre til neste spiller (med klokka).
               <br /><br />
-              3. <b>Antall slurker:</b> Dersom en spiller trykker på en knapp med bomben, må de drikke for antall knapper de har trykket på, inkludert forrige spillers. Ingen unntak!
+              3. <b>Antall slurker:</b> Dersom en spiller trykker på en knapp med bomben, må de drikke for antall knapper de selv har trykket på den runden, inkludert forrige spillers. Ingen unntak!
               <br /><br />
-              <b>Bonus:</b> Dersom en spiller trykker på bomben på første forsøk, må de ta en shot eller chug. Synd trist leit, et problem for morgendagen!
+              <b>Bonus:</b> Dersom en spiller trykker på bomben på første forsøk på et nytt spill, må de ta en shot eller chug. Synd trist leit, det er problem for senere!
               <br /><br />
             </p>
             <h3>🥛 Shot Roulette 🥛</h3>
             <p>
               Klassisk russisk rulett med en liten vri! Personen som blir pekt på av revolveren må ta sjansen sin og trykke på den. Hvis den skyter må personen som
               trakk på den sist ta en slurk, eller shot hvis dere er klin kokkos!
+              <br /><br />
+              <b>Bonus:</b> Det er en liten sannsynlighet for at kula er en "lucky bullet" som vil si taperen vinner og kan dele ut straffen!
               <br /><br />
             </p>
             <h3>🍼 Flasketuten peker på 🍼</h3>
@@ -47,8 +51,8 @@ function GameInfo() {
               <br /><br />
             </p>
             <h3>🎨 Color Picker 🎨</h3>
-            <p>I dette spillet kan man maks være 5 spillere. Hver spiller plasserer en finger på skjermen. Hver spiller får sin egen farge,
-              og når tiden går ut vil skjermen endre farge til en av spillernes farge, som betyr at vedkommende må ta en slurk eller shot!
+            <p>I dette spillet kan man maks være 5 spillere. Hver spiller plasserer en finger på skjermen, hvor de får sin egen farge under fingertuppen.
+              Når tiden går ut vil skjermen endre farge til en av spillernes farge, som betyr at vedkommende med fargen må ta en slurk eller shot!
               <br /><br />
             </p>
             <h3>🍾 Shake It 🍾</h3>
@@ -56,6 +60,21 @@ function GameInfo() {
               <br /><br />
             </p>
             <h3>⏱️ Flere spill på vei ⏱️</h3>
+            <br /><br />
+            <h3>Dette er hva jeg holder på med nå:</h3>
+            <ul>
+              <li>Ferdigstilling av spill, spesielt spill 3 og 5</li>
+              <br></br>
+              <li>Se på om jeg skal gjøre det mulig å endre sprøk, eller bare gjøre om siden til engelsk</li>
+              <br></br>
+              <li>Se på om jeg skal gjøre det mulig å endre sprøk, eller bare gjøre om siden til engelsk</li>
+              <br></br>
+              <li>Patche noen bugs med lyd (lyd fungerer generelt sett dårlig på nettsider)</li>
+              <br></br>
+              <li>Starte på Game 6</li>
+              <br></br>
+              <li>Legge inn regelside på hvert spill første gang man åpner spill, så man slipper å gå inn her</li>
+            </ul>
           </div>
 
         </div>
@@ -67,7 +86,7 @@ function GameInfo() {
             <img src={bmcImage} alt="Kjøp meg en øl!" style={{ width: "160px" }} />
           </a>
           <p id="vipps">eller vipps: 47629779</p>
-          <p id="copyright">Copyright © 2025</p>
+          <p id="copyright" style={{ opacity: 0.5 }}>Copyright © 2025</p>
         </footer>
       </div >
     </>

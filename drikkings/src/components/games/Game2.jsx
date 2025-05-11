@@ -383,7 +383,7 @@ function Game2() {
   // function for lucky round
 
   function lucky() {
-    const rnd = randomRange(0, 15-shotRounds);
+    const rnd = randomRange(0, 16-shotRounds);
 
     if (rnd == 7 || rnd == 4) {
       setLuckyEnd(true);
