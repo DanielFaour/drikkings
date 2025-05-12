@@ -172,6 +172,8 @@ function Game2() {
   function startGame() {
     if (!imagesLoaded || isIntroClicked) return;
     const nextText = document.getElementById("nextText");
+    const gun = document.getElementById("revGun");
+    gun.style.filter = "grayscale(100%)";
     nextText.style.display = "none";
 
     setIsIntroClicked(true);
@@ -212,10 +214,17 @@ function Game2() {
       clickTextRef.current.style.opacity = "0";
     }
 
-    
+
+    // if (shotsFired) {
+    //   gun.style.transition = "transform 1s";
+    //   gun.style.scale = "0.98";
+    //   setTimeout(() => {
+    //     gun.style.scale = "1";
+    //   }, 100);
+    // }
+
     if (shotsFired) {
-      gun.style.transition = "transform 1s";
-      gun.style.scale = "0.98";
+      gun.style.filter = "grayscale(100%)";
     }
 
 
@@ -261,7 +270,6 @@ function Game2() {
     const gun = document.getElementById("revGun");
     const img = document.getElementsByTagName("img");
     const game2Container = document.getElementById("game2Container");
-
     if (!gun || !img || !game2Container) {
       console.error(
         `${!gun ? "gun element is null. " : ""}` +
@@ -274,7 +282,6 @@ function Game2() {
     game2Container.style.pointerEvents = "none";
     gun.style.pointerEvents = "none";
     img.pointerEvents = "none";
-    gun.style.filter = "grayscale(100%)";
 
     let rotationIncrement = randomRange(2, 4) * 360 + randomRange(0, 360);
     const rotationSpeed = randomRange(1200, 2200);
@@ -284,7 +291,7 @@ function Game2() {
     setCurrentRotation((prevRotation) => {
       const newRotation = prevRotation + rotationIncrement;
       setTimeout(() => {
-        gun.style.scale = "1";
+        // gun.style.scale = "1";
         gun.style.transform = `rotate(${newRotation}deg)`;
       }, 500);
       return newRotation;
@@ -409,6 +416,16 @@ function Game2() {
     }
   }
 
+  function gunPressDown() {
+    const gun = document.getElementById("revGun");
+    gun.style.scale = "0.98";
+  }
+
+  function gunPressUp() {
+    const gun = document.getElementById("revGun");
+    gun.style.scale = "1";
+  }
+
   return (
     <div className="game" id="game2">
       <div id="nav">
@@ -419,7 +436,7 @@ function Game2() {
       <p id="clickTextGame2" ref={clickTextRef} className={firstPress ? "clicked" : ""}>
         Hint: Trykk for å skyte revolveren!
       </p>
-      <div id="game2Container" onPointerUp={() => { shotsFired(); }}>
+      <div id="game2Container" onPointerDown={() => gunPressDown()} onPointerUp={() => { shotsFired(); gunPressUp();}}>
         <div id="revGun">
           <img draggable="false" className="rev_light" src={imageCache.current["revolver"]?.src} alt="revolver" />
           <img draggable="false" className="rev_dark" src={imageCache.current["revolver_dark"]?.src} alt="revolver" />
