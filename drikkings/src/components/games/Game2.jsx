@@ -194,6 +194,8 @@ function Game2() {
 
   // when activated from gamedivbox, activate shotsFired
   function shotsFired() {
+    const gun = document.getElementById("revGun");
+
     if (shotFiring) {
       return;
     }
@@ -209,6 +211,13 @@ function Game2() {
     if (clickTextRef.current) {
       clickTextRef.current.style.opacity = "0";
     }
+
+    
+    if (shotsFired) {
+      gun.style.transition = "transform 1s";
+      gun.style.scale = "0.98";
+    }
+
 
     // when shooting, clear timeout
     clearTimeout(timeoutRef.current);
@@ -230,6 +239,7 @@ function Game2() {
       setFirstNextText(false);
       resetGun();
       setShotRounds(0);
+      gun.style.scale = "1";
     } else {
       console.log("CLICK");
       spinGun();
@@ -274,6 +284,7 @@ function Game2() {
     setCurrentRotation((prevRotation) => {
       const newRotation = prevRotation + rotationIncrement;
       setTimeout(() => {
+        gun.style.scale = "1";
         gun.style.transform = `rotate(${newRotation}deg)`;
       }, 500);
       return newRotation;
@@ -284,7 +295,7 @@ function Game2() {
       gun.style.filter = "grayscale(0%)";
       animateText();
       setClicked(false);
-    }, rotationSpeed+500);
+    }, rotationSpeed + 500);
   };
 
   // animating "next" text indicating next players turn
@@ -391,7 +402,7 @@ function Game2() {
   // function for lucky round
 
   function lucky() {
-    const rnd = randomRange(0, 16-shotRounds);
+    const rnd = randomRange(0, 16 - shotRounds);
 
     if (rnd == 7 || rnd == 4) {
       setLuckyEnd(true);

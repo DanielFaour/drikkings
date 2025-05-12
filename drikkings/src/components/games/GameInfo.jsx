@@ -69,9 +69,9 @@ function GameInfo() {
             <ul>
               <li>Ferdigstilling av spill, spesielt spill 3 og 5</li>
               <br></br>
-              <li>Se på om jeg skal gjøre det mulig å endre sprøk, eller bare gjøre om siden til engelsk</li>
+              <li>Se på om jeg skal gjøre det mulig å endre språk, eller bare gjøre om siden til engelsk</li>
               <br></br>
-              <li>Se på om jeg skal gjøre det mulig å endre sprøk, eller bare gjøre om siden til engelsk</li>
+              <li>Se på om jeg skal gjøre det mulig å endre språk, eller bare gjøre om siden til engelsk</li>
               <br></br>
               <li>Patche noen bugs med lyd (lyd fungerer generelt sett dårlig på nettsider)</li>
               <br></br>

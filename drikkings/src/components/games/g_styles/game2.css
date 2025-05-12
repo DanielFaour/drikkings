@@ -48,8 +48,8 @@
 #revGun img {
   align-self: center;
   justify-self: center;
-  width: 18rem;
-  height: 18rem;
+  max-height: 45vh;
+  max-width: 90vw;
   padding: 1rem;
   margin: 0;
   display: block;
