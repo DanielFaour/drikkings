@@ -84,8 +84,8 @@ function Game1() {
 
   useEffect(() => {
     const imagePaths = {
-      hidden: new URL("./g_assets/b_tapped.png", import.meta.url).href,
-      revealed: new URL("./g_assets/b_untapped.png", import.meta.url).href,
+      hidden: new URL("./g_assets/game1/b_tapped.png", import.meta.url).href,
+      revealed: new URL("./g_assets/game1/b_untapped.png", import.meta.url).href,
       kaboom: new URL(kaboom, import.meta.url).href,
       kaboom_dark: new URL(kaboom_dark, import.meta.url).href,
     };

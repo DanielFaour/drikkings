@@ -3,8 +3,8 @@ import { useState, useEffect, useRef } from "react";
 import { Howl, Howler } from "howler";
 import "./g_styles/game5.css";
 import { v4 as uuidv4 } from 'uuid';
-import ShakePermission from "./g_assets/game5/ShakePermission";
-import Bubbles from "./g_assets/game5/Bubbles";
+import ShakePermission from "./g_assets/game5/component/ShakePermission";
+import Bubbles from "./g_assets/game5/component/Bubbles";
 import popSound from "./g_assets/sounds/game5/bottle_pop.mp3";
 import shakeSound from "./g_assets/sounds/game5/shake.mp3";
 import shakeSound2 from "./g_assets/sounds/game5/shake.mp3";
@@ -42,7 +42,6 @@ function Game5() {
                 Howler.ctx.resume();
             }
         };
-
 
         const onVisibilityChange = () => { // check audio active after returning to page from idle or other apps
             if (document.visibilityState === 'visible') resumeAudio();
@@ -322,7 +321,7 @@ function Game5() {
         setGameStart(true);
     }
 
-    // help from gpt
+    // create bubbles and remove them after animation is finished (help from gpt because it got late)
     const addBubble = (speed, swiggle, scale) => {
         if (!gameFinish && gameStart)
         {if (activeBubblesRef.current.size >= MAX_BUBBLES) return; // Prevent adding more bubbles than the limit

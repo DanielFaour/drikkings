@@ -23,7 +23,7 @@ function Game3() {
     // check if images loaded
     useEffect(() => {
         const imagePaths = {
-            bottle: new URL("./g_assets/bottle.png", import.meta.url).href,
+            bottle: new URL("./g_assets/game3/bottle.png", import.meta.url).href,
         };
 
         let loadedCount = 0;

@@ -33,7 +33,7 @@ function VisibilityHandler() {
           }, 200); // Reduced fallback time
         } catch (error) {
           console.error("Audio resume error:", error);
-          window.location.href = "/";
+          window.location.reload();
         }
       }
     };

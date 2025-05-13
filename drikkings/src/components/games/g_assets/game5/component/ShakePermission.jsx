@@ -15,6 +15,7 @@ export default function MotionPermissionTest() {
         //   alert('Permission granted! ✅');
         } else {
           alert('Tillatelse avslått ❌ Prøv igjen senere eller slett nettleserdata og prøv på nytt!');
+          window.location.reload();
         }
       } catch (e) {
         alert('Error: ' + e.message);

@@ -8,7 +8,7 @@ import './components/styles/buttons.css';
 import './components/styles/mainGame.css';
 import ThemeToggle from './components/ThemeToggle';
 import Info from './components/games/GameInfo';
-import InfoButton from './components/infoButton';
+import InfoButton from './components/InfoButton';
 import GamesCards from './components/GamesCards';
 import Game1 from './components/games/Game1';
 import Game2 from './components/games/Game2';
@@ -77,12 +77,12 @@ function App() {
           <VisibilityHandler />
           <Routes>
             <Route path="/" element={<GamesCards />} />
-            <Route path="/games/game1" element={<Game1 />} />
-            <Route path="/games/game2" element={<Game2 />} />
-            <Route path="/games/game3" element={<Game3 />} />
-            <Route path="/games/game4" element={<Game4 />} />
-            <Route path="/games/game5" element={<Game5 />} />
-            <Route path="/games/info" element={<Info />} />
+            <Route path="/games/Game1" element={<Game1 />} />
+            <Route path="/games/Game2" element={<Game2 />} />
+            <Route path="/games/Game3" element={<Game3 />} />
+            <Route path="/games/Game4" element={<Game4 />} />
+            <Route path="/games/Game5" element={<Game5 />} />
+            <Route path="/games/GameInfo" element={<Info />} />
           </Routes>
           {/* <p id="copyright">Copyright © 2025 Daniel Faour</p> */}
         </div>

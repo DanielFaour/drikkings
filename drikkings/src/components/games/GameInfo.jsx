@@ -71,8 +71,6 @@ function GameInfo() {
               <br></br>
               <li>Se på om jeg skal gjøre det mulig å endre språk, eller bare gjøre om siden til engelsk</li>
               <br></br>
-              <li>Se på om jeg skal gjøre det mulig å endre språk, eller bare gjøre om siden til engelsk</li>
-              <br></br>
               <li>Patche noen bugs med lyd (lyd fungerer generelt sett dårlig på nettsider)</li>
               <br></br>
               <li>Starte på Game 6</li>
