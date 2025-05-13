@@ -1,8 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
+import { Howl, Howler } from "howler";
 import "./g_styles/game5.css";
 import { v4 as uuidv4 } from 'uuid';
 import ShakePermission from "./g_assets/game5/ShakePermission";
+import Bubbles from "./g_assets/game5/Bubbles";
 import popSound from "./g_assets/sounds/game5/bottle_pop.mp3";
 import shakeSound from "./g_assets/sounds/game5/shake.mp3";
 import shakeSound2 from "./g_assets/sounds/game5/shake.mp3";
@@ -24,111 +26,94 @@ function Game5() {
     const [gameFinish, setGameFinish] = useState(false);
     const [gameStart, setGameStart] = useState(false);
     const [randomShakeOffset, setRandomShakeOffset] = useState(0);
-    
+
     const [popSoundPlayed, setPopSoundPlayed] = useState(false);
     const [shakeSoundPlayed, setShakeSoundPlayed] = useState(false);
 
-    const popSFX = useMemo(() => new Audio(popSound), [popSound]);
-    const shakeSFX = useMemo(() => new Audio(shakeSound), [shakeSound]);
-    const shakeSFX2 = useMemo(() => new Audio(shakeSound2), [shakeSound2]);
-    const shakeTimeoutRef = useRef(null);
-    const shake2TimeoutRef = useRef(null);
+    const [bubbles, setBubbles] = useState([]);
+    const activeBubblesRef = useRef(new Set());
 
-    function playPopSound() {
-        if (!popSoundPlayed) {
-            popSFX.currentTime = 0;
-            popSFX.loop = true;
-            popSFX.muted = true;
-            popSFX.play();
-        } else {
-            popSFX.currentTime = 0;
-            popSFX.loop = false;
-            popSFX.muted = false;
-            popSFX.play();
-        }
-    }
+    const MAX_BUBBLES = 40; // Limit the maximum number of bubbles
 
-    // function playShakeSound() {
-    //     if (!shakeSFX.current) {
-    //         shakeSFX.current = new Audio(shakeSound);
-    //         shakeSFX.current.loop = true;
-    //         shakeSFX.current.currentTime = 0.2;
-    //     }
-
-    //     clearTimeout(shakeTimeoutRef.current);
-
-    //     shakeSFX.currentTime = 0.2;
-
-    //     if (!shakeSoundPlayed) {
-    //         shakeSFX.muted = false;
-
-    //         shakeSFX.play().catch((err) => {
-    //             console.error("Audio playback failed:", err);
-    //         });
-
-    //         shakeTimeoutRef.current = setTimeout(() => {
-    //             shakeSFX.muted = true;
-    //         }, 1000);
-    //     } else {
-    //         // Ensure it's playing and unmuted
-    //         shakeSFX.muted = false;
-
-    //         // Avoid multiple .play() calls if it's already playing
-    //         if (shakeSFX.paused) {
-    //             shakeSFX.play().catch((err) => {
-    //                 console.error("Audio playback failed:", err);
-    //             });
-    //         }
-    //     }
-    // }
-
-    const [firstShake, setFirstShake] = useState(false);
-    const [shakeDirection, setShakeDirection] = useState(0);
-
-    function playShakeSound() {
-
-        if (!shakeSoundPlayed && !firstShake) {
-            shakeSFX.currentTime = randomRange(0, 6);
-            shakeSFX.muted = true;
-            shakeSFX.loop = true;
-            shakeSFX.play();
-            shakeSFX2.currentTime = randomRange(0, 6);
-            shakeSFX2.muted = true;
-            shakeSFX2.loop = true;
-            shakeSFX2.play();
-            setFirstShake(true);
-        }
-
-        if (shakeSoundPlayed && !gameFinish && shakeDirection == 1) {
-            shakeSFX.muted = false;
-
-            clearTimeout(shakeTimeoutRef.current);
-            shakeTimeoutRef.current = setTimeout(() => {
-                shakeSFX.currentTime = randomRange(0, 6);
-                shakeSFX.muted = true;
-            }, 550);
-        }
-        if (shakeSoundPlayed && !gameFinish && shakeDirection == -1) {
-            shakeSFX2.muted = false;
-
-            clearTimeout(shake2TimeoutRef.current);
-            shake2TimeoutRef.current = setTimeout(() => {
-                shakeSFX2.currentTime = randomRange(0, 6);
-                shakeSFX2.muted = true;
-            }, 550);
-        }
-
-        if (gameFinish) {
-            shakeSFX.muted = true;
-            shakeSFX2.muted = true;
-        }
-
-    }
-
+    // make sure that audio is active
     useEffect(() => {
-        playShakeSound();
-    }, [shakeSoundPlayed]);
+        const resumeAudio = () => {
+            if (Howler.ctx && Howler.state === 'suspended') {
+                Howler.ctx.resume();
+            }
+        };
 
+
+        const onVisibilityChange = () => { // check audio active after returning to page from idle or other apps
+            if (document.visibilityState === 'visible') resumeAudio();
+        };
+
+        window.addEventListener('click', resumeAudio);
+        window.addEventListener('touchstart', resumeAudio);
+        document.addEventListener('visibilitychange', onVisibilityChange);
+
+        return () => {
+            window.removeEventListener('click', resumeAudio);
+            window.removeEventListener('touchstart', resumeAudio);
+            document.removeEventListener('visibilitychange', onVisibilityChange);
+        };
+    }, []);
+
+    const shakeSFX1 = useRef();
+    const shakeSFX2 = useRef();
+    const popSFX = useRef();
+
+    // load sound
+    useEffect(() => {
+        shakeSFX1.current = new Howl({
+            src: [shakeSound],
+            rate: 1,
+            volume: 2.2,
+            html5: false,
+            preload: true
+        });
+        shakeSFX2.current = new Howl({
+            src: [shakeSound2],
+            rate: 1,
+            volume: 2.2,
+            html5: false,
+            preload: true
+        });
+        popSFX.current = new Howl({
+            src: [popSound],
+            rate: 1,
+            volume: 2.5,
+            html5: false,
+            preload: true
+        });
+    }, []);
+
+    // play shake sound
+    useEffect(() => {
+        if (gameFinish || !gameStart) {
+            return;
+        }
+
+        if (shake == 1) {
+            shakeSFX2.current?.rate(randomDecimal(0.5, 0.8));
+            shakeSFX2.current?.play?.();
+        } else if (shake == -1) {
+            shakeSFX1.current?.rate(randomDecimal(0.5, 0.8));
+            shakeSFX1.current?.play?.();
+        }
+    }, [shake])
+
+    // creates a random desimal between min and max
+    function randomDecimal(min, max) {
+        return Math.random() * (max - min) + min;
+    }
+
+    // play end sound
+    useEffect(() => {
+        if (gameFinish) {
+            popSFX.current?.play?.();
+        }
+    }, [gameFinish])
 
     // check if images loaded
     useEffect(() => {
@@ -184,24 +169,19 @@ function Game5() {
 
     function handleMotionEvent(event) {
         const game5bg = document.getElementById("game5bg");
-        game5bg.style.transition = "0.2s";
+        if (game5bg) {
+            game5bg.style.transition = "0.2s";
+        }
 
         const y = event.acceleration.y;
 
         // register shakes
         if (y > 15) {
             setShake(1);
-            setShakeSoundPlayed(true);
-            setShakeDirection(1);
-        }
-        else if (y < -15) {
+        } else if (y < -15) {
             setShake(-1);
-            setShakeSoundPlayed(true);
-            setShakeDirection(-1);
         } else {
             setShake(0);
-            setShakeSoundPlayed(false);
-            setShakeDirection(0);
         }
     }
 
@@ -209,11 +189,12 @@ function Game5() {
     window.addEventListener("devicemotion", handleMotionEvent, true);
 
     useEffect(() => {
-        const shakeText = document.getElementById("shakeData");
+        // const shakeText = document.getElementById("shakeData");
         const bottle = document.getElementById("bottleShake");
 
+        // if (!bottle || !shakeText) return; // Add null checks
+
         if (gameFinish) {
-            // shakeText.innerHTML = 0;
             return;
         }
 
@@ -223,77 +204,72 @@ function Game5() {
             setRandomShakeOffset(randomRange(-25, 25));
         }
 
-        if (shake == 1) {
+        if (shake === 1 || shake === -1) {
             setShakeCounter((prevCounter) => prevCounter + 1);
-
-        } else if (shake == -1) {
-            setShakeCounter((prevCounter) => prevCounter + 1);
-
         }
-
-        // shakeText.innerHTML = randLoss;
 
         const prosentShake = Math.floor((shakeCounter / randNum) * 100);
 
         if (bottle) {
             if (prosentShake >= 85 + randomShakeOffset) {
-                setBottleShake(0.1)
+                setBottleShake(0.1);
             } else if (prosentShake >= 60 + randomShakeOffset) {
-                setBottleShake(0.3)
+                setBottleShake(0.3);
             } else if (prosentShake >= 40 + randomShakeOffset) {
-                setBottleShake(0.5)
+                setBottleShake(0.5);
             } else if (prosentShake >= 20 + randomShakeOffset) {
-                setBottleShake(1)
+                setBottleShake(1);
             } else if (shake > 0) {
-                setBottleShake(2)
+                setBottleShake(2);
             }
         }
 
-        if (shakeCounter > randLoss && !gameFinish || shakeCounter > randNum && !gameFinish) {
+        if ((shakeCounter > randLoss || shakeCounter > randNum) && !gameFinish) {
             bottle.style.animation = "none";
             setGameFinish(true);
             setShakeCounter(0);
         }
 
-        clickTextRef.current.style.opacity = "0";
+        if (clickTextRef.current) {
+            clickTextRef.current.style.opacity = "0";
+        }
+    }, [shake]);
 
+    useEffect(() => {
+        if (bubbles.length < MAX_BUBBLES && shake !== 0) {
+            addBubble(randomDecimal(2, 4), randomDecimal(0.5, 1.5), randomDecimal(0.5, 1.5));
+        }
     }, [shake]);
 
     // function for shaking the bottle
     function setBottleShake(x) {
         const bottle = document.getElementById("bottleShake");
-        bottle.style.animation = `shake ${x}s infinite`;
-
-        // clearTimeout(bottle.shakeTimeout);
-        // bottle.shakeTimeout = setTimeout(() => {
-        //     clearInterval(bottle.shakeInterval);
-        //     bottle.style.animation = `shake ${1}s infinite`
-        // }, 3000);
+        if (bottle) {
+            bottle.style.animation = `shake ${x}s infinite`;
+        }
     }
 
-
     function resetGame() {
-        const shakeText = document.getElementById("shakeData");
+        // const shakeText = document.getElementById("shakeData");
         const bottle = document.getElementById("bottleShake");
-        bottle.style.animation = "0";
-        // shakeText.innerHTML = 0;
+        const game5Pop = document.getElementById("game5Pop");
+        const endText = document.getElementById("endText");
+
+        if (bottle) bottle.style.animation = "0";
+        // if (shakeText) shakeText.innerHTML = 0;
+        if (game5Pop) game5Pop.style.display = "none";
+        if (endText) endText.style.display = "none";
+
         setRandNum(randomRange(25, 250));
         setRandLoss(randomRange(25, 350));
         setRandomShakeOffset(randomRange(-15, 15));
         setShakeCounter(0);
         setGameFinish(false);
-        clickTextRef.current.style.opacity = "1";
+        setBubbles([]);
 
-        playPopSound();
-        setPopSoundPlayed(true);
-
-        const game5Pop = document.getElementById("game5Pop");
-        game5Pop.style.display = "none";
-        const endText = document.getElementById("endText");
-        endText.style.display = "none";
-
-        setShakeSoundPlayed(false);
-        setFirstShake(false);
+        if (clickTextRef.current) {
+            clickTextRef.current.style.opacity = "1";
+        }
     }
 
     // clear timeout hintText
@@ -319,17 +295,14 @@ function Game5() {
         if (gameFinish) {
             const game5Pop = document.getElementById("game5Pop");
             const endText = document.getElementById("endText");
-            endText.style.display = "block";
-            game5Pop.style.display = "block";
-            game5Pop.style.animation = "comeIn 0.7s forwards";
-
-            setPopSoundPlayed(false);
-            playPopSound();
+            if (endText) endText.style.display = "block";
+            if (game5Pop) {
+                game5Pop.style.animation = "comeIn 0.7s forwards";
+                game5Pop.style.display = "block";
+            }
 
             setCanRestart(false);
             const timeout = setTimeout(() => setCanRestart(true), 700);
-
-
 
             return () => clearTimeout(timeout);
         }
@@ -347,11 +320,25 @@ function Game5() {
 
     function startGame() {
         setGameStart(true);
-        playPopSound();
-        setPopSoundPlayed(true);
-        setShakeSoundPlayed(false);
-        setFirstShake(false);
     }
+
+    // help from gpt
+    const addBubble = (speed, swiggle, scale) => {
+        if (!gameFinish && gameStart)
+        {if (activeBubblesRef.current.size >= MAX_BUBBLES) return; // Prevent adding more bubbles than the limit
+
+        const id = uuidv4(); // Generate a unique ID
+        const bubble = <Bubbles bubbleSpeed={speed} swiggleSpeed={swiggle} size={scale} key={id} />;
+        setBubbles((prevBubbles) => [...prevBubbles, { id, bubble }]);
+
+        activeBubblesRef.current.add(id); // Track active bubbles
+        const bubbleLifetime = speed * 1000;
+
+        setTimeout(() => {
+            activeBubblesRef.current.delete(id); // Remove from active bubbles
+            setBubbles((prevBubbles) => prevBubbles.filter((b) => activeBubblesRef.current.has(b.id)));
+        }, bubbleLifetime);}
+    };
 
     return (
         <div className="game" id="game5">
@@ -365,11 +352,12 @@ function Game5() {
                 </p>
                 <div id="game5bg">
                     <ShakePermission />
-                    <p id="shakeData"></p>
+                    {/* <p id="shakeData"></p> */}
                     <img draggable="false" id="bottleShake" src={imageCache.current["bottle"]?.src} alt="bottle" />
                 </div>
             </div>
 
+            {bubbles.map((b) => b.bubble)}
 
             {!imagesLoaded && (
                 <div id="gameLoad">

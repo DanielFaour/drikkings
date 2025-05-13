@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useState, useEffect, useRef } from "react";
-import { Howler } from "howler";
+import { Howl, Howler } from "howler";
 import "./g_styles/game2.css";
 import game2Pang2 from './g_assets/game2/pang_light.jpg';
 import game2Pang2_dark from './g_assets/game2/pang_dark.jpg';

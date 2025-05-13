@@ -51,6 +51,7 @@
   bottom: -10rem;
   cursor: pointer;
   transition: transform 0.2s ease-in-out;
+  z-index: 300;
 }
 
 .dark #bottleShake {
@@ -190,7 +191,7 @@
   padding-top: 1rem;
   position: absolute;
   /* max-width: 35rem; */
-  z-index: 500;
+  z-index: 600;
 }
 
 #game5Pop img {
@@ -215,4 +216,54 @@
 
 #spacing {
   flex-grow: 1;
+}
+
+/* bubble style */
+
+.bubbles-container {
+  position: absolute;
+  display: flex;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100vw;
+  height: 100dvh;
+  width: 100dvw;
+}
+
+#bubble {
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  margin: auto;
+  border: 1px solid rgb(255, 192, 110);
+  filter: blur(0.5);
+  border-radius: 50%;
+  box-shadow: inset 0px 0px 15px 3px rgb(255, 182, 85);
+  background-color: rgb(255, 240, 220);
+}
+
+.dark #bubble {
+  box-shadow: inset 0px 0px 15px 3px rgb(255, 182, 85);
+  background-color: rgb(255, 240, 220);
+}
+
+/* bubble animation */
+
+@keyframes animateBubble {
+  0% {
+    bottom: -5vh;
+  }
+  100% {
+    bottom: 100vh;
+  }
+}
+
+@keyframes swiggle {
+  0% {
+    margin-left: 2rem;
+  }
+  100% {
+    margin-left: -2rem;
+  }
 }
