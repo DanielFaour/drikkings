@@ -25,26 +25,24 @@ function Game1() {
   // load sound
   useEffect(() => {
     clickDownSoundRef.current = new Howl({
-      src: [clickDownSound],
-      rate: 1,
-      volume: 0.5,
-      html5: false,
-      preload: true
-    });
+      src: [clickDownSound], 
+      rate: 1, 
+      volume: 0.3, 
+      html5: false, 
+      preload: true });
     clickUpSoundRef.current = new Howl({
       src: [clickUpSound],
       rate: 1,
-      volume: 0.5,
+      volume: 0.3,
       html5: false,
       preload: true
     });
     explosionSoundRef.current = new Howl({
-      src: [explosionSound],
-      rate: 1,
-      volume: 1.5,
-      html5: false,
-      preload: true
-    });
+      src: [explosionSound], 
+      rate: 1, 
+      volume: 0.4, 
+      html5: false, 
+      preload: true });
   }, []);
 
   // if sound doesnt work try this, but this doesnt actually work most of the time, 
