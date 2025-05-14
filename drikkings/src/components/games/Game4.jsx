@@ -14,6 +14,8 @@ function Game4() {
 
     const [activeTouches, setActiveTouches] = useState({});
     const isDragging = useRef(false);
+    const clickTextRef = useRef(null);
+    const timeoutRef = useRef(null);
 
     // red, blue, green, yellow, purple, bonus pink
     const colors = ["#FF4C4C", "#4C9AFF", "#4CFF91", "#FFC94C", "#9A4CFF", "#FF4CDB"];
@@ -269,8 +271,24 @@ function Game4() {
             }, 500); // Adjust the time as needed
         }
 
-
     }, [gameActive, currentTouches]);
+
+    useEffect(() => {
+        // hides hint when zone is clicked
+        if (clickTextRef.current && currentTouches > 0) {
+            clickTextRef.current.style.opacity = "0";
+        }
+
+        // when click, clear timeout
+        clearTimeout(timeoutRef.current);
+        timeoutRef.current = setTimeout(() => {
+            if (clickTextRef.current) {
+                clickTextRef.current.style.opacity = "1";
+            }
+        }, 10000);
+
+    }, [currentTouches])
+    
 
     // touch event listener
     useEffect(() => {
@@ -363,6 +381,9 @@ function Game4() {
                 <button id="btnReturn" onPointerUp={() => navigate("/")}>⬅️</button>
                 <h2 id="g3_title">Color Picker</h2>
             </div>
+            <p id="clickTextGame4" ref={clickTextRef}>
+                Hint: Trykk for å få tildelt en farge!
+            </p>
             <p id="ruleText">Maks 5 spillere</p>
 
             <div id="game4Container">

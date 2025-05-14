@@ -61,3 +61,12 @@
     padding-bottom: 0.5rem;
     border-radius: 5px;
   }
+
+  #clickTextGame4 {
+    margin-top: 5.4rem;
+    align-items: center;
+    align-self: center;
+    transition: 0.1s;
+    line-height: 1.2;
+    font-size: 1.1rem;
+  }

@@ -25,23 +25,26 @@ function Game1() {
   // load sound
   useEffect(() => {
     clickDownSoundRef.current = new Howl({
-      src: [clickDownSound], 
-      rate: 1, 
-      volume: 0.5, 
-      html5: false, 
-      preload: true });
+      src: [clickDownSound],
+      rate: 1,
+      volume: 0.5,
+      html5: false,
+      preload: true
+    });
     clickUpSoundRef.current = new Howl({
-      src: [clickUpSound], 
-      rate: 1, 
-      volume: 0.5, 
-      html5: false, 
-      preload: true });
+      src: [clickUpSound],
+      rate: 1,
+      volume: 0.5,
+      html5: false,
+      preload: true
+    });
     explosionSoundRef.current = new Howl({
-      src: [explosionSound], 
-      rate: 1, 
-      volume: 1.5, 
-      html5: false, 
-      preload: true });
+      src: [explosionSound],
+      rate: 1,
+      volume: 1.5,
+      html5: false,
+      preload: true
+    });
   }, []);
 
   // if sound doesnt work try this, but this doesnt actually work most of the time, 
@@ -115,6 +118,8 @@ function Game1() {
   }, []);
 
   const resetGame = () => {
+    const restartText = document.getElementById("restartText");
+    restartText.style.opacity = "1";
     setButtonStates(new Array(16).fill(false));
     setGameOver(false);
     setRandomNumber(Math.floor(Math.random() * 16));
@@ -135,6 +140,7 @@ function Game1() {
   }, []);
 
   useEffect(() => {
+    const restartText = document.getElementById("restartText");
     if (gameOver) {
       setCanRestart(false);
       const timeout = setTimeout(() => setCanRestart(true), 500);
@@ -142,6 +148,10 @@ function Game1() {
 
       const game2Pang = document.getElementById("game2Pang");
       if (game2Pang) game2Pang.style.animation = "comeIn 0.5s forwards";
+
+      setTimeout(() => {
+        restartText.style.opacity = "1";
+      }, 500);
 
       return () => clearTimeout(timeout);
     }
@@ -185,7 +195,7 @@ function Game1() {
                 }}
                 disabled={!imagesLoaded}
                 style={{
-                  opacity: allowClick ? 1 : 0.8,
+                  opacity: allowClick ? 1 : 0.85,
                   backgroundImage: imagesLoaded
                     ? isClicked
                       ? `url(${imageCache.current.hidden?.src})`
@@ -207,7 +217,7 @@ function Game1() {
           <div id="game2Pang">
             <img draggable="false" className="light-img" src={imageCache.current.kaboom?.src} alt="pang" />
             <img draggable="false" className="dark-img" src={imageCache.current.kaboom_dark?.src} alt="pang" />
-            <p>Trykk på skjermen for å starte på nytt!</p>
+            <p id="restartText">Trykk på skjermen for å starte på nytt!</p>
           </div>
           <div id="spacing"></div>
           <div id="spacing"></div>
