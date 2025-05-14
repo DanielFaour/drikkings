@@ -27,13 +27,13 @@ function Game1() {
     clickDownSoundRef.current = new Howl({
       src: [clickDownSound], 
       rate: 1, 
-      volume: 0.4, 
+      volume: 0.5, 
       html5: false, 
       preload: true });
     clickUpSoundRef.current = new Howl({
       src: [clickUpSound], 
       rate: 1, 
-      volume: 0.4, 
+      volume: 0.5, 
       html5: false, 
       preload: true });
     explosionSoundRef.current = new Howl({
