@@ -46,7 +46,7 @@ function GameInfo() {
             </p>
             <h3>🍼 Flasketuten peker på 🍼</h3>
             <br />
-            <center>Work in progress! ⚠️</center>
+            {/* <center>Work in progress! ⚠️</center> */}
             <p>Nøyaktig hva det høres ut som! En flaske som spinner og peker på deltakeren som må gjøre noe.
               Trykk på flasken for å få den til å spinne, og dere bestemmer
               reglene selv. For eksempel kan det være å ta en slurk, eller gjøre noe sprøtt!
@@ -59,8 +59,8 @@ function GameInfo() {
             </p>
             <h3>🍾 Shake It 🍾</h3>
             <br />
-            <center>Work in progress! ⚠️</center>
-            <p>Et enkelt spill hvor man rister en flaske med bobler og gir den videre til nestemann før den popper. Deltakeren som popper flasken må hen ta en chug eller shot!
+            {/* <center>Work in progress! ⚠️</center> */}
+            <p>Et enkelt spill hvor man rister en flaske med bobler og gir den videre til nestemann før den popper. Deltakeren som popper flasken må ta en chug eller shot!
               <br /><br />
             </p>
             <h3>⏱️ Flere spill på vei ⏱️</h3>
